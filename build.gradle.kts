@@ -26,17 +26,27 @@ configurations {
 
 repositories {
 	mavenCentral()
+    maven {
+        name = "GitHubPackages"
+        url = uri("https://maven.pkg.github.com/pagopa/p4pa-payhub-activities")
+        credentials {
+            username = "public"
+            password = System.getenv("GITHUB_TOKEN")
+        }
+    }
 }
 
 val springDocOpenApiVersion = "2.6.0"
 val openApiToolsVersion = "0.2.6"
 val micrometerVersion = "1.4.0"
+val p4paActivitiesVersion = "1.+"
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
-  implementation("io.micrometer:micrometer-tracing-bridge-otel:$micrometerVersion")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation("io.micrometer:micrometer-tracing-bridge-otel:$micrometerVersion")
 	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:$springDocOpenApiVersion")
 	implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
 	implementation("org.openapitools:jackson-databind-nullable:$openApiToolsVersion")
@@ -48,6 +58,15 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.mockito:mockito-core")
 	testImplementation ("org.projectlombok:lombok")
+
+
+    // p4pa activities library
+    implementation("it.gov.pagopa.payhub:p4pa-payhub-activities:$p4paActivitiesVersion")
+
+}
+
+tasks.withType<Jar> {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
 tasks.withType<Test> {
