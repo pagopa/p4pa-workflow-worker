@@ -30,7 +30,7 @@ public class DataSourceConfiguration {
   }
 
   @Bean
-  public LocalContainerEntityManagerFactoryBean myPayEntityManagerFactory(
+  public LocalContainerEntityManagerFactoryBean puEntityManagerFactory(
       DataSource dataSource,
       EntityManagerFactoryBuilder builder) {
 
@@ -45,8 +45,8 @@ public class DataSourceConfiguration {
   }
 
   @Bean
-  public PlatformTransactionManager myPayTransactionManager(
-    EntityManagerFactory myPayEntityManagerFactory) {
-        return new JpaTransactionManager(myPayEntityManagerFactory);
+  public PlatformTransactionManager puTransactionManager(
+    EntityManagerFactory puEntityManagerFactory) {
+        return new JpaTransactionManager(puEntityManagerFactory);
   }
 }
