@@ -1,8 +1,7 @@
-package it.gov.pagopa.pu.worker.service;
+package it.gov.pagopa.pu.worker.paymentsreporting;
 
 import it.gov.pagopa.payhub.activities.dto.paymentsreporting.PaymentsReportingDTO;
 import it.gov.pagopa.pu.worker.paymentsreporting.mapper.PaymentsReportingMapper;
-import it.gov.pagopa.pu.worker.paymentsreporting.PaymentsReportingDaoImpl;
 import it.gov.pagopa.pu.worker.paymentsreporting.model.PaymentsReporting;
 import it.gov.pagopa.pu.worker.paymentsreporting.service.PaymentsReportingService;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,7 +13,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class PaymentsReportingDaoImplTest {
