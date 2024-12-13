@@ -1,8 +1,8 @@
-package it.gov.pagopa.pu.worker.service;
+package it.gov.pagopa.pu.worker.paymentsreporting;
 
 import it.gov.pagopa.payhub.activities.dao.PaymentsReportingDao;
 import it.gov.pagopa.payhub.activities.dto.paymentsreporting.PaymentsReportingDTO;
-import it.gov.pagopa.pu.worker.mapper.PaymentsReportingMapper;
+import it.gov.pagopa.pu.worker.paymentsreporting.mapper.PaymentsReportingMapper;
 import it.gov.pagopa.pu.worker.paymentsreporting.model.PaymentsReporting;
 import it.gov.pagopa.pu.worker.paymentsreporting.service.PaymentsReportingService;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package it.gov.pagopa.pu.worker.service;
+package it.gov.pagopa.pu.worker.ingestionflowfile;
 
 import it.gov.pagopa.payhub.activities.dao.IngestionFlowFileDao;
 import it.gov.pagopa.payhub.activities.dto.IngestionFlowFileDTO;
@@ -11,11 +11,6 @@ public class IngestionFlowFileDaoImpl implements IngestionFlowFileDao {
   @Override
   public Optional<IngestionFlowFileDTO> findById(Long ingestionFlowFileId) {
     return Optional.empty();
-  }
-
-  @Override
-  public String findErrorFileUrl(Long ingestionFlowFileId) {
-    return null;
   }
 
   @Override

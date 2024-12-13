@@ -1,4 +1,4 @@
-package it.gov.pagopa.pu.worker.mapper;
+package it.gov.pagopa.pu.worker.paymentsreporting.mapper;
 
 import it.gov.pagopa.payhub.activities.dto.paymentsreporting.PaymentsReportingDTO;
 import it.gov.pagopa.pu.worker.paymentsreporting.model.PaymentsReporting;

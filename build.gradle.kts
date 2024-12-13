@@ -39,14 +39,14 @@ repositories {
 val springDocOpenApiVersion = "2.6.0"
 val openApiToolsVersion = "0.2.6"
 val micrometerVersion = "1.4.0"
-val p4paActivitiesVersion = "1.+"
+val p4paActivitiesVersion = "1.13.0"
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-    implementation("io.micrometer:micrometer-tracing-bridge-otel:$micrometerVersion")
+  implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+  implementation("io.micrometer:micrometer-tracing-bridge-otel:$micrometerVersion")
 	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:$springDocOpenApiVersion")
 	implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
 	implementation("org.openapitools:jackson-databind-nullable:$openApiToolsVersion")
@@ -60,8 +60,8 @@ dependencies {
 	testImplementation ("org.projectlombok:lombok")
 
 
-    // p4pa activities library
-    implementation("it.gov.pagopa.payhub:p4pa-payhub-activities:$p4paActivitiesVersion")
+  // p4pa activities library
+  implementation("it.gov.pagopa.payhub:p4pa-payhub-activities:$p4paActivitiesVersion")
 
 }
 
