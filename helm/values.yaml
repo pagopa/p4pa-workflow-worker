@@ -60,10 +60,14 @@ microservice-chart:
     APPLICATIONINSIGHTS_INSTRUMENTATION_MICROMETER_ENABLED: "false"
     APPLICATIONINSIGHTS_PREVIEW_PROFILER_ENABLED: "false"
     ENABLE_AUDIT_APPENDER: "TRUE"
-
+    PU_DB_NAME: "mypay"
 
   envSecret:
     APPLICATIONINSIGHTS_CONNECTION_STRING: appinsights-connection-string
+
+    PU_DB_HOST: db-host
+    PU_DB_USER: db-mypay-login-username
+    PU_DB_PASSWORD: db-mypay-login-password
 
   # nodeSelector: {}
 
