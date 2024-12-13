@@ -14,20 +14,20 @@ public class PaymentsReportingDaoImpl implements PaymentsReportingDao {
   private final PaymentsReportingRepository repository;
   private final PaymentsReportingMapper paymentsReportingMapper;
 
-	public PaymentsReportingDaoImpl(PaymentsReportingRepository repository,
-                                    PaymentsReportingMapper paymentsReportingMapper) {
-		this.repository = repository;
-		this.paymentsReportingMapper = paymentsReportingMapper;
-	}
+  public PaymentsReportingDaoImpl(PaymentsReportingRepository repository,
+                                  PaymentsReportingMapper paymentsReportingMapper) {
+    this.repository = repository;
+    this.paymentsReportingMapper = paymentsReportingMapper;
+  }
 
-    @Override
-    public List<PaymentsReportingDTO> saveAll(List<PaymentsReportingDTO> dtos) {
-        List<PaymentsReporting> paymentsReportings = repository
-            .saveAll(dtos.stream()
-                .map(paymentsReportingMapper::mapPaymentsReportingDTO2Model)
-                .toList());
-        return paymentsReportings.stream()
-            .map(paymentsReportingMapper::mapPaymentsReporting2DTO)
-            .toList();
-    }
+  @Override
+  public List<PaymentsReportingDTO> saveAll(List<PaymentsReportingDTO> dtos) {
+    List<PaymentsReporting> paymentsReportings = repository
+      .saveAll(dtos.stream()
+        .map(paymentsReportingMapper::mapPaymentsReportingDTO2Model)
+        .toList());
+    return paymentsReportings.stream()
+      .map(paymentsReportingMapper::mapPaymentsReporting2DTO)
+      .toList();
+  }
 }

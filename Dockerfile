@@ -111,6 +111,9 @@ FROM dependencies AS build
 # Copy source code
 COPY --chown=${APP_USER}:${APP_GROUP} src src/
 
+ARG GITHUB_TOKEN
+ENV GITHUB_TOKEN=$GITHUB_TOKEN
+
 # Build application
 RUN gradle bootJar --no-daemon
 
