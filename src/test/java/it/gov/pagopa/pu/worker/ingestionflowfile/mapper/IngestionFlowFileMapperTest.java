@@ -6,6 +6,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static it.gov.pagopa.pu.worker.util.TestUtils.checkNotNullFields;
+import static it.gov.pagopa.pu.worker.util.faker.IngestionFlowFileFakerBuilder.buildFakeIngestionFlowFile;
+import static it.gov.pagopa.pu.worker.util.faker.IngestionFlowFileFakerBuilder.buildFakeIngestionFlowFileDTO;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class IngestionFlowFileMapperTest {
@@ -16,7 +18,7 @@ class IngestionFlowFileMapperTest {
 
   @Test
   void mapIngestionFlowFile2DTO() {
-    IngestionFlowFile model = IngestionFlowFile.builder().ingestionFlowFileId(123L).build();;
+    IngestionFlowFile model = buildFakeIngestionFlowFile();
     IngestionFlowFileDTO result = mapper.mapIngestionFlowFile2DTO(model);
 
     assertNotNull(result);
@@ -25,9 +27,9 @@ class IngestionFlowFileMapperTest {
 
   @Test
   void mapIngestionFlowFileDTO2Model() {
-    IngestionFlowFileDTO dto = IngestionFlowFileDTO.builder().build();
+    IngestionFlowFileDTO dto = buildFakeIngestionFlowFileDTO();
     IngestionFlowFile result = mapper.mapIngestionFlowFileDTO2Model(dto);
     assertNotNull(result);
-    checkNotNullFields(result);
+    checkNotNullFields(result, "pspIdentifier", "flowDateTime", "state", "fileSourceCode", "discardFileName");
   }
 }
