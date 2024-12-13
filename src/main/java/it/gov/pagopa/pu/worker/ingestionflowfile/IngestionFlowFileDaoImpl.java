@@ -11,23 +11,23 @@ import java.util.Optional;
 
 @Service
 public class IngestionFlowFileDaoImpl implements IngestionFlowFileDao {
-  private final IngestionFlowFileRepository repository;
-  private final IngestionFlowFileMapper ingestionFlowFileMapper;
+	private final IngestionFlowFileRepository repository;
+	private final IngestionFlowFileMapper ingestionFlowFileMapper;
 
 	public IngestionFlowFileDaoImpl(IngestionFlowFileRepository repository,
-                                  IngestionFlowFileMapper ingestionFlowFileMapper) {
+	                                IngestionFlowFileMapper ingestionFlowFileMapper) {
 		this.repository = repository;
 		this.ingestionFlowFileMapper = ingestionFlowFileMapper;
 	}
 
 	@Override
-  public Optional<IngestionFlowFileDTO> findById(Long ingestionFlowFileId) {
-    Optional<IngestionFlowFile> ingestionFlowFile = repository.findById(ingestionFlowFileId);
-    return ingestionFlowFile.map(ingestionFlowFileMapper::mapIngestionFlowFile2DTO);
-  }
+	public Optional<IngestionFlowFileDTO> findById(Long ingestionFlowFileId) {
+		Optional<IngestionFlowFile> ingestionFlowFile = repository.findById(ingestionFlowFileId);
+		return ingestionFlowFile.map(ingestionFlowFileMapper::mapIngestionFlowFile2DTO);
+	}
 
-  @Override
-  public boolean updateStatus(Long ingestionFlowFileId, String status) {
-    return false;
-  }
+	@Override
+	public boolean updateStatus(Long ingestionFlowFileId, String status) {
+		return false;
+	}
 }
