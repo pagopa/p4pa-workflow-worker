@@ -1,7 +1,8 @@
 package it.gov.pagopa.pu.worker.service;
 
 import it.gov.pagopa.payhub.activities.dto.paymentsreporting.PaymentsReportingDTO;
-import it.gov.pagopa.pu.worker.mapper.PaymentsReportingMapper;
+import it.gov.pagopa.pu.worker.paymentsreporting.mapper.PaymentsReportingMapper;
+import it.gov.pagopa.pu.worker.paymentsreporting.PaymentsReportingDaoImpl;
 import it.gov.pagopa.pu.worker.paymentsreporting.model.PaymentsReporting;
 import it.gov.pagopa.pu.worker.paymentsreporting.service.PaymentsReportingService;
 import org.junit.jupiter.api.BeforeEach;
