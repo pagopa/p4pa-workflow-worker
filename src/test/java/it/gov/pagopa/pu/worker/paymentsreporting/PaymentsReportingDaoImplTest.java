@@ -1,10 +1,9 @@
-package it.gov.pagopa.pu.worker.service;
+package it.gov.pagopa.pu.worker.paymentsreporting;
 
 import it.gov.pagopa.payhub.activities.dto.paymentsreporting.PaymentsReportingDTO;
 import it.gov.pagopa.pu.worker.paymentsreporting.mapper.PaymentsReportingMapper;
-import it.gov.pagopa.pu.worker.paymentsreporting.PaymentsReportingDaoImpl;
 import it.gov.pagopa.pu.worker.paymentsreporting.model.PaymentsReporting;
-import it.gov.pagopa.pu.worker.paymentsreporting.service.PaymentsReportingService;
+import it.gov.pagopa.pu.worker.paymentsreporting.repository.PaymentsReportingRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,13 +13,13 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class PaymentsReportingDaoImplTest {
 
     @Mock
-    private PaymentsReportingService paymentsReportingServiceMock;
+    private PaymentsReportingRepository repositoryMock;
 
     @Mock
     private PaymentsReportingMapper paymentsReportingMapperMock;
@@ -29,7 +28,7 @@ class PaymentsReportingDaoImplTest {
 
     @BeforeEach
     void setUp() {
-        service = new PaymentsReportingDaoImpl(paymentsReportingServiceMock, paymentsReportingMapperMock);
+        service = new PaymentsReportingDaoImpl(repositoryMock, paymentsReportingMapperMock);
     }
 
     @Test
@@ -51,7 +50,7 @@ class PaymentsReportingDaoImplTest {
         when(paymentsReportingMapperMock.mapPaymentsReportingDTO2Model(dto2)).thenReturn(entity2);
         when(paymentsReportingMapperMock.mapPaymentsReporting2DTO(entity1)).thenReturn(returnedDto1);
         when(paymentsReportingMapperMock.mapPaymentsReporting2DTO(entity2)).thenReturn(returnedDto2);
-        when(paymentsReportingServiceMock.saveAll(entities)).thenReturn(entities);
+        when(repositoryMock.saveAll(entities)).thenReturn(entities);
 
         // Act
         List<PaymentsReportingDTO> result = service.saveAll(dtos);
