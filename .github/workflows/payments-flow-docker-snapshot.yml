@@ -1,0 +1,32 @@
+name: 📦 Payments Snapshot docker
+
+on:
+  push:
+    branches-ignore:
+      - 'develop'
+      - 'uat'
+      - 'main'
+    paths-ignore:
+      - 'CODEOWNERS'
+      - '**.md'
+      - '.**'
+  workflow_dispatch:
+
+env:
+  CURRENT_BRANCH: ${{ github.event.inputs.branch || github.ref_name }}
+
+jobs:
+  payments-flow-docker-snapshot:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: 🔖 Checkout code
+        # https://github.com/actions/checkout/releases/tag/v4.2.2
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: ${{ env.CURRENT_BRANCH }}
+
+      - name: 📦 Run Snapshot Docker Build/Push & Trigger
+        # https://github.com/pagopa/github-actions-template/releases/tag/v1.19.2
+        uses: pagopa/github-actions-template/payments-flow-docker-snapshot@922ed4e43b0e45a5e47eb0296d550996d8c87c64
+        with:
+          current_branch: ${{ github.ref_name }}
