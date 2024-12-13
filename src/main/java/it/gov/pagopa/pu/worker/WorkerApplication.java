@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan(basePackages = "it.gov.pagopa.payhub.activities")
+@ComponentScan(basePackages = "it.gov.pagopa")
 public class WorkerApplication {
 
 	public static void main(String[] args) {
