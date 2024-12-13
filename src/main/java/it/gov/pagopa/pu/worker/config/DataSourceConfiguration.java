@@ -24,8 +24,8 @@ import java.util.Map;
 public class DataSourceConfiguration {
 
   @Bean
-  @ConfigurationProperties("spring.data.mypay")
-  public DataSource myPayDataSource() {
+  @ConfigurationProperties("spring.data.pu")
+  public DataSource puDataSource() {
     return DataSourceBuilder.create().build();
   }
 
