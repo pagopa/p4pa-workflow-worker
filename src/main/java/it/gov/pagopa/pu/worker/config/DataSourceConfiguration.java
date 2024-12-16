@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
-@EnableJpaRepositories
+@EnableJpaRepositories("it.gov.pagopa.pu.worker.paymentsreporting.repository")
 @EnableTransactionManagement
 public class DataSourceConfiguration {
 
@@ -30,7 +30,7 @@ public class DataSourceConfiguration {
   }
 
   @Bean
-  public LocalContainerEntityManagerFactoryBean puEntityManagerFactory(
+  public LocalContainerEntityManagerFactoryBean entityManagerFactory(
       DataSource dataSource,
       EntityManagerFactoryBuilder builder) {
 
@@ -45,7 +45,7 @@ public class DataSourceConfiguration {
   }
 
   @Bean
-  public PlatformTransactionManager puTransactionManager(
+  public PlatformTransactionManager transactionManager(
     EntityManagerFactory puEntityManagerFactory) {
         return new JpaTransactionManager(puEntityManagerFactory);
   }

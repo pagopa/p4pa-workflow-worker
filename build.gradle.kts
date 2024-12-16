@@ -39,7 +39,8 @@ repositories {
 val springDocOpenApiVersion = "2.6.0"
 val openApiToolsVersion = "0.2.6"
 val micrometerVersion = "1.4.0"
-val p4paActivitiesVersion = "1.13.0"
+val p4paActivitiesVersion = "1.14.0"
+val postgresJdbcVersion = "42.7.4"
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter")
@@ -51,6 +52,12 @@ dependencies {
 	implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
 	implementation("org.openapitools:jackson-databind-nullable:$openApiToolsVersion")
 
+  // p4pa activities library
+  implementation("it.gov.pagopa.payhub:p4pa-payhub-activities:$p4paActivitiesVersion")
+
+  //postgres jdbc
+  implementation("org.postgresql:postgresql:$postgresJdbcVersion")
+
 	compileOnly("org.projectlombok:lombok")
 	annotationProcessor("org.projectlombok:lombok")
 
@@ -58,11 +65,6 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.mockito:mockito-core")
 	testImplementation ("org.projectlombok:lombok")
-
-
-  // p4pa activities library
-  implementation("it.gov.pagopa.payhub:p4pa-payhub-activities:$p4paActivitiesVersion")
-
 }
 
 tasks.withType<Jar> {
