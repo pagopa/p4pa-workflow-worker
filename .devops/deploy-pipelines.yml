@@ -52,7 +52,7 @@ variables:
     kubernetesServiceConnection: '$(PROD_KUBERNETES_SERVICE_CONN)'
     containerRegistry: '$(PROD_CONTAINER_REGISTRY_NAME)'
     selfHostedAgentPool: $(PROD_AGENT_POOL)
-    postmanEnvFile: p4pa_PROD.postman_environment.json #Not used
+    postmanEnvFile: p4pa_PROD.postman_environment.json
 
   ${{ else }}:
     environment: 'DEV'
@@ -80,19 +80,33 @@ stages:
             inputs:
               targetType: 'inline'
               script: |
-                version=$(cat build.gradle.kts | grep "version = '.*'" | cut -d"'" -f2)
+                version=$(cat version.properties | grep version | cut -c9-50)
                 echo "Building $version version"
                 echo "##vso[task.setvariable variable=appVersion;isOutput=true]$version"
               failOnStderr: true
 
           - task: Docker@2
             condition: and(succeeded(), ${{ parameters.executeBuild }})
-            displayName: 'Build and publish $(imageRepository) image'
+            displayName: 'Build $(imageRepository) image'
             inputs:
               containerRegistry: '$(dockerRegistryServiceConnection)'
               repository: '$(imageRepository)'
-              command: 'buildAndPush'
+              command: 'build'
+              buildContext: '.'
+              Dockerfile: 'Dockerfile'
               arguments: "--build-arg GITHUB_TOKEN=$(GITHUB_PACKAGE_TOKEN)"
+              tags: |
+                latest
+                $(Build.SourceVersion)
+                $(getAppVersion.appVersion)
+
+          - task: Docker@2
+            condition: and(succeeded(), ${{ parameters.executeBuild }})
+            displayName: 'Push $(imageRepository) image'
+            inputs:
+              containerRegistry: '$(dockerRegistryServiceConnection)'
+              repository: '$(imageRepository)'
+              command: 'push'
               tags: |
                 latest
                 $(Build.SourceVersion)
