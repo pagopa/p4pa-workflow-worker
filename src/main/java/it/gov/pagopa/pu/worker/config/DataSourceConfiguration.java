@@ -19,7 +19,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
-@EnableJpaRepositories
+@EnableJpaRepositories(basePackages = "it.gov.pagopa.pu.worker.paymentsreporting.repository",
+  entityManagerFactoryRef = "puEntityManagerFactory",
+  transactionManagerRef = "puTransactionManager")
 @EnableTransactionManagement
 public class DataSourceConfiguration {
 
@@ -41,6 +43,7 @@ public class DataSourceConfiguration {
       return builder.dataSource(dataSource)
           .packages("it.gov.pagopa.pu.worker")
           .properties(props)
+//          .persistenceUnit("worker")
           .build();
   }
 
