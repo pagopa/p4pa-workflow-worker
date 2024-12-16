@@ -80,7 +80,7 @@ stages:
             inputs:
               targetType: 'inline'
               script: |
-                version=$(cat version.properties | grep version | cut -c9-50)
+                version=$(cat build.gradle.kts | grep "version = '.*'" | cut -d"'" -f2)
                 echo "Building $version version"
                 echo "##vso[task.setvariable variable=appVersion;isOutput=true]$version"
               failOnStderr: true
