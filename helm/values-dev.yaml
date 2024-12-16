@@ -8,12 +8,12 @@ microservice-chart:
     host: "hub.internal.dev.p4pa.pagopa.it"
 
   resources:
-    limits:
-      cpu: 2000m
-      memory: 4Gi
     requests:
-      cpu: 500m
-      memory: 2Gi
+      memory: "256Mi"
+      cpu: "40m"
+    limits:
+      memory: "4Gi"
+      cpu: "300m"
 
   autoscaling:
     enable: false

@@ -9,11 +9,6 @@ spring:
         username: "\${PU_DB_USER}"
         password: "\${PU_DB_PASSWORD}"
         driverClassName: "org.postgresql.Driver"
-    jpa:
-      database-platform: org.hibernate.dialect.PostgreSQLDialect
-      hibernate:
-        ddl-auto: update
-      show-sql: true
 
 
 management:
