@@ -2,6 +2,7 @@ package it.gov.pagopa.pu.worker.ingestionflowfile.mapper;
 
 import it.gov.pagopa.payhub.activities.dto.IngestionFlowFileDTO;
 import it.gov.pagopa.payhub.activities.dto.OrganizationDTO;
+import it.gov.pagopa.payhub.activities.enums.IngestionFlowFileType;
 import it.gov.pagopa.pu.worker.ingestionflowfile.model.IngestionFlowFile;
 
 import org.springframework.stereotype.Component;
@@ -14,7 +15,7 @@ public class IngestionFlowFileMapper {
   public IngestionFlowFile mapIngestionFlowFileDTO2Model(IngestionFlowFileDTO dto) {
     return IngestionFlowFile.builder()
       .ingestionFlowFileId(dto.getIngestionFlowFileId())
-      .flowFileType(dto.getFlowFileType())
+      .flowFileType(dto.getFlowFileType().name())
       .version(dto.getVersion())
       .org(dto.getOrg().getOrgId())
       .status(dto.getStatus())
@@ -31,13 +32,17 @@ public class IngestionFlowFileMapper {
       .pdfGenerated(dto.getPdfGenerated().intValue())
       .codRequestToken(dto.getCodRequestToken())
       .codError(dto.getCodError())
+      .pspIdentifier(dto.getPspIdentifier())
+      .flowDateTime(dto.getFlowDateTime())
+      .fileSourceCode(dto.getFileSourceCode())
+      .discardFileName(dto.getDiscardFileName())
       .build();
   }
 
   public IngestionFlowFileDTO mapIngestionFlowFile2DTO(IngestionFlowFile model) {
     return IngestionFlowFileDTO.builder()
       .ingestionFlowFileId(model.getIngestionFlowFileId())
-      .flowFileType(model.getFlowFileType())
+      .flowFileType(IngestionFlowFileType.valueOf(model.getFlowFileType()))
       .version(model.getVersion())
       .org(OrganizationDTO.builder().orgId(model.getOrg()).build())
       .status(model.getStatus())
@@ -54,6 +59,10 @@ public class IngestionFlowFileMapper {
       .pdfGenerated(Long.valueOf(model.getPdfGenerated()))
       .codRequestToken(model.getCodRequestToken())
       .codError(model.getCodError())
+      .pspIdentifier(model.getPspIdentifier())
+      .flowDateTime(model.getFlowDateTime())
+      .fileSourceCode(model.getFileSourceCode())
+      .discardFileName(model.getDiscardFileName())
       .build();
   }
 }

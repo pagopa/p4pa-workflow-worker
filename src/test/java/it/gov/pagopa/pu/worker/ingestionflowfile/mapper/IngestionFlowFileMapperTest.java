@@ -30,6 +30,6 @@ class IngestionFlowFileMapperTest {
     IngestionFlowFileDTO dto = buildFakeIngestionFlowFileDTO();
     IngestionFlowFile result = mapper.mapIngestionFlowFileDTO2Model(dto);
     assertNotNull(result);
-    checkNotNullFields(result, "pspIdentifier", "flowDateTime", "state", "fileSourceCode", "discardFileName");
+    checkNotNullFields(result, "state");
   }
 }
