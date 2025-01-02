@@ -1,11 +1,11 @@
 plugins {
 	java
-	id("org.springframework.boot") version "3.3.5"
-	id("io.spring.dependency-management") version "1.1.6"
+	id("org.springframework.boot") version "3.4.1"
+	id("io.spring.dependency-management") version "1.1.7"
 	jacoco
-	id("org.sonarqube") version "5.1.0.4882"
+	id("org.sonarqube") version "6.0.1.5171"
 	id("com.github.ben-manes.versions") version "0.51.0"
-	id("org.openapi.generator") version "7.9.0"
+	id("org.openapi.generator") version "7.10.0"
 }
 
 group = "it.gov.pagopa.payhub"
@@ -36,10 +36,10 @@ repositories {
     }
 }
 
-val springDocOpenApiVersion = "2.6.0"
+val springDocOpenApiVersion = "2.7.0"
 val openApiToolsVersion = "0.2.6"
-val micrometerVersion = "1.4.0"
-val p4paActivitiesVersion = "1.16.0"
+val micrometerVersion = "1.4.1"
+val p4paActivitiesVersion = "1.23.3"
 val postgresJdbcVersion = "42.7.4"
 
 dependencies {
@@ -118,10 +118,10 @@ springBoot {
 
 openApiGenerate {
   generatorName.set("spring")
-  inputSpec.set("$rootDir/openapi/template-payments-java-repository.openapi.yaml")
+  inputSpec.set("$rootDir/openapi/p4pa-workflow-worker.openapi.yaml")
   outputDir.set("$projectDir/build/generated")
-  apiPackage.set("it.gov.pagopa.template.controller.generated")
-  modelPackage.set("it.gov.pagopa.template.model.generated")
+  apiPackage.set("it.gov.pagopa.pu.worker.controller.generated")
+  modelPackage.set("it.gov.pagopa.pu.worker.dto.generated")
   configOptions.set(mapOf(
     "dateLibrary" to "java8",
     "requestMappingMode" to "api_interface",
@@ -129,7 +129,7 @@ openApiGenerate {
     "interfaceOnly" to "true",
     "useTags" to "true",
     "generateConstructorWithAllArgs" to "false",
-    "generatedConstructorWithRequiredArgs" to "false",
-    "additionalModelTypeAnnotations" to "@lombok.Data @lombok.Builder @lombok.AllArgsConstructor @lombok.RequiredArgsConstructor"
+    "generatedConstructorWithRequiredArgs" to "true",
+    "additionalModelTypeAnnotations" to "@lombok.Data @lombok.Builder @lombok.AllArgsConstructor"
   ))
 }

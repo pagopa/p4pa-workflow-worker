@@ -30,4 +30,14 @@ public class PaymentsReportingDaoImpl implements PaymentsReportingDao {
       .map(paymentsReportingMapper::mapPaymentsReporting2DTO)
       .toList();
   }
+
+  @Override
+  public List<PaymentsReportingDTO> findByOrganizationIdAndIuf(Long organizationId, String iuf) {
+    return List.of(); // TODO
+  }
+
+  @Override
+  public PaymentsReportingDTO findBySemanticKey(Long orgId, String iuv, String iur, int transferIndex) {
+    return null; // TODO
+  }
 }

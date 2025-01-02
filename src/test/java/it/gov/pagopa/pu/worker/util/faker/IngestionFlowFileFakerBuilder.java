@@ -5,10 +5,8 @@ import it.gov.pagopa.payhub.activities.dto.OrganizationDTO;
 import it.gov.pagopa.payhub.activities.enums.IngestionFlowFileType;
 import it.gov.pagopa.pu.worker.ingestionflowfile.model.IngestionFlowFile;
 
-
 import java.time.Instant;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 public class IngestionFlowFileFakerBuilder {
 
@@ -16,17 +14,16 @@ public class IngestionFlowFileFakerBuilder {
   public static IngestionFlowFile buildFakeIngestionFlowFile() {
     return IngestionFlowFile.builder()
       .ingestionFlowFileId(1L)
-      .flowFileType(IngestionFlowFileType.PAYMENTS_REPORTING.name())
+      .flowFileType(IngestionFlowFileType.PAYMENTS_REPORTING)
       .version(1)
-      .org(1001L)
+      .organizationId(1001L)
       .status("ACTIVE")
-      .iuf("IUF12345")
-      .numTotalRows(100)
-      .numCorrectlyImportedRows(95)
+      .numTotalRows(100L)
+      .numCorrectlyImportedRows(95L)
       .creationDate(Instant.now())
       .lastUpdateDate(Instant.now())
       .flagActive(true)
-      .operatorName("Operator Name")
+      .operatorExternalUserId("MAPPEDEXTERNALUSERID")
       .flagSpontaneous(false)
       .filePathName("/path/to/file")
       .fileName("example_file.csv")
@@ -35,8 +32,9 @@ public class IngestionFlowFileFakerBuilder {
       .codError("NO_ERROR")
       .pspIdentifier("PSP001")
       .flowDateTime(LocalDateTime.now())
-      .state("VALID")
+      .status("VALID")
       .fileSourceCode("SRC001")
+      .fileSize(10L)
       .discardFileName("discarded_file.csv")
       .build();
   }
@@ -49,15 +47,14 @@ public class IngestionFlowFileFakerBuilder {
       .version(1)
       .org(OrganizationDTO.builder().orgId(123L).build())
       .status("ACTIVE")
-      .iuf("IUF12345")
       .numTotalRows(100L)
       .numCorrectlyImportedRows(95L)
-      .creationDate(new Date())
-      .lastUpdateDate(new Date())
+      .creationDate(Instant.now())
+      .lastUpdateDate(Instant.now())
       .flagActive(true)
-      .operatorName("Operator Name")
+      .operatorExternalUserId("MAPPEDEXTERNALUSERID")
       .flagSpontaneous(false)
-      .filePath("/path/to/file")
+      .filePathName("/path/to/file")
       .fileName("example_file.csv")
       .pdfGenerated(5L)
       .codRequestToken("REQ123TOKEN")
@@ -65,6 +62,7 @@ public class IngestionFlowFileFakerBuilder {
       .pspIdentifier("PSP001")
       .flowDateTime(LocalDateTime.now())
       .fileSourceCode("SRC001")
+      .fileSize(10L)
       .discardFileName("discarded_file.csv")
       .build();
   }
