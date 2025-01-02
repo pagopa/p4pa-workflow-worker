@@ -34,6 +34,5 @@ management:
         exposure.include: "*"
       web:
         exposure.include: info, health
-app:
-  archive-relative-path: processed/
+
 
