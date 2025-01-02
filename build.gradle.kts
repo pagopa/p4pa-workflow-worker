@@ -41,6 +41,7 @@ val openApiToolsVersion = "0.2.6"
 val micrometerVersion = "1.4.0"
 val p4paActivitiesVersion = "1.16.0"
 val postgresJdbcVersion = "42.7.4"
+val temporalVersion = "1.27.0"
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter")
@@ -54,6 +55,9 @@ dependencies {
 
   // p4pa activities library
   implementation("it.gov.pagopa.payhub:p4pa-payhub-activities:$p4paActivitiesVersion")
+
+  implementation("io.temporal:temporal-spring-boot-starter:$temporalVersion")
+  implementation("com.google.protobuf:protobuf-java:3.21.7")
 
   //postgres jdbc
   implementation("org.postgresql:postgresql:$postgresJdbcVersion")
