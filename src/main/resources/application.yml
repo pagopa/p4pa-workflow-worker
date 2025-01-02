@@ -23,4 +23,3 @@ management:
         exposure.include: "*"
       web:
         exposure.include: info, health
-app:
