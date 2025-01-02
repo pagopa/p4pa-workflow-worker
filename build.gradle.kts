@@ -39,8 +39,9 @@ repositories {
 val springDocOpenApiVersion = "2.6.0"
 val openApiToolsVersion = "0.2.6"
 val micrometerVersion = "1.4.0"
-val p4paActivitiesVersion = "1.14.0"
+val p4paActivitiesVersion = "1.15.1"
 val postgresJdbcVersion = "42.7.4"
+val temporalVersion = "1.27.0"
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter")
@@ -55,6 +56,10 @@ dependencies {
   // p4pa activities library
   implementation("it.gov.pagopa.payhub:p4pa-payhub-activities:$p4paActivitiesVersion")
 
+  implementation("io.temporal:temporal-spring-boot-starter:$temporalVersion"){
+    exclude(group = "com.google.protobuf", module = "protobuf-java")
+  }
+
   //postgres jdbc
   implementation("org.postgresql:postgresql:$postgresJdbcVersion")
 
@@ -65,6 +70,7 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.mockito:mockito-core")
 	testImplementation ("org.projectlombok:lombok")
+  testImplementation("io.temporal:temporal-testing")
 }
 
 tasks.withType<Jar> {
