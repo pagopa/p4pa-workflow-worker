@@ -2,12 +2,8 @@ package it.gov.pagopa.pu.worker.ingestionflowfile.mapper;
 
 import it.gov.pagopa.payhub.activities.dto.IngestionFlowFileDTO;
 import it.gov.pagopa.payhub.activities.dto.OrganizationDTO;
-import it.gov.pagopa.payhub.activities.enums.IngestionFlowFileType;
 import it.gov.pagopa.pu.worker.ingestionflowfile.model.IngestionFlowFile;
-
 import org.springframework.stereotype.Component;
-
-import java.util.Date;
 
 @Component
 public class IngestionFlowFileMapper {
@@ -15,19 +11,18 @@ public class IngestionFlowFileMapper {
   public IngestionFlowFile mapIngestionFlowFileDTO2Model(IngestionFlowFileDTO dto) {
     return IngestionFlowFile.builder()
       .ingestionFlowFileId(dto.getIngestionFlowFileId())
-      .flowFileType(dto.getFlowFileType().name())
+      .flowFileType(dto.getFlowFileType())
       .version(dto.getVersion())
-      .org(dto.getOrg().getOrgId())
+      .organizationId(dto.getOrg().getOrgId())
       .status(dto.getStatus())
-      .iuf(dto.getIuf())
-      .numTotalRows(dto.getNumTotalRows().intValue())
-      .numCorrectlyImportedRows(dto.getNumCorrectlyImportedRows().intValue())
-      .creationDate(dto.getCreationDate().toInstant())
-      .lastUpdateDate(dto.getLastUpdateDate().toInstant())
+      .operatorExternalUserId(dto.getOperatorExternalUserId())
+      .numTotalRows(dto.getNumTotalRows())
+      .numCorrectlyImportedRows(dto.getNumCorrectlyImportedRows())
+      .creationDate(dto.getCreationDate())
+      .lastUpdateDate(dto.getLastUpdateDate())
       .flagActive(dto.isFlagActive())
-      .operatorName(dto.getOperatorName())
       .flagSpontaneous(dto.getFlagSpontaneous())
-      .filePathName(dto.getFilePath())
+      .filePathName(dto.getFilePathName())
       .fileName(dto.getFileName())
       .pdfGenerated(dto.getPdfGenerated().intValue())
       .codRequestToken(dto.getCodRequestToken())
@@ -35,6 +30,7 @@ public class IngestionFlowFileMapper {
       .pspIdentifier(dto.getPspIdentifier())
       .flowDateTime(dto.getFlowDateTime())
       .fileSourceCode(dto.getFileSourceCode())
+      .fileSize(dto.getFileSize())
       .discardFileName(dto.getDiscardFileName())
       .build();
   }
@@ -42,19 +38,18 @@ public class IngestionFlowFileMapper {
   public IngestionFlowFileDTO mapIngestionFlowFile2DTO(IngestionFlowFile model) {
     return IngestionFlowFileDTO.builder()
       .ingestionFlowFileId(model.getIngestionFlowFileId())
-      .flowFileType(IngestionFlowFileType.valueOf(model.getFlowFileType()))
+      .operatorExternalUserId(model.getOperatorExternalUserId())
+      .flowFileType(model.getFlowFileType())
       .version(model.getVersion())
-      .org(OrganizationDTO.builder().orgId(model.getOrg()).build())
+      .org(OrganizationDTO.builder().orgId(model.getOrganizationId()).build())
       .status(model.getStatus())
-      .iuf(model.getIuf())
-      .numTotalRows(Long.valueOf(model.getNumTotalRows()))
-      .numCorrectlyImportedRows(Long.valueOf(model.getNumCorrectlyImportedRows()))
-      .creationDate(Date.from(model.getCreationDate()))
-      .lastUpdateDate(Date.from(model.getLastUpdateDate()))
+      .numTotalRows(model.getNumTotalRows())
+      .numCorrectlyImportedRows(model.getNumCorrectlyImportedRows())
+      .creationDate(model.getCreationDate())
+      .lastUpdateDate(model.getLastUpdateDate())
       .flagActive(model.isFlagActive())
-      .operatorName(model.getOperatorName())
       .flagSpontaneous(model.isFlagSpontaneous())
-      .filePath(model.getFilePathName())
+      .filePathName(model.getFilePathName())
       .fileName(model.getFileName())
       .pdfGenerated(Long.valueOf(model.getPdfGenerated()))
       .codRequestToken(model.getCodRequestToken())
@@ -62,6 +57,7 @@ public class IngestionFlowFileMapper {
       .pspIdentifier(model.getPspIdentifier())
       .flowDateTime(model.getFlowDateTime())
       .fileSourceCode(model.getFileSourceCode())
+      .fileSize(model.getFileSize())
       .discardFileName(model.getDiscardFileName())
       .build();
   }
