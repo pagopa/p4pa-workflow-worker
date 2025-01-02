@@ -69,6 +69,9 @@ microservice-chart:
     PU_DB_USER: db-mypay-login-username
     PU_DB_PASSWORD: db-mypay-login-password
 
+    MAIL_USERNAME: mail-username
+    MAIL_PASSWORD: mail-password
+
   # nodeSelector: {}
 
   # tolerations: []
