@@ -39,7 +39,7 @@ repositories {
 val springDocOpenApiVersion = "2.7.0"
 val openApiToolsVersion = "0.2.6"
 val micrometerVersion = "1.4.1"
-val p4paActivitiesVersion = "1.23.1"
+val p4paActivitiesVersion = "1.23.3"
 val postgresJdbcVersion = "42.7.4"
 
 dependencies {
