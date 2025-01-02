@@ -42,6 +42,7 @@ val micrometerVersion = "1.4.1"
 val p4paActivitiesVersion = "1.23.4"
 val postgresJdbcVersion = "42.7.4"
 val temporalVersion = "1.27.0"
+val protobufJavaVersion = "3.25.5"
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter")
@@ -56,8 +57,14 @@ dependencies {
   // p4pa activities library
   implementation("it.gov.pagopa.payhub:p4pa-payhub-activities:$p4paActivitiesVersion")
 
-  implementation("io.temporal:temporal-spring-boot-starter:$temporalVersion")
-  implementation("com.google.protobuf:protobuf-java:3.21.7")
+
+  implementation("io.temporal:temporal-spring-boot-starter:$temporalVersion"){
+    exclude(group = "com.google.protobuf", module = "protobuf-java")
+  }
+
+  // updated for security reason
+  implementation("com.google.protobuf:protobuf-java:$protobufJavaVersion")
+
 
   //postgres jdbc
   implementation("org.postgresql:postgresql:$postgresJdbcVersion")

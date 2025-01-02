@@ -21,10 +21,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @ComponentScan(basePackages = {
-  "it.gov.pagopa.payhub.activities.dao",
-  "it.gov.pagopa.payhub.activities.service.ingestionflow",
-  "it.gov.pagopa.payhub.activities.service.paymentsreporting",
-  "it.gov.pagopa.payhub.activities.service"
+  "it.gov.pagopa.payhub"
 })
 public class PaymentsReportingIngestionWorkerConfig {
 
