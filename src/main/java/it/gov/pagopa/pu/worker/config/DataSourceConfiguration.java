@@ -19,7 +19,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
-@EnableJpaRepositories("it.gov.pagopa.pu.worker.paymentsreporting.repository")
+@EnableJpaRepositories({
+  "it.gov.pagopa.pu.worker.ingestionflowfile.repository",
+  "it.gov.pagopa.pu.worker.paymentsreporting.repository"
+})
 @EnableTransactionManagement
 public class DataSourceConfiguration {
 
