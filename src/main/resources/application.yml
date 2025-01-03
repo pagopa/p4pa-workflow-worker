@@ -9,7 +9,20 @@ spring:
         username: "\${PU_DB_USER}"
         password: "\${PU_DB_PASSWORD}"
         driverClassName: "org.postgresql.Driver"
+    temporal:
+      connection:
+        enable-https: "\${TEMPORAL_SERVER_ENABLE_HTTPS:false}"
+        target: "\${TEMPORAL_SERVER_HOST:localhost}:\${TEMPORAL_SERVER_PORT:7233}"
+        target.namespace: "\${TEMPORAL_SERVER_NAMESPACE:default}"
 
+      # Listing workers and registered activities
+      workers:
+        - task-queue: PaymentsReportingIngestionWF
+          name: PaymentsReportingIngestionWF
+          activity-beans:
+            - paymentsReportingIngestionFlowFileActivityImpl
+            - sendEmailIngestionFlowActivityImpl
+            - updateIngestionFlowStatusActivityImpl
 
 management:
     endpoint:
@@ -23,3 +36,5 @@ management:
         exposure.include: "*"
       web:
         exposure.include: info, health
+
+
