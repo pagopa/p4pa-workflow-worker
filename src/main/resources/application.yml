@@ -23,6 +23,10 @@ spring:
             - paymentsReportingIngestionFlowFileActivityImpl
             - sendEmailIngestionFlowActivityImpl
             - updateIngestionFlowStatusActivityImpl
+        - task-queue: CreateDebtPositionSyncWF
+          name: CreateDebtPositionSyncWF
+          activity-beans:
+            - sendDebtPositionIONotificationActivityImpl
 
 management:
     endpoint:
