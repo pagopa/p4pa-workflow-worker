@@ -43,20 +43,24 @@ val p4paActivitiesVersion = "1.23.4"
 val postgresJdbcVersion = "42.7.4"
 val temporalVersion = "1.27.0"
 val protobufJavaVersion = "3.25.5"
+val bouncycastleVersion = "1.79"
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter")
 	implementation("org.springframework.boot:spring-boot-starter-web")
-	implementation("org.springframework.boot:spring-boot-starter-actuator")
+  implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
+  implementation("org.springframework.boot:spring-boot-starter-actuator")
   implementation("org.springframework.boot:spring-boot-starter-data-jpa")
   implementation("io.micrometer:micrometer-tracing-bridge-otel:$micrometerVersion")
 	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:$springDocOpenApiVersion")
 	implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
 	implementation("org.openapitools:jackson-databind-nullable:$openApiToolsVersion")
 
+  //security
+  implementation("org.bouncycastle:bcprov-jdk18on:$bouncycastleVersion")
+
   // p4pa activities library
   implementation("it.gov.pagopa.payhub:p4pa-payhub-activities:$p4paActivitiesVersion")
-
 
   implementation("io.temporal:temporal-spring-boot-starter:$temporalVersion"){
     exclude(group = "com.google.protobuf", module = "protobuf-java")
