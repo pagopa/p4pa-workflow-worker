@@ -3,6 +3,9 @@ spring:
       name: ${artifactId}
       version: ${version}
     jmx.enabled: true
+    threads:
+      virtual:
+        enabled: "\${VIRTUAL_THREADS_ENABLED:true}"
     data:
       pu:
         jdbc-url: "jdbc:postgresql://\${PU_DB_HOST}:\${PU_DB_PORT:5432}/\${PU_DB_NAME:dbname}"
