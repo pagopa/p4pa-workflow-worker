@@ -1,7 +1,7 @@
 package it.gov.pagopa.pu.worker.ingestionflowfile.mapper;
 
 import it.gov.pagopa.payhub.activities.dto.IngestionFlowFileDTO;
-import it.gov.pagopa.payhub.activities.dto.OrganizationDTO;
+import it.gov.pagopa.pu.organization.dto.generated.Organization;
 import it.gov.pagopa.pu.worker.ingestionflowfile.model.IngestionFlowFile;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +13,7 @@ public class IngestionFlowFileMapper {
       .ingestionFlowFileId(dto.getIngestionFlowFileId())
       .flowFileType(dto.getFlowFileType())
       .version(dto.getVersion())
-      .organizationId(dto.getOrg().getOrgId())
+      .organizationId(dto.getOrg().getOrganizationId())
       .status(dto.getStatus())
       .operatorExternalUserId(dto.getOperatorExternalUserId())
       .numTotalRows(dto.getNumTotalRows())
@@ -41,7 +41,7 @@ public class IngestionFlowFileMapper {
       .operatorExternalUserId(model.getOperatorExternalUserId())
       .flowFileType(model.getFlowFileType())
       .version(model.getVersion())
-      .org(OrganizationDTO.builder().orgId(model.getOrganizationId()).build())
+      .org(Organization.builder().organizationId(model.getOrganizationId()).build())
       .status(model.getStatus())
       .numTotalRows(model.getNumTotalRows())
       .numCorrectlyImportedRows(model.getNumCorrectlyImportedRows())
