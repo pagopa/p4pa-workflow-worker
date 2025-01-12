@@ -42,7 +42,9 @@ import java.util.function.Consumer;
   HibernateJpaAutoConfiguration.class})
 @TestPropertySource(properties = {
   "spring.temporal.test-server.enabled: true",
-  "spring.temporal.workers-auto-discovery.packages: it.gov.pagopa.pu.worker"
+  "spring.temporal.workers-auto-discovery.packages: it.gov.pagopa.pu.worker",
+
+  "folders.shared: build"
 })
 class TemporalSpringBootIntegrationTest {
 
@@ -107,7 +109,7 @@ class TemporalSpringBootIntegrationTest {
     @Override
     public void execute(Long ingestionFlowFileId) {
       buildActivityStub(PaymentsReportingIngestionFlowFileActivity.class).processFile(ingestionFlowFileId);
-      buildActivityStub(UpdateIngestionFlowStatusActivity.class).updateStatus(ingestionFlowFileId, "STATUS");
+      buildActivityStub(UpdateIngestionFlowStatusActivity.class).updateStatus(ingestionFlowFileId, "STATUS", null);
       buildActivityStub(SendEmailIngestionFlowActivity.class).sendEmail(ingestionFlowFileId, true);
     }
   }
@@ -122,7 +124,7 @@ class TemporalSpringBootIntegrationTest {
 
     // Then
     Mockito.verify(fileActivityMock).processFile(ingestionFlowFileId);
-    Mockito.verify(statusActivityMock).updateStatus(ingestionFlowFileId, "STATUS");
+    Mockito.verify(statusActivityMock).updateStatus(ingestionFlowFileId, "STATUS", null);
     Mockito.verify(emailActivityMock).sendEmail(ingestionFlowFileId, true);
   }
 }
