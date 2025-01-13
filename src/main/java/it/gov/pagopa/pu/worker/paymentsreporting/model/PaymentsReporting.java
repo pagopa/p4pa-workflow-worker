@@ -21,7 +21,7 @@ public class PaymentsReporting implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "payments_reporting_generator")
     @SequenceGenerator(name = "payments_reporting_generator", sequenceName = "payments_reporting_seq", allocationSize = 1)
-    private Long paymentsReportingId;
+    private String paymentsReportingId;
     private int version;
     private Instant creationDate;
     private Instant lastUpdateDate;

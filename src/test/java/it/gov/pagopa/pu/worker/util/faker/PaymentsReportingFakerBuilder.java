@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 public class PaymentsReportingFakerBuilder {
     public static PaymentsReporting buildPaymentsReporting() {
         return PaymentsReporting.builder()
-            .paymentsReportingId(1L)
+            .paymentsReportingId("PAYMENTREPORTINGID")
             .version(1)
             .creationDate(Instant.now())
             .lastUpdateDate(Instant.now())
@@ -42,14 +42,14 @@ public class PaymentsReportingFakerBuilder {
 
     public static PaymentsReportingDTO buildPaymentsReportingDTO() {
         return PaymentsReportingDTO.builder()
-            .paymentsReportingId(1L)
+            .paymentsReportingId("PAYMENTREPORTINGID")
             .version(1)
             .creationDate(Instant.now())
             .lastUpdateDate(Instant.now())
             .organizationId(1001L)
             .ingestionFlowFileId(2002L)
             .pspIdentifier("PSP123")
-            .flowIdentifierCode("FLOW001")
+            .iuf("FLOW001")
             .flowDateTime(LocalDateTime.now())
             .regulationUniqueIdentifier("REG001")
             .regulationDate(LocalDate.now())
@@ -61,8 +61,8 @@ public class PaymentsReportingFakerBuilder {
             .receiverOrganizationName("Sample Gov")
             .totalPayments(10L)
             .totalAmountCents(50000L)
-            .creditorReferenceId("CR001")
-            .regulationId("REG001")
+            .iuv("CR001")
+            .iur("REG001")
             .amountPaidCents(50000L)
             .paymentOutcomeCode("SUCCESS")
             .payDate(LocalDate.now())
