@@ -33,6 +33,10 @@ spring:
           name: CreateDebtPositionSyncWF
           activity-beans:
             - sendDebtPositionIONotificationActivityImpl
+        - task-queue: TransferClassificationWF
+          name: TransferClassificationWF
+          activity-beans:
+            - transferClassificationActivityImpl
 
 management:
     endpoints:
