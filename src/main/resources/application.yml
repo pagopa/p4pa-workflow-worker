@@ -23,6 +23,12 @@ spring:
 
       # Listing workers and registered activities
       workers:
+        - task-queue: TreasuryOpiIngestionWF
+          name: TreasuryOpiIngestionWF
+          activity-beans:
+            - treasuryOpiIngestionActivityImpl
+            - sendEmailIngestionFlowActivityImpl
+            - updateIngestionFlowStatusActivityImpl
         - task-queue: PaymentsReportingIngestionWF
           name: PaymentsReportingIngestionWF
           activity-beans:
