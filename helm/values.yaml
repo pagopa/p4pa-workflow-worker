@@ -82,6 +82,9 @@ microservice-chart:
     IO_NOTIFICATION_BASE_URL: "http://p4pa-io-notification-microservice-chart:8080/ionotification"
     ORGANIZATION_BASE_URL: "http://p4pa-organization-microservice-chart:8080"
     DEBT_POSITION_BASE_URL: "http://p4pa-debt-positions-microservice-chart:8080"
+    PAGOPA_PAYMENTS_BASE_URL: "http://p4pa-pagopa-payments-microservice-chart:8080"
+    PROCESS_EXECUTIONS_BASE_URL: "http://p4pa-process-executions-microservice-chart:8080"
+    CLASSIFICATION_BASE_URL: "http://p4pa-classification-microservice-chart:8080"
 
   envSecret:
     APPLICATIONINSIGHTS_CONNECTION_STRING: appinsights-connection-string
@@ -92,6 +95,8 @@ microservice-chart:
     PU_DB_PASSWORD: db-mypay-login-password
 
     AUTH_CLIENT_SECRET: piattaforma-unitaria-client-secret
+
+    FILE_ENCRYPT_PSW: file-encrypt-password
 
     MAIL_USERNAME: mail-username
     MAIL_PASSWORD: mail-password
