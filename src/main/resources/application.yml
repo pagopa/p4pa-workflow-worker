@@ -23,8 +23,8 @@ spring:
 
       # Listing workers and registered activities
       workers:
-        - task-queue: IufClassificationWFWF
-          name: IufClassificationWFWF
+        - task-queue: IufClassificationWF
+          name: IufClassificationWF
           activity-beans:
             - clearClassifyIufActivityImpl
             - i ufClassificationActivityImpl
