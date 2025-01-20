@@ -27,7 +27,7 @@ spring:
           name: IufClassificationWF
           activity-beans:
             - clearClassifyIufActivityImpl
-            - i ufClassificationActivityImpl
+            - iufClassificationActivityImpl
         - task-queue: TreasuryOpiIngestionWF
           name: TreasuryOpiIngestionWF
           activity-beans:
