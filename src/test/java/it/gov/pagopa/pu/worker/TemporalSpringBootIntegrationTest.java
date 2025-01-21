@@ -24,7 +24,6 @@ import it.gov.pagopa.payhub.activities.activity.paymentsreporting.PaymentsReport
 import it.gov.pagopa.payhub.activities.dao.IngestionFlowFileDao;
 import it.gov.pagopa.payhub.activities.exception.NotRetryableActivityException;
 import it.gov.pagopa.pu.worker.ingestionflowfile.repository.IngestionFlowFileRepository;
-import it.gov.pagopa.pu.worker.paymentsreporting.repository.PaymentsReportingRepository;
 import jakarta.persistence.EntityManagerFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -60,8 +59,6 @@ class TemporalSpringBootIntegrationTest {
   private EntityManagerFactory entityManagerFactoryMock;
   @MockitoBean
   private IngestionFlowFileRepository ingestionFlowFileRepositoryMock;
-  @MockitoBean
-  private PaymentsReportingRepository paymentsReportingRepositoryMock;
 
   @Autowired
   private WorkflowClient temporalClient;
