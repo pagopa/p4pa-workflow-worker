@@ -44,6 +44,12 @@ spring:
           name: CreateDebtPositionSyncWF
           activity-beans:
             - sendDebtPositionIONotificationActivityImpl
+        - task-queue: CreateDebtPositionSyncAcaWF
+          name: CreateDebtPositionSyncAcaWF
+          activity-beans:
+            - acaStandInCreateDebtPositionActivityImpl
+            - finalizeDebtPositionSyncStatusActivityImpl
+            - sendDebtPositionIONotificationActivityImpl
 
 management:
     endpoints:
