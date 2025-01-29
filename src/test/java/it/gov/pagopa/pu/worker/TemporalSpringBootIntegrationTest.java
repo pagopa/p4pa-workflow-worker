@@ -21,6 +21,7 @@ import it.gov.pagopa.payhub.activities.activity.ingestionflow.email.SendEmailIng
 import it.gov.pagopa.payhub.activities.activity.ingestionflow.email.SendEmailIngestionFlowActivityImpl;
 import it.gov.pagopa.payhub.activities.activity.paymentsreporting.PaymentsReportingIngestionFlowFileActivity;
 import it.gov.pagopa.payhub.activities.activity.paymentsreporting.PaymentsReportingIngestionFlowFileActivityImpl;
+import it.gov.pagopa.payhub.activities.connector.processexecutions.IngestionFlowFileService;
 import it.gov.pagopa.payhub.activities.exception.NotRetryableActivityException;
 import it.gov.pagopa.pu.processexecutions.dto.generated.IngestionFlowFile;
 import org.junit.jupiter.api.Assertions;
@@ -97,6 +98,8 @@ class TemporalSpringBootIntegrationTest {
   private SendEmailIngestionFlowActivityImpl emailActivityMock;
   @MockitoSpyBean
   private UpdateIngestionFlowStatusActivityImpl statusActivitySpy;
+  @MockitoBean(enforceOverride = true)
+  private IngestionFlowFileService ingestionFlowFileServiceMock;
 
   @WorkflowInterface
   public interface PaymentsReportingIngestionDummyWF {
@@ -135,7 +138,8 @@ class TemporalSpringBootIntegrationTest {
     long ingestionFlowFileId = 1L;
 
     NotRetryableActivityException expectedNestedException = new NotRetryableActivityException("DUMMYEXCEPTION") {};
-
+    Mockito.when(ingestionFlowFileServiceMock.updateStatus(ingestionFlowFileId, IngestionFlowFile.StatusEnum.COMPLETED, null, null))
+      .thenThrow(expectedNestedException);
     // When
     WorkflowFailedException result = Assertions.assertThrows(WorkflowFailedException.class, () -> execute(PaymentsReportingIngestionDummyWF.class, TASK_QUEUE, wf -> wf.execute(ingestionFlowFileId)));
 
