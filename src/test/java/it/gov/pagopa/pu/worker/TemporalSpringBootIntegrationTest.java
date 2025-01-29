@@ -23,7 +23,6 @@ import it.gov.pagopa.payhub.activities.activity.paymentsreporting.PaymentsReport
 import it.gov.pagopa.payhub.activities.activity.paymentsreporting.PaymentsReportingIngestionFlowFileActivityImpl;
 import it.gov.pagopa.payhub.activities.exception.NotRetryableActivityException;
 import it.gov.pagopa.pu.processexecutions.dto.generated.IngestionFlowFile;
-import jakarta.persistence.EntityManagerFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -48,9 +47,11 @@ import java.util.function.Consumer;
 @TestPropertySource(properties = {
   "spring.temporal.test-server.enabled: true",
   "spring.temporal.workers-auto-discovery.packages: it.gov.pagopa.pu.worker",
+
   "folders.shared: build"
 })
 class TemporalSpringBootIntegrationTest {
+//region base test configuration code
 
   @Autowired
   private WorkflowClient temporalClient;
