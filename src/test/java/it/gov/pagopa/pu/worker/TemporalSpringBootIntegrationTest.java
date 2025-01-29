@@ -21,9 +21,8 @@ import it.gov.pagopa.payhub.activities.activity.ingestionflow.email.SendEmailIng
 import it.gov.pagopa.payhub.activities.activity.ingestionflow.email.SendEmailIngestionFlowActivityImpl;
 import it.gov.pagopa.payhub.activities.activity.paymentsreporting.PaymentsReportingIngestionFlowFileActivity;
 import it.gov.pagopa.payhub.activities.activity.paymentsreporting.PaymentsReportingIngestionFlowFileActivityImpl;
-import it.gov.pagopa.payhub.activities.dao.IngestionFlowFileDao;
 import it.gov.pagopa.payhub.activities.exception.NotRetryableActivityException;
-import it.gov.pagopa.pu.worker.ingestionflowfile.repository.IngestionFlowFileRepository;
+import it.gov.pagopa.pu.processexecutions.dto.generated.IngestionFlowFile;
 import jakarta.persistence.EntityManagerFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -57,8 +56,6 @@ class TemporalSpringBootIntegrationTest {
 //region base test configuration code
   @MockitoBean
   private EntityManagerFactory entityManagerFactoryMock;
-  @MockitoBean
-  private IngestionFlowFileRepository ingestionFlowFileRepositoryMock;
 
   @Autowired
   private WorkflowClient temporalClient;
@@ -105,8 +102,6 @@ class TemporalSpringBootIntegrationTest {
   private SendEmailIngestionFlowActivityImpl emailActivityMock;
   @MockitoSpyBean
   private UpdateIngestionFlowStatusActivityImpl statusActivitySpy;
-  @MockitoBean(enforceOverride = true)
-  private IngestionFlowFileDao ingestionFlowFileDaoMock;
 
   @WorkflowInterface
   public interface PaymentsReportingIngestionDummyWF {
@@ -120,7 +115,7 @@ class TemporalSpringBootIntegrationTest {
     @Override
     public void execute(Long ingestionFlowFileId) {
       buildActivityStub(PaymentsReportingIngestionFlowFileActivity.class).processFile(ingestionFlowFileId);
-      buildActivityStub(UpdateIngestionFlowStatusActivity.class).updateStatus(ingestionFlowFileId, "STATUS", null);
+      buildActivityStub(UpdateIngestionFlowStatusActivity.class).updateStatus(ingestionFlowFileId, IngestionFlowFile.StatusEnum.COMPLETED, null, null);
       buildActivityStub(SendEmailIngestionFlowActivity.class).sendEmail(ingestionFlowFileId, true);
     }
   }
@@ -135,7 +130,7 @@ class TemporalSpringBootIntegrationTest {
 
     // Then
     Mockito.verify(fileActivityMock).processFile(ingestionFlowFileId);
-    Mockito.verify(statusActivitySpy).updateStatus(ingestionFlowFileId, "STATUS", null);
+    Mockito.verify(statusActivitySpy).updateStatus(ingestionFlowFileId, IngestionFlowFile.StatusEnum.COMPLETED, null, null);
     Mockito.verify(emailActivityMock).sendEmail(ingestionFlowFileId, true);
   }
 
@@ -145,8 +140,6 @@ class TemporalSpringBootIntegrationTest {
     long ingestionFlowFileId = 1L;
 
     NotRetryableActivityException expectedNestedException = new NotRetryableActivityException("DUMMYEXCEPTION") {};
-    Mockito.when(ingestionFlowFileDaoMock.updateStatus(ingestionFlowFileId, "STATUS", null))
-      .thenThrow(expectedNestedException);
 
     // When
     WorkflowFailedException result = Assertions.assertThrows(WorkflowFailedException.class, () -> execute(PaymentsReportingIngestionDummyWF.class, TASK_QUEUE, wf -> wf.execute(ingestionFlowFileId)));
