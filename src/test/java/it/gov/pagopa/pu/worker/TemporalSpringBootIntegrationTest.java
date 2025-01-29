@@ -47,7 +47,6 @@ import java.util.function.Consumer;
 @TestPropertySource(properties = {
   "spring.temporal.test-server.enabled: true",
   "spring.temporal.workers-auto-discovery.packages: it.gov.pagopa.pu.worker",
-
   "folders.shared: build"
 })
 class TemporalSpringBootIntegrationTest {
