@@ -44,6 +44,12 @@ spring:
           name: CreateDebtPositionSyncWF
           activity-beans:
             - sendDebtPositionIONotificationActivityImpl
+        - task-queue: SynchronizeSyncAcaWF
+          name: SynchronizeSyncAcaWF
+          activity-beans:
+            - synchronizeInstallmentAcaActivityImpl
+            - finalizeDebtPositionSyncStatusActivityImpl
+            - sendDebtPositionIONotificationActivityImpl
         - task-queue: TransferClassificationWF
           name: TransferClassificationWF
           activity-beans:
