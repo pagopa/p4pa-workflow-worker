@@ -28,23 +28,16 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
-import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.context.bean.override.mockito.MockitoSpyBean;
 
 import java.time.Duration;
+import java.util.Set;
 import java.util.function.Consumer;
 
 @SpringBootTest(classes = WorkerApplication.class)
-@EnableAutoConfiguration(exclude = {
-  DataSourceAutoConfiguration.class,
-  DataSourceTransactionManagerAutoConfiguration.class,
-  HibernateJpaAutoConfiguration.class})
 @TestPropertySource(properties = {
   "spring.temporal.test-server.enabled: true",
   "spring.temporal.workers-auto-discovery.packages: it.gov.pagopa.pu.worker",
@@ -52,6 +45,12 @@ import java.util.function.Consumer;
 })
 class TemporalSpringBootIntegrationTest {
 //region base test configuration code
+  private final Set<WorkflowExecutionStatus> wfTerminationStatuses = Set.of(
+    WorkflowExecutionStatus.WORKFLOW_EXECUTION_STATUS_COMPLETED,
+    WorkflowExecutionStatus.WORKFLOW_EXECUTION_STATUS_FAILED,
+    WorkflowExecutionStatus.WORKFLOW_EXECUTION_STATUS_TERMINATED,
+    WorkflowExecutionStatus.WORKFLOW_EXECUTION_STATUS_CANCELED
+  );
 
   @Autowired
   private WorkflowClient temporalClient;
@@ -86,7 +85,9 @@ class TemporalSpringBootIntegrationTest {
     WorkflowExecutionInfo info;
     do {
       info = WorkflowClientHelper.describeWorkflowInstance(temporalClient.getWorkflowServiceStubs(), "default", WorkflowExecution.newBuilder().setWorkflowId(workflowId).build(), new NoopScope());
-    } while (!WorkflowExecutionStatus.WORKFLOW_EXECUTION_STATUS_COMPLETED.equals(info.getStatus()));
+    } while (!wfTerminationStatuses.contains(info.getStatus()));
+
+    Assertions.assertEquals(WorkflowExecutionStatus.WORKFLOW_EXECUTION_STATUS_COMPLETED, info.getStatus());
   }
 //endregion
 

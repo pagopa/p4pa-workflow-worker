@@ -9,12 +9,6 @@ spring:
     threads:
       virtual:
         enabled: "\${VIRTUAL_THREADS_ENABLED:true}"
-    data:
-      pu:
-        jdbc-url: "jdbc:postgresql://\${PU_DB_HOST}:\${PU_DB_PORT:5432}/\${PU_DB_NAME:dbname}"
-        username: "\${PU_DB_USER}"
-        password: "\${PU_DB_PASSWORD}"
-        driverClassName: "org.postgresql.Driver"
     temporal:
       connection:
         enable-https: "\${TEMPORAL_SERVER_ENABLE_HTTPS:false}"
