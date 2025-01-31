@@ -18,34 +18,28 @@ spring:
       # Listing workers and registered activities
       workers:
         - task-queue: IufClassificationWF
-          name: IufClassificationWF
           activity-beans:
             - clearClassifyIufActivityImpl
             - iufClassificationActivityImpl
         - task-queue: TreasuryOpiIngestionWF
-          name: TreasuryOpiIngestionWF
           activity-beans:
             - treasuryOpiIngestionActivityImpl
             - sendEmailIngestionFlowActivityImpl
             - updateIngestionFlowStatusActivityImpl
         - task-queue: PaymentsReportingIngestionWF
-          name: PaymentsReportingIngestionWF
           activity-beans:
             - paymentsReportingIngestionFlowFileActivityImpl
             - sendEmailIngestionFlowActivityImpl
             - updateIngestionFlowStatusActivityImpl
-        - task-queue: CreateDebtPositionSyncWF
-          name: CreateDebtPositionSyncWF
+        - task-queue: HandleDebtPositionSyncWF
           activity-beans:
             - sendDebtPositionIONotificationActivityImpl
         - task-queue: SynchronizeSyncAcaWF
-          name: SynchronizeSyncAcaWF
           activity-beans:
             - synchronizeInstallmentAcaActivityImpl
             - finalizeDebtPositionSyncStatusActivityImpl
             - sendDebtPositionIONotificationActivityImpl
         - task-queue: TransferClassificationWF
-          name: TransferClassificationWF
           activity-beans:
             - transferClassificationActivityImpl
 
