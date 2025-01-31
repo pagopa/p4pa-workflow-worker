@@ -124,6 +124,9 @@ class TemporalSpringBootIntegrationTest {
     // Given
     long ingestionFlowFileId = 1L;
 
+    Mockito.when(ingestionFlowFileServiceMock.updateStatus(1L, IngestionFlowFile.StatusEnum.COMPLETED, null, null))
+      .thenReturn(1);
+
     // When
     execute(PaymentsReportingIngestionDummyWF.class, TASK_QUEUE, wf -> wf.execute(ingestionFlowFileId));
 
