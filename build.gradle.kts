@@ -44,6 +44,7 @@ val temporalVersion = "1.27.0"
 val protobufJavaVersion = "3.25.5"
 val bouncycastleVersion = "1.79"
 
+
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter")
 	implementation("org.springframework.boot:spring-boot-starter-web")
