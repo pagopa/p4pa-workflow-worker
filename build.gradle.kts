@@ -39,10 +39,11 @@ repositories {
 val springDocOpenApiVersion = "2.7.0"
 val openApiToolsVersion = "0.2.6"
 val micrometerVersion = "1.4.1"
-val p4paActivitiesVersion = "1.45.5"
+val p4paActivitiesVersion = "1.47.2"
 val temporalVersion = "1.27.0"
 val protobufJavaVersion = "3.25.5"
 val bouncycastleVersion = "1.79"
+
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter")
