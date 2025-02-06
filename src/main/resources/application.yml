@@ -42,6 +42,9 @@ spring:
         - task-queue: TransferClassificationWF
           activity-beans:
             - transferClassificationActivityImpl
+        - task-queue: CheckDebtPositionExpirationWF
+          activity-beans:
+            - debtPositionExpirationActivityImpl
 
 management:
     endpoints:
