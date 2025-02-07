@@ -42,6 +42,7 @@ components:
         code:
           type: string
           enum:
+            - WORKER_NOT_FOUND
             - WORKER_BAD_REQUEST
             - WORKER_GENERIC_ERROR
         message:
