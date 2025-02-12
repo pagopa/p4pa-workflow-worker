@@ -17,28 +17,52 @@ spring:
 
       # Listing workers and registered activities
       workers:
-        - task-queue: IufClassificationWF
+        # debt position
+        - task-queue: SynchronizeDP_NoPagoPA_WF
           activity-beans:
-            - clearClassifyIufActivityImpl
-            - iufClassificationActivityImpl
-        - task-queue: TreasuryOpiIngestionWF
+            - finalizeDebtPositionSyncStatusActivityImpl
+            - sendDebtPositionIONotificationActivityImpl
+        - task-queue: SynchronizeDP_SYNC_WF
           activity-beans:
-            - treasuryOpiIngestionActivityImpl
-            - sendEmailIngestionFlowActivityImpl
-            - updateIngestionFlowStatusActivityImpl
+            - finalizeDebtPositionSyncStatusActivityImpl
+            - sendDebtPositionIONotificationActivityImpl
+        - task-queue: SynchronizeDP_SYNC+ACA_WF
+          activity-beans:
+            - synchronizeInstallmentAcaActivityImpl
+            - finalizeDebtPositionSyncStatusActivityImpl
+            - sendDebtPositionIONotificationActivityImpl
+        - task-queue: SynchronizeDP_SYNC+GPDPRELOAD_WF
+          activity-beans:
+            - synchronizeInstallmentGpdPreLoadActivityImpl
+            - finalizeDebtPositionSyncStatusActivityImpl
+            - sendDebtPositionIONotificationActivityImpl
+        - task-queue: SynchronizeDP_SYNC+ACA+GPDPRELOAD_WF
+          activity-beans:
+            - synchronizeInstallmentGpdPreLoadActivityImpl
+            - synchronizeInstallmentAcaActivityImpl
+            - finalizeDebtPositionSyncStatusActivityImpl
+            - sendDebtPositionIONotificationActivityImpl
+        - task-queue: SynchronizeDP_ASYNC_GPD_WF
+          activity-beans:
+            - synchronizeInstallmentGpdActivityImpl
+            - finalizeDebtPositionSyncStatusActivityImpl
+            - sendDebtPositionIONotificationActivityImpl
+        # ingestion flow
         - task-queue: PaymentsReportingIngestionWF
           activity-beans:
             - paymentsReportingIngestionFlowFileActivityImpl
             - sendEmailIngestionFlowActivityImpl
             - updateIngestionFlowStatusActivityImpl
-        - task-queue: HandleDebtPositionSyncWF
+        - task-queue: TreasuryOpiIngestionWF
           activity-beans:
-            - sendDebtPositionIONotificationActivityImpl
-        - task-queue: SynchronizeSyncAcaWF
+            - treasuryOpiIngestionActivityImpl
+            - sendEmailIngestionFlowActivityImpl
+            - updateIngestionFlowStatusActivityImpl
+        # classification
+        - task-queue: IufClassificationWF
           activity-beans:
-            - synchronizeInstallmentAcaActivityImpl
-            - finalizeDebtPositionSyncStatusActivityImpl
-            - sendDebtPositionIONotificationActivityImpl
+            - clearClassifyIufActivityImpl
+            - iufClassificationActivityImpl
         - task-queue: TransferClassificationWF
           activity-beans:
             - transferClassificationActivityImpl
