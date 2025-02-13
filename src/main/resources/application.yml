@@ -66,6 +66,11 @@ spring:
         - task-queue: TransferClassificationWF
           activity-beans:
             - transferClassificationActivityImpl
+        # pagopa payments reporting
+        - task-queue: OrganizationPaymentsReportingPagoPaFetchWF
+          activity-beans:
+            - organizationPaymentsReportingPagoPaListRetrieverActivityImpl
+            - organizationPaymentsReportingPagoPaRetrieverActivityImpl
 
 management:
     endpoints:
