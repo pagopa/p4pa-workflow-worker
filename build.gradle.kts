@@ -39,7 +39,7 @@ repositories {
 val springDocOpenApiVersion = "2.7.0"
 val openApiToolsVersion = "0.2.6"
 val micrometerVersion = "1.4.1"
-val p4paActivitiesVersion = "1.52.0"
+val p4paActivitiesVersion = "PERFORMANCE_LOGGER-SNAPSHOT"
 val temporalVersion = "1.27.0"
 val protobufJavaVersion = "3.25.5"
 val bouncycastleVersion = "1.79"
