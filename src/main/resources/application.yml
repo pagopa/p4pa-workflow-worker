@@ -2,107 +2,107 @@ server:
   http: "\${SERVER_PORT:8080}"
 
 spring:
-    application:
-      name: ${artifactId}
-      version: ${version}
-    jmx.enabled: true
-    threads:
-      virtual:
-        enabled: "\${VIRTUAL_THREADS_ENABLED:true}"
-    temporal:
-      connection:
-        enable-https: "\${TEMPORAL_SERVER_ENABLE_HTTPS:false}"
-        target: "\${TEMPORAL_SERVER_HOST:localhost}:\${TEMPORAL_SERVER_PORT:7233}"
-        target.namespace: "\${TEMPORAL_SERVER_NAMESPACE:default}"
+  application:
+    name: ${artifactId}
+    version: ${version}
+  jmx.enabled: true
+  threads:
+    virtual:
+      enabled: "\${VIRTUAL_THREADS_ENABLED:true}"
+  temporal:
+    connection:
+      enable-https: "\${TEMPORAL_SERVER_ENABLE_HTTPS:false}"
+      target: "\${TEMPORAL_SERVER_HOST:localhost}:\${TEMPORAL_SERVER_PORT:7233}"
+      target.namespace: "\${TEMPORAL_SERVER_NAMESPACE:default}"
 
-      # Listing workers and registered activities
-      workers:
-        # debt position
-        - task-queue: SynchronizeDP_NoPagoPA_WF
-          activity-beans:
-            - finalizeDebtPositionSyncStatusActivityImpl
-            - sendDebtPositionIONotificationActivityImpl
-        - task-queue: SynchronizeDP_SYNC_WF
-          activity-beans:
-            - finalizeDebtPositionSyncStatusActivityImpl
-            - sendDebtPositionIONotificationActivityImpl
-        - task-queue: SynchronizeDP_SYNC+ACA_WF
-          activity-beans:
-            - synchronizeInstallmentAcaActivityImpl
-            - finalizeDebtPositionSyncStatusActivityImpl
-            - sendDebtPositionIONotificationActivityImpl
-        - task-queue: SynchronizeDP_SYNC+GPDPRELOAD_WF
-          activity-beans:
-            - synchronizeInstallmentGpdPreLoadActivityImpl
-            - finalizeDebtPositionSyncStatusActivityImpl
-            - sendDebtPositionIONotificationActivityImpl
-        - task-queue: SynchronizeDP_SYNC+ACA+GPDPRELOAD_WF
-          activity-beans:
-            - synchronizeInstallmentGpdPreLoadActivityImpl
-            - synchronizeInstallmentAcaActivityImpl
-            - finalizeDebtPositionSyncStatusActivityImpl
-            - sendDebtPositionIONotificationActivityImpl
-        - task-queue: SynchronizeDP_ASYNC_GPD_WF
-          activity-beans:
-            - synchronizeInstallmentGpdActivityImpl
-            - finalizeDebtPositionSyncStatusActivityImpl
-            - sendDebtPositionIONotificationActivityImpl
-        # ingestion flow
-        - task-queue: PaymentsReportingIngestionWF
-          activity-beans:
-            - paymentsReportingIngestionFlowFileActivityImpl
-            - sendEmailIngestionFlowActivityImpl
-            - updateIngestionFlowStatusActivityImpl
-        - task-queue: TreasuryOpiIngestionWF
-          activity-beans:
-            - treasuryOpiIngestionActivityImpl
-            - sendEmailIngestionFlowActivityImpl
-            - updateIngestionFlowStatusActivityImpl
-        # classification
-        - task-queue: IufClassificationWF
-          activity-beans:
-            - clearClassifyIufActivityImpl
-            - iufClassificationActivityImpl
-        - task-queue: TransferClassificationWF
-          activity-beans:
-            - transferClassificationActivityImpl
-        # pagopa payments reporting
-        - task-queue: OrganizationPaymentsReportingPagoPaFetchWF
-          activity-beans:
-            - organizationPaymentsReportingPagoPaListRetrieverActivityImpl
-            - organizationPaymentsReportingPagoPaRetrieverActivityImpl
+    # Listing workers and registered activities
+    workers:
+      # debt position
+      - task-queue: SynchronizeDP_NoPagoPA_WF
+        activity-beans:
+          - finalizeDebtPositionSyncStatusActivityImpl
+          - sendDebtPositionIONotificationActivityImpl
+      - task-queue: SynchronizeDP_SYNC_WF
+        activity-beans:
+          - finalizeDebtPositionSyncStatusActivityImpl
+          - sendDebtPositionIONotificationActivityImpl
+      - task-queue: SynchronizeDP_SYNC+ACA_WF
+        activity-beans:
+          - synchronizeInstallmentAcaActivityImpl
+          - finalizeDebtPositionSyncStatusActivityImpl
+          - sendDebtPositionIONotificationActivityImpl
+      - task-queue: SynchronizeDP_SYNC+GPDPRELOAD_WF
+        activity-beans:
+          - synchronizeInstallmentGpdPreLoadActivityImpl
+          - finalizeDebtPositionSyncStatusActivityImpl
+          - sendDebtPositionIONotificationActivityImpl
+      - task-queue: SynchronizeDP_SYNC+ACA+GPDPRELOAD_WF
+        activity-beans:
+          - synchronizeInstallmentGpdPreLoadActivityImpl
+          - synchronizeInstallmentAcaActivityImpl
+          - finalizeDebtPositionSyncStatusActivityImpl
+          - sendDebtPositionIONotificationActivityImpl
+      - task-queue: SynchronizeDP_ASYNC_GPD_WF
+        activity-beans:
+          - synchronizeInstallmentGpdActivityImpl
+          - finalizeDebtPositionSyncStatusActivityImpl
+          - sendDebtPositionIONotificationActivityImpl
+      # ingestion flow
+      - task-queue: PaymentsReportingIngestionWF
+        activity-beans:
+          - paymentsReportingIngestionFlowFileActivityImpl
+          - sendEmailIngestionFlowActivityImpl
+          - updateIngestionFlowStatusActivityImpl
+      - task-queue: TreasuryOpiIngestionWF
+        activity-beans:
+          - treasuryOpiIngestionActivityImpl
+          - sendEmailIngestionFlowActivityImpl
+          - updateIngestionFlowStatusActivityImpl
+      # classification
+      - task-queue: IufClassificationWF
+        activity-beans:
+          - clearClassifyIufActivityImpl
+          - iufClassificationActivityImpl
+      - task-queue: TransferClassificationWF
+        activity-beans:
+          - transferClassificationActivityImpl
+      # pagopa payments reporting
+      - task-queue: OrganizationPaymentsReportingPagoPaFetchWF
+        activity-beans:
+          - organizationPaymentsReportingPagoPaListRetrieverActivityImpl
+          - organizationPaymentsReportingPagoPaRetrieverActivityImpl
 
 management:
-    endpoints:
-      jmx:
-        exposure.include: "*"
-      web:
-        exposure:
-          include: health, info, prometheus, metrics
-        base-path: /actuator
-    endpoint:
-      health:
-        probes.enabled: true
-        logging.slow-indicator-threshold: "\${HEALTH_ACTUATOR_LOGGER_TIMEOUT_DURATION:PT1S}"
-        group:
-          readiness.include: "*"
-          liveness.include: livenessState,diskSpace,ping
+  endpoints:
+    jmx:
+      exposure.include: "*"
+    web:
+      exposure:
+        include: health, info, prometheus, metrics
+      base-path: /actuator
+  endpoint:
+    health:
+      probes.enabled: true
+      logging.slow-indicator-threshold: "\${HEALTH_ACTUATOR_LOGGER_TIMEOUT_DURATION:PT1S}"
+      group:
+        readiness.include: "*"
+        liveness.include: livenessState,diskSpace,ping
+    prometheus:
+      enabled: true
+  metrics:
+    tags:
+      application: ${artifactId}
+    export:
       prometheus:
         enabled: true
-    metrics:
-      tags:
-        application: ${artifactId}
-      export:
-        prometheus:
-          enabled: true
-          step: 1m
-          descriptions: true
-      enable:
-        jvm: true
-        process: true
-        system: true
-        http: true
-        logback: true
+        step: 1m
+        descriptions: true
+    enable:
+      jvm: true
+      process: true
+      system: true
+      http: true
+      logback: true
 
 springdoc:
   writer-with-default-pretty-printer: true
@@ -113,6 +113,11 @@ logging:
     it.gov.pagopa: "\${LOG_LEVEL_PAGOPA:INFO}"
     org.springframework: "\${LOG_LEVEL_SPRING:INFO}"
     org.springframework.boot.availability: "\${LOG_LEVEL_SPRING_BOOT_AVAILABILITY:DEBUG}"
+    it.gov.pagopa.pu.worker.exception.WorkerExceptionHandler: "\${LOGGING_LEVEL_API_REQUEST_EXCEPTION:INFO}"
+    org.springdoc.core.utils.SpringDocAnnotationsUtils: "\${LOG_LEVEL_SPRING_DOC:ERROR}"
+    PERFORMANCE_LOG: "\${LOG_LEVEL_PERFORMANCE_LOG:INFO}"
+    PERFORMANCE_LOG.API_REQUEST: "\${LOG_LEVEL_PERFORMANCE_LOG_API_REQUEST:\${logging.level.PERFORMANCE_LOG}}"
+    PERFORMANCE_LOG.REST_INVOKE: "\${LOG_LEVEL_PERFORMANCE_LOG_REST_INVOKE:\${logging.level.PERFORMANCE_LOG}}"
 
 jwt:
   access-token:
