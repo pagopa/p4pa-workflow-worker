@@ -71,6 +71,10 @@ spring:
         activity-beans:
           - organizationPaymentsReportingPagoPaListRetrieverActivityImpl
           - organizationPaymentsReportingPagoPaRetrieverActivityImpl
+      - task-queue: OrganizationsBrokeredRetrieveWF
+        activity-beans:
+          - brokersRetrieverActivityImpl
+          - organizationBrokeredRetrieverActivityImpl
 
 management:
   endpoints:
