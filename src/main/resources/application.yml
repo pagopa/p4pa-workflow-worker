@@ -18,31 +18,35 @@ spring:
     # Listing workers and registered activities
     workers:
       # debt position
-      - task-queue: SynchronizeDP_NoPagoPA_WF
+      - task-queue: DebtPositionExpirationWF
+        activity-beans:
+          - debtPositionExpirationActivityImpl
+      # debt position sync
+      - task-queue: DebtPositionSynchronize_NoPagoPA_WF
         activity-beans:
           - finalizeDebtPositionSyncStatusActivityImpl
           - sendDebtPositionIONotificationActivityImpl
-      - task-queue: SynchronizeDP_SYNC_WF
+      - task-queue: DebtPositionSynchronize_SYNC_WF
         activity-beans:
           - finalizeDebtPositionSyncStatusActivityImpl
           - sendDebtPositionIONotificationActivityImpl
-      - task-queue: SynchronizeDP_SYNC+ACA_WF
+      - task-queue: DebtPositionSynchronize_SYNC+ACA_WF
         activity-beans:
           - synchronizeInstallmentAcaActivityImpl
           - finalizeDebtPositionSyncStatusActivityImpl
           - sendDebtPositionIONotificationActivityImpl
-      - task-queue: SynchronizeDP_SYNC+GPDPRELOAD_WF
+      - task-queue: DebtPositionSynchronize_SYNC+GPDPRELOAD_WF
         activity-beans:
           - synchronizeInstallmentGpdPreLoadActivityImpl
           - finalizeDebtPositionSyncStatusActivityImpl
           - sendDebtPositionIONotificationActivityImpl
-      - task-queue: SynchronizeDP_SYNC+ACA+GPDPRELOAD_WF
+      - task-queue: DebtPositionSynchronize_SYNC+ACA+GPDPRELOAD_WF
         activity-beans:
           - synchronizeInstallmentGpdPreLoadActivityImpl
           - synchronizeInstallmentAcaActivityImpl
           - finalizeDebtPositionSyncStatusActivityImpl
           - sendDebtPositionIONotificationActivityImpl
-      - task-queue: SynchronizeDP_ASYNC_GPD_WF
+      - task-queue: DebtPositionSynchronize_ASYNC_GPD_WF
         activity-beans:
           - synchronizeInstallmentGpdActivityImpl
           - finalizeDebtPositionSyncStatusActivityImpl
@@ -67,6 +71,10 @@ spring:
         activity-beans:
           - transferClassificationActivityImpl
       # pagopa payments reporting
+      - task-queue: PaymentsReportingPagoPaBrokersFetchWF
+        activity-beans:
+          - brokersRetrieverActivityImpl
+          - organizationBrokeredRetrieverActivityImpl
       - task-queue: OrganizationPaymentsReportingPagoPaFetchWF
         activity-beans:
           - organizationPaymentsReportingPagoPaListRetrieverActivityImpl
