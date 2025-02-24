@@ -1,6 +1,6 @@
 plugins {
 	java
-	id("org.springframework.boot") version "3.4.1"
+	id("org.springframework.boot") version "3.4.3"
 	id("io.spring.dependency-management") version "1.1.7"
 	jacoco
 	id("org.sonarqube") version "6.0.1.5171"
@@ -36,13 +36,14 @@ repositories {
     }
 }
 
-val springDocOpenApiVersion = "2.7.0"
+val springDocOpenApiVersion = "2.8.5"
 val openApiToolsVersion = "0.2.6"
-val micrometerVersion = "1.4.1"
+val micrometerVersion = "1.4.3"
+val bouncycastleVersion = "1.80"
 val p4paActivitiesVersion = "1.59.0"
-val temporalVersion = "1.27.0"
-val protobufJavaVersion = "3.25.5"
-val bouncycastleVersion = "1.79"
+val temporalVersion = "1.27.1"
+val protobufJavaVersion = "4.29.3"
+val guavaVersion = "33.4.0-jre"
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter")
@@ -55,19 +56,19 @@ dependencies {
 	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:$springDocOpenApiVersion")
 	implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
 	implementation("org.openapitools:jackson-databind-nullable:$openApiToolsVersion")
-
-  //security
   implementation("org.bouncycastle:bcprov-jdk18on:$bouncycastleVersion")
-
-  // p4pa activities library
   implementation("it.gov.pagopa.payhub:p4pa-payhub-activities:$p4paActivitiesVersion")
 
   implementation("io.temporal:temporal-spring-boot-starter:$temporalVersion"){
     exclude(group = "com.google.protobuf", module = "protobuf-java")
   }
-
-  // updated for security reason
+  // Temporal
+  implementation("io.temporal:temporal-spring-boot-starter:$temporalVersion"){
+    exclude(group = "com.google.protobuf", module = "protobuf-java")
+    exclude(group = "com.google.guava", module = "guava")
+  }
   implementation("com.google.protobuf:protobuf-java:$protobufJavaVersion")
+  implementation("com.google.guava:guava:$guavaVersion")
 
 	compileOnly("org.projectlombok:lombok")
 	annotationProcessor("org.projectlombok:lombok")
