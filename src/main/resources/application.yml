@@ -62,6 +62,12 @@ spring:
           - treasuryOpiIngestionActivityImpl
           - sendEmailIngestionFlowActivityImpl
           - updateIngestionFlowStatusActivityImpl
+      - task-queue: ReceiptPagopaIngestionWF
+        activity-beans:
+          - receiptPagopaIngestionActivityImpl
+          - updateIngestionFlowStatusActivityImpl
+          - receiptPagopaNotifySilActivityImpl
+          - receiptPagopaSendEmailActivityImpl
       # classification
       - task-queue: IufClassificationWF
         activity-beans:
