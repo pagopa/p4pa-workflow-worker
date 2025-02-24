@@ -42,7 +42,7 @@ val micrometerVersion = "1.4.3"
 val bouncycastleVersion = "1.80"
 val p4paActivitiesVersion = "1.60.2"
 val temporalVersion = "1.27.1"
-val protobufJavaVersion = "4.29.3"
+val protobufJavaVersion = "3.25.5"
 val guavaVersion = "33.4.0-jre"
 
 dependencies {
@@ -57,10 +57,10 @@ dependencies {
 	implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
 	implementation("org.openapitools:jackson-databind-nullable:$openApiToolsVersion")
   implementation("org.bouncycastle:bcprov-jdk18on:$bouncycastleVersion")
-  implementation("it.gov.pagopa.payhub:p4pa-payhub-activities:$p4paActivitiesVersion")
-
-  implementation("io.temporal:temporal-spring-boot-starter:$temporalVersion"){
+  implementation("it.gov.pagopa.payhub:p4pa-payhub-activities:$p4paActivitiesVersion"){
+    exclude(group = "org.glassfish.jaxb", module = "jaxb-core")
     exclude(group = "com.google.protobuf", module = "protobuf-java")
+    exclude(group = "com.google.guava", module = "guava")
   }
   // Temporal
   implementation("io.temporal:temporal-spring-boot-starter:$temporalVersion"){
