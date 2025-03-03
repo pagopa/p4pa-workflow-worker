@@ -73,6 +73,7 @@ spring:
         activity-beans:
           - clearClassifyIufActivityImpl
           - iufClassificationActivityImpl
+          - paymentsReportingImplicitReceiptHandlerActivityImpl
       - task-queue: TransferClassificationWF
         activity-beans:
           - transferClassificationActivityImpl
