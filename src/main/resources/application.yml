@@ -68,6 +68,10 @@ spring:
           - updateIngestionFlowStatusActivityImpl
           - receiptPagopaNotifySilActivityImpl
           - receiptPagopaSendEmailActivityImpl
+      - task-queue: DebtPositionIngestionFlowWF
+        activity-beans:
+          - ingestionFlowFileProcessingLockerActivityImpl
+          - installmentIngestionFlowFileActivityImpl
       # classification
       - task-queue: IufClassificationWF
         activity-beans:
