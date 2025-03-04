@@ -86,6 +86,10 @@ spring:
         activity-beans:
           - organizationPaymentsReportingPagoPaListRetrieverActivityImpl
           - organizationPaymentsReportingPagoPaRetrieverActivityImpl
+      # pagopa taxonomy sync
+      - task-queue: SynchronizeTaxonomyPagoPaFetchWF
+        activity-beans:
+          - synchronizeTaxonomyActivityImpl
 
 management:
   endpoints:
