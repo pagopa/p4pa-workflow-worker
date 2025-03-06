@@ -71,6 +71,8 @@ spring:
       - task-queue: DebtPositionIngestionFlowWF
         activity-beans:
           - ingestionFlowFileProcessingLockerActivityImpl
+          - updateIngestionFlowStatusActivityImpl
+          - sendEmailIngestionFlowActivityImpl
           - installmentIngestionFlowFileActivityImpl
       # classification
       - task-queue: IufClassificationWF
