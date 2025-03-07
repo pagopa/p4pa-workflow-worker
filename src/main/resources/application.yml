@@ -18,7 +18,7 @@ spring:
     # Listing workers and registered activities
     workers:
       # debt position
-      - task-queue: DebtPositionExpirationWF
+      - task-queue: CheckDebtPositionExpirationWF
         activity-beans:
           - debtPositionExpirationActivityImpl
       # debt position sync
@@ -71,6 +71,8 @@ spring:
       - task-queue: DebtPositionIngestionFlowWF
         activity-beans:
           - ingestionFlowFileProcessingLockerActivityImpl
+          - updateIngestionFlowStatusActivityImpl
+          - sendEmailIngestionFlowActivityImpl
           - installmentIngestionFlowFileActivityImpl
       # classification
       - task-queue: IufClassificationWF
