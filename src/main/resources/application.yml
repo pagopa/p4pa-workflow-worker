@@ -18,7 +18,7 @@ spring:
     # Listing workers and registered activities
     workers:
       # debt position
-      - task-queue: DebtPositionExpirationWF
+      - task-queue: CheckDebtPositionExpirationWF
         activity-beans:
           - debtPositionExpirationActivityImpl
       # debt position sync
@@ -68,11 +68,18 @@ spring:
           - updateIngestionFlowStatusActivityImpl
           - receiptPagopaNotifySilActivityImpl
           - receiptPagopaSendEmailActivityImpl
+      - task-queue: DebtPositionIngestionFlowWF
+        activity-beans:
+          - ingestionFlowFileProcessingLockerActivityImpl
+          - updateIngestionFlowStatusActivityImpl
+          - sendEmailIngestionFlowActivityImpl
+          - installmentIngestionFlowFileActivityImpl
       # classification
       - task-queue: IufClassificationWF
         activity-beans:
           - clearClassifyIufActivityImpl
           - iufClassificationActivityImpl
+          - paymentsReportingImplicitReceiptHandlerActivityImpl
       - task-queue: TransferClassificationWF
         activity-beans:
           - transferClassificationActivityImpl
@@ -85,8 +92,19 @@ spring:
         activity-beans:
           - organizationPaymentsReportingPagoPaListRetrieverActivityImpl
           - organizationPaymentsReportingPagoPaRetrieverActivityImpl
+      # pagopa taxonomy sync
+      - task-queue: SynchronizeTaxonomyPagoPaFetchWF
+        activity-beans:
+          - synchronizeTaxonomyActivityImpl
 
 management:
+  info:
+    build.enabled: true
+    java.enabled: true
+    git.enabled: true
+  tracing:
+    baggage.remote-fields:
+      - X-user-id
   endpoints:
     jmx:
       exposure.include: "*"
