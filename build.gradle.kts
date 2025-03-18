@@ -40,10 +40,11 @@ val springDocOpenApiVersion = "2.8.5"
 val openApiToolsVersion = "0.2.6"
 val micrometerVersion = "1.4.3"
 val bouncycastleVersion = "1.80"
-val p4paActivitiesVersion = "1.77.1"
 val temporalVersion = "1.27.1"
 val protobufJavaVersion = "3.25.5"
 val guavaVersion = "33.4.0-jre"
+
+val p4paActivitiesVersion = "1.78.4"
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter")
