@@ -25,32 +25,32 @@ spring:
       - task-queue: DebtPositionSynchronize_NoPagoPA_WF
         activity-beans:
           - finalizeDebtPositionSyncStatusActivityImpl
-          - sendDebtPositionIONotificationActivityImpl
+          - IONotificationDebtPositionActivityImpl
       - task-queue: DebtPositionSynchronize_SYNC_WF
         activity-beans:
           - finalizeDebtPositionSyncStatusActivityImpl
-          - sendDebtPositionIONotificationActivityImpl
+          - IONotificationDebtPositionActivityImpl
       - task-queue: DebtPositionSynchronize_SYNC+ACA_WF
         activity-beans:
           - synchronizeInstallmentAcaActivityImpl
           - finalizeDebtPositionSyncStatusActivityImpl
-          - sendDebtPositionIONotificationActivityImpl
+          - IONotificationDebtPositionActivityImpl
       - task-queue: DebtPositionSynchronize_SYNC+GPDPRELOAD_WF
         activity-beans:
           - synchronizeInstallmentGpdPreLoadActivityImpl
           - finalizeDebtPositionSyncStatusActivityImpl
-          - sendDebtPositionIONotificationActivityImpl
+          - IONotificationDebtPositionActivityImpl
       - task-queue: DebtPositionSynchronize_SYNC+ACA+GPDPRELOAD_WF
         activity-beans:
           - synchronizeInstallmentGpdPreLoadActivityImpl
           - synchronizeInstallmentAcaActivityImpl
           - finalizeDebtPositionSyncStatusActivityImpl
-          - sendDebtPositionIONotificationActivityImpl
+          - IONotificationDebtPositionActivityImpl
       - task-queue: DebtPositionSynchronize_ASYNC_GPD_WF
         activity-beans:
           - synchronizeInstallmentGpdActivityImpl
           - finalizeDebtPositionSyncStatusActivityImpl
-          - sendDebtPositionIONotificationActivityImpl
+          - IONotificationDebtPositionActivityImpl
       # ingestion flow
       - task-queue: PaymentsReportingIngestionWF
         activity-beans:
