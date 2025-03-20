@@ -74,6 +74,7 @@ spring:
           - updateIngestionFlowStatusActivityImpl
           - sendEmailIngestionFlowActivityImpl
           - installmentIngestionFlowFileActivityImpl
+          - synchronizeIngestedDebtPositionActivityImpl
       # classification
       - task-queue: IufClassificationWF
         activity-beans:
