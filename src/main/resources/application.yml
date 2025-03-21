@@ -104,6 +104,7 @@ spring:
           - uploadSendFileActivityImpl
           - deliveryNotificationActivityImpl
           - notificationStatusActivityImpl
+
 management:
   info:
     build.enabled: true
