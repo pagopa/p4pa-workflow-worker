@@ -146,6 +146,7 @@ configure<SourceSetContainer> {
 }
 
 springBoot {
+  buildInfo()
 	mainClass.value("it.gov.pagopa.pu.worker.WorkerApplication")
 }
 
