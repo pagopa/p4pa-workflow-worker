@@ -97,6 +97,13 @@ spring:
       - task-queue: SynchronizeTaxonomyPagoPaFetchWF
         activity-beans:
           - synchronizeTaxonomyActivityImpl
+      # pagopa send
+      - task-queue: SendNotificationProcessWF
+        activity-beans:
+          - preloadSendFileActivityImpl
+          - uploadSendFileActivityImpl
+          - deliveryNotificationActivityImpl
+          - notificationStatusActivityImpl
 
 management:
   info:
