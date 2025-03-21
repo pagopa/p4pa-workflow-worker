@@ -23,7 +23,7 @@ import it.gov.pagopa.payhub.activities.activity.ingestionflow.paymentsreporting.
 import it.gov.pagopa.payhub.activities.activity.ingestionflow.paymentsreporting.PaymentsReportingIngestionFlowFileActivityImpl;
 import it.gov.pagopa.payhub.activities.connector.processexecutions.IngestionFlowFileService;
 import it.gov.pagopa.payhub.activities.exception.NotRetryableActivityException;
-import it.gov.pagopa.pu.processexecutions.dto.generated.IngestionFlowFile;
+import it.gov.pagopa.pu.processexecutions.dto.generated.IngestionFlowFileStatus;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -114,7 +114,7 @@ class TemporalSpringBootIntegrationTest {
     @Override
     public void execute(Long ingestionFlowFileId) {
       buildActivityStub(PaymentsReportingIngestionFlowFileActivity.class).processFile(ingestionFlowFileId);
-      buildActivityStub(UpdateIngestionFlowStatusActivity.class).updateStatus(ingestionFlowFileId, IngestionFlowFile.StatusEnum.PROCESSING, IngestionFlowFile.StatusEnum.COMPLETED, null, null);
+      buildActivityStub(UpdateIngestionFlowStatusActivity.class).updateStatus(ingestionFlowFileId, IngestionFlowFileStatus.PROCESSING, IngestionFlowFileStatus.COMPLETED, null, null);
       buildActivityStub(SendEmailIngestionFlowActivity.class).sendEmail(ingestionFlowFileId, true);
     }
   }
@@ -124,7 +124,7 @@ class TemporalSpringBootIntegrationTest {
     // Given
     long ingestionFlowFileId = 1L;
 
-    Mockito.when(ingestionFlowFileServiceMock.updateStatus(1L, IngestionFlowFile.StatusEnum.PROCESSING, IngestionFlowFile.StatusEnum.COMPLETED, null, null))
+    Mockito.when(ingestionFlowFileServiceMock.updateStatus(1L, IngestionFlowFileStatus.PROCESSING, IngestionFlowFileStatus.COMPLETED, null, null))
       .thenReturn(1);
 
     // When
@@ -132,7 +132,7 @@ class TemporalSpringBootIntegrationTest {
 
     // Then
     Mockito.verify(fileActivityMock).processFile(ingestionFlowFileId);
-    Mockito.verify(statusActivitySpy).updateStatus(ingestionFlowFileId, IngestionFlowFile.StatusEnum.PROCESSING, IngestionFlowFile.StatusEnum.COMPLETED, null, null);
+    Mockito.verify(statusActivitySpy).updateStatus(ingestionFlowFileId, IngestionFlowFileStatus.PROCESSING, IngestionFlowFileStatus.COMPLETED, null, null);
     Mockito.verify(emailActivityMock).sendEmail(ingestionFlowFileId, true);
   }
 
@@ -142,7 +142,7 @@ class TemporalSpringBootIntegrationTest {
     long ingestionFlowFileId = 1L;
 
     NotRetryableActivityException expectedNestedException = new NotRetryableActivityException("DUMMYEXCEPTION") {};
-    Mockito.when(ingestionFlowFileServiceMock.updateStatus(ingestionFlowFileId, IngestionFlowFile.StatusEnum.PROCESSING, IngestionFlowFile.StatusEnum.COMPLETED, null, null))
+    Mockito.when(ingestionFlowFileServiceMock.updateStatus(ingestionFlowFileId, IngestionFlowFileStatus.PROCESSING, IngestionFlowFileStatus.COMPLETED, null, null))
       .thenThrow(expectedNestedException);
     // When
     WorkflowFailedException result = Assertions.assertThrows(WorkflowFailedException.class, () -> execute(PaymentsReportingIngestionDummyWF.class, TASK_QUEUE, wf -> wf.execute(ingestionFlowFileId)));
