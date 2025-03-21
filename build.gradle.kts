@@ -6,6 +6,7 @@ plugins {
 	id("org.sonarqube") version "6.0.1.5171"
 	id("com.github.ben-manes.versions") version "0.51.0"
 	id("org.openapi.generator") version "7.10.0"
+  id("com.gorylenko.gradle-git-properties") version "2.5.0"
 }
 
 group = "it.gov.pagopa.payhub"
