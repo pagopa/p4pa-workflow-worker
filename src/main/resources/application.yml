@@ -109,7 +109,10 @@ spring:
           - deliveryNotificationActivityImpl
           - notificationStatusActivityImpl
           - getSendNotificationActivityImpl
-
+      # assessments
+      - task-queue: CreateAssessmentsWF
+        activity-beans:
+          - AssessmentsCreationActivityImpl
 management:
   info:
     build.enabled: true
