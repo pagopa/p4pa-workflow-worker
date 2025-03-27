@@ -112,7 +112,7 @@ spring:
       # assessments
       - task-queue: CreateAssessmentsWF
         activity-beans:
-          - AssessmentsCreationActivityImpl
+          - assessmentsCreationActivityImpl
 management:
   info:
     build.enabled: true
