@@ -34,7 +34,7 @@ jobs:
       - name: Checkout the code
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 #v4.1.1
       - name: Build the Docker image
-        run: docker build . --file Dockerfile --tag localbuild/testimage:latest
+        run: docker build . --file Dockerfile --tag localbuild/testimage:latest  --build-arg GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}
       - name: Run the Trivy scan action itself with GitHub Advanced Security code scanning integration enabled
         id: scan
         uses: aquasecurity/trivy-action@915b19bbe73b92a6cf82a1bc12b087c9a19a5fe2 # 0.28.0
@@ -49,7 +49,7 @@ jobs:
           sarif_file: 'results.sarif'
       - name: CVE Description escaped extraction and print
         run: |
-          SCAN_RESULTS=$(jq -r 'try .runs[0].tool.driver.rules | map(.help.text) | join("\\n")' results.sarif)
+          SCAN_RESULTS=$(jq -r 'try .runs[0].tool.driver.rules | try map(.shortDescription.text) | join("\\n")' results.sarif)
           echo "CVE_CRITICAL=$(echo $SCAN_RESULTS | grep -o CRITICAL | wc -l)" >> $GITHUB_ENV
           echo "CVE_HIGH=$(echo $SCAN_RESULTS | grep -o HIGH | wc -l)" >> $GITHUB_ENV
           echo "CVE_MEDIUM=$(echo $SCAN_RESULTS | grep -o MEDIUM | wc -l)" >> $GITHUB_ENV

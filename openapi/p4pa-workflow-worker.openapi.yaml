@@ -29,3 +29,25 @@ paths:
                   error:
                     type: string
                     example: "Internal Server Error"
+security:
+  - BearerAuth: []
+components:
+  schemas:
+    WorkerErrorDTO:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: string
+          enum:
+            - WORKER_NOT_FOUND
+            - WORKER_BAD_REQUEST
+            - WORKER_GENERIC_ERROR
+        message:
+          type: string
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
