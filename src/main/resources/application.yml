@@ -55,6 +55,10 @@ spring:
         activity-beans:
           - finalizeDebtPositionSyncStatusActivityImpl
           - IONotificationDebtPositionActivityImpl
+      # debt position custom WF sync
+      - task-queue: FineReductionOptionExpirationWF
+        activity-beans:
+          - debtPositionFineReductionOptionExpirationActivityImpl
       # ingestion flow
       - task-queue: PaymentsReportingIngestionWF
         activity-beans:
@@ -109,6 +113,9 @@ spring:
           - deliveryNotificationActivityImpl
           - notificationStatusActivityImpl
           - getSendNotificationActivityImpl
+      - task-queue: SendNotificationDateRetrieveWF
+        activity-beans:
+          - sendNotificationDateRetrieveActivityImpl
       # assessments
       - task-queue: CreateAssessmentsWF
         activity-beans:
