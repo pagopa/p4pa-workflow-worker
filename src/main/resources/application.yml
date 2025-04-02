@@ -109,6 +109,9 @@ spring:
           - deliveryNotificationActivityImpl
           - notificationStatusActivityImpl
           - getSendNotificationActivityImpl
+      - task-queue: SendNotificationDateRetrieveWF
+        activity-beans:
+          - sendNotificationDateRetrieveActivityImpl
       # assessments
       - task-queue: CreateAssessmentsWF
         activity-beans:
