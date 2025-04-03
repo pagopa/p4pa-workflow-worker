@@ -124,6 +124,10 @@ spring:
       - task-queue: ExportFileExpirationHandlerWF
         activity-beans:
           - exportFileExpirationHandlerActivityImpl
+      - task-queue: ExportFileWF
+        activity-beans:
+          - updateExportFileStatusActivityImpl
+          - exportFileActivityImpl
 management:
   info:
     build.enabled: true
