@@ -121,6 +121,9 @@ spring:
         activity-beans:
           - assessmentsCreationActivityImpl
       # export file
+      - task-queue: ExportFileExpirationHandlerWF
+        activity-beans:
+          - exportFileExpirationHandlerActivityImpl
       - task-queue: ExportFileWF
         activity-beans:
           - updateExportFileStatusActivityImpl
