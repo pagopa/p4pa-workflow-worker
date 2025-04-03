@@ -120,6 +120,11 @@ spring:
       - task-queue: CreateAssessmentsWF
         activity-beans:
           - assessmentsCreationActivityImpl
+      # export file
+      - task-queue: ExportFileWF
+        activity-beans:
+          - updateExportFileStatusActivityImpl
+          - exportFileActivityImpl
 management:
   info:
     build.enabled: true
