@@ -59,6 +59,9 @@ spring:
       - task-queue: FineReductionOptionExpirationWF
         activity-beans:
           - debtPositionFineReductionOptionExpirationActivityImpl
+      - task-queue: DebtPositionSynchronize_fine_WF
+        activity-beans:
+          - debtPositionSynchronizeFineActivityImpl
       # ingestion flow
       - task-queue: PaymentsReportingIngestionWF
         activity-beans:
