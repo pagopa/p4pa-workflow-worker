@@ -40,12 +40,13 @@ repositories {
 val springDocOpenApiVersion = "2.8.5"
 val openApiToolsVersion = "0.2.6"
 val micrometerVersion = "1.4.3"
+val otelVersion = "1.43.0"
 val bouncycastleVersion = "1.80"
 val temporalVersion = "1.28.4"
 val protobufJavaVersion = "4.30.2"
 val guavaVersion = "33.4.0-jre"
 
-val p4paActivitiesVersion = "1.101.2"
+val p4paActivitiesVersion = "1.104.1"
 
 dependencies {
   implementation("org.springframework.boot:spring-boot-starter")
@@ -71,6 +72,7 @@ dependencies {
   }
   implementation("com.google.protobuf:protobuf-java:$protobufJavaVersion")
   implementation("com.google.guava:guava:$guavaVersion")
+  implementation ("io.opentelemetry:opentelemetry-opentracing-shim:${otelVersion}")
 
   compileOnly("org.projectlombok:lombok")
   annotationProcessor("org.projectlombok:lombok")
