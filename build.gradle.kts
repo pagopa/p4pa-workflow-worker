@@ -1,11 +1,11 @@
 plugins {
   java
-  id("org.springframework.boot") version "3.4.3"
+  id("org.springframework.boot") version "3.4.5"
   id("io.spring.dependency-management") version "1.1.7"
   jacoco
-  id("org.sonarqube") version "6.0.1.5171"
-  id("com.github.ben-manes.versions") version "0.51.0"
-  id("org.openapi.generator") version "7.10.0"
+  id("org.sonarqube") version "6.1.0.5360"
+  id("com.github.ben-manes.versions") version "0.52.0"
+  id("org.openapi.generator") version "7.13.0"
   id("com.gorylenko.gradle-git-properties") version "2.5.0"
 }
 
@@ -37,16 +37,16 @@ repositories {
   }
 }
 
-val springDocOpenApiVersion = "2.8.5"
+val springDocOpenApiVersion = "2.8.6"
 val openApiToolsVersion = "0.2.6"
-val micrometerVersion = "1.4.3"
+val micrometerVersion = "1.4.6"
 val otelVersion = "1.43.0"
 val bouncycastleVersion = "1.80"
-val temporalVersion = "1.28.4"
+val temporalVersion = "1.29.0"
 val protobufJavaVersion = "4.30.2"
-val guavaVersion = "33.4.0-jre"
+val guavaVersion = "33.4.8-jre"
 
-val p4paActivitiesVersion = "1.107.1"
+val p4paActivitiesVersion = "1.107.2"
 
 dependencies {
   implementation("org.springframework.boot:spring-boot-starter")
