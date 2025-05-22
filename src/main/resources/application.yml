@@ -114,6 +114,7 @@ spring:
           - sendEmailIngestionFlowActivityImpl
           - installmentIngestionFlowFileActivityImpl
           - synchronizeIngestedDebtPositionActivityImpl
+          - massiveNoticeGenerationStatusRetrieverActivityImpl
       - task-queue: PaymentNotificationIngestionWF
         capacity:
           max-concurrent-activity-task-pollers: "\${WF_INGESTION_PAYMENT_NOTIFICATION_POLLER_SIZE:2}"
@@ -192,6 +193,12 @@ spring:
           max-concurrent-activity-task-pollers: "\${WF_EXPORT_FILE_EXPIRATION_POLLER_SIZE:2}"
         activity-beans:
           - exportFileExpirationHandlerActivityImpl
+      # organization
+      - task-queue: OrganizationIngestionWF
+        capacity:
+          max-concurrent-activity-task-pollers: "\${WF_INGESTION_ORGANIZATION_POLLER_SIZE:3}"
+        activity-beans:
+          - organizationIngestionActivityImpl
 management:
   info:
     build.enabled: true
