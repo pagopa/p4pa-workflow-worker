@@ -114,6 +114,7 @@ spring:
           - sendEmailIngestionFlowActivityImpl
           - installmentIngestionFlowFileActivityImpl
           - synchronizeIngestedDebtPositionActivityImpl
+          - massiveNoticeGenerationStatusRetrieverActivityImpl
       - task-queue: PaymentNotificationIngestionWF
         capacity:
           max-concurrent-activity-task-pollers: "\${WF_INGESTION_PAYMENT_NOTIFICATION_POLLER_SIZE:2}"
