@@ -97,6 +97,11 @@ spring:
           - treasuryOpiIngestionActivityImpl
           - sendEmailIngestionFlowActivityImpl
           - updateIngestionFlowStatusActivityImpl
+      - task-queue: ReceiptIngestionWF
+        capacity:
+          max-concurrent-activity-task-pollers: "\${WF_INGESTION_RT_POLLER_SIZE:2}"
+        activity-beans:
+          - receiptIngestionActivityImpl
       - task-queue: ReceiptPagopaIngestionWF
         capacity:
           max-concurrent-activity-task-pollers: "\${WF_INGESTION_RT_POLLER_SIZE:2}"
