@@ -206,6 +206,8 @@ spring:
           max-concurrent-activity-task-pollers: "\${WF_INGESTION_ORGANIZATION_POLLER_SIZE:3}"
         activity-beans:
           - organizationIngestionActivityImpl
+          - sendEmailIngestionFlowActivityImpl
+          - updateIngestionFlowStatusActivityImpl
 management:
   info:
     build.enabled: true
