@@ -102,6 +102,8 @@ spring:
           max-concurrent-activity-task-pollers: "\${WF_INGESTION_RT_POLLER_SIZE:2}"
         activity-beans:
           - receiptIngestionActivityImpl
+          - updateIngestionFlowStatusActivityImpl
+          - sendEmailIngestionFlowActivityImpl
       - task-queue: ReceiptPagopaIngestionWF
         capacity:
           max-concurrent-activity-task-pollers: "\${WF_INGESTION_RT_POLLER_SIZE:2}"
