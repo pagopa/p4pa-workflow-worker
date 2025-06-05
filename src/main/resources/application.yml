@@ -195,6 +195,7 @@ spring:
         activity-beans:
           - updateExportFileStatusActivityImpl
           - exportFileActivityImpl
+          - sendEmailExportFileActivityImpl
       - task-queue: ExportFileExpirationHandlerWF
         capacity:
           max-concurrent-activity-task-pollers: "\${WF_EXPORT_FILE_EXPIRATION_POLLER_SIZE:2}"
