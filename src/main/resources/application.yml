@@ -209,6 +209,14 @@ spring:
           - organizationIngestionActivityImpl
           - sendEmailIngestionFlowActivityImpl
           - updateIngestionFlowStatusActivityImpl
+      # debt position type
+      - task-queue: DebtPositionTypeIngestionWF
+        capacity:
+          max-concurrent-activity-task-pollers: "\${WF_INGESTION_DEBT_POS_TYPE_POLLER_SIZE:3}"
+        activity-beans:
+          - debtPositionTypeIngestionActivityImpl
+          - sendEmailIngestionFlowActivityImpl
+          - updateIngestionFlowStatusActivityImpl
 management:
   info:
     build.enabled: true
