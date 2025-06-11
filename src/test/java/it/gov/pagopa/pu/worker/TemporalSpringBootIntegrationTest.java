@@ -114,8 +114,8 @@ class TemporalSpringBootIntegrationTest {
     @Override
     public void execute(Long ingestionFlowFileId) {
       buildActivityStub(PaymentsReportingIngestionFlowFileActivity.class).processFile(ingestionFlowFileId);
-      buildActivityStub(UpdateIngestionFlowStatusActivity.class).updateStatus(ingestionFlowFileId, IngestionFlowFileStatus.PROCESSING, IngestionFlowFileStatus.COMPLETED, null);
-      buildActivityStub(SendEmailIngestionFlowActivity.class).sendEmail(ingestionFlowFileId, true);
+      buildActivityStub(UpdateIngestionFlowStatusActivity.class).updateIngestionFlowFileStatus(ingestionFlowFileId, IngestionFlowFileStatus.PROCESSING, IngestionFlowFileStatus.COMPLETED, null);
+      buildActivityStub(SendEmailIngestionFlowActivity.class).sendIngestionFlowFileCompleteEmail(ingestionFlowFileId, true);
     }
   }
 
@@ -132,8 +132,8 @@ class TemporalSpringBootIntegrationTest {
 
     // Then
     Mockito.verify(fileActivityMock).processFile(ingestionFlowFileId);
-    Mockito.verify(statusActivitySpy).updateStatus(ingestionFlowFileId, IngestionFlowFileStatus.PROCESSING, IngestionFlowFileStatus.COMPLETED, null);
-    Mockito.verify(emailActivityMock).sendEmail(ingestionFlowFileId, true);
+    Mockito.verify(statusActivitySpy).updateIngestionFlowFileStatus(ingestionFlowFileId, IngestionFlowFileStatus.PROCESSING, IngestionFlowFileStatus.COMPLETED, null);
+    Mockito.verify(emailActivityMock).sendIngestionFlowFileCompleteEmail(ingestionFlowFileId, true);
   }
 
   @Test
