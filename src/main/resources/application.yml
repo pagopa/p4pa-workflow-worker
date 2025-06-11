@@ -17,206 +17,100 @@ spring:
 
     # Listing workers and registered activities
     workers:
-      # debt position
-      - task-queue: CheckDebtPositionExpirationWF
+
+      # generic
+      - task-queue: LowPriorityWF
         capacity:
-          max-concurrent-activity-task-pollers: "\${WF_CHECK_DEBT_POSITION_EXPIRATION_POLLER_SIZE:2}"
-        activity-beans:
-          - debtPositionExpirationActivityImpl
-      # debt position sync
-      - task-queue: DebtPositionSynchronize_NoPagoPA_WF
-        capacity:
-          max-concurrent-activity-task-pollers: "\${WF_DP_SYNC_MODE_NOPAGOPA_SIZE:1}"
-        activity-beans:
-          - finalizeDebtPositionSyncStatusActivityImpl
-          - IONotificationDebtPositionActivityImpl
-      - task-queue: DebtPositionSynchronize_SYNC_WF
-        capacity:
-          max-concurrent-activity-task-pollers: "\${WF_DP_SYNC_MODE_SYNC_POLLER_SIZE:5}"
-        activity-beans:
-          - finalizeDebtPositionSyncStatusActivityImpl
-          - IONotificationDebtPositionActivityImpl
-      - task-queue: DebtPositionSynchronize_SYNC+ACA_WF
-        capacity:
-          max-concurrent-activity-task-pollers: "\${WF_DP_SYNC_MODE_ACA_POLLER_SIZE:5}"
-        activity-beans:
-          - synchronizeInstallmentAcaActivityImpl
-          - finalizeDebtPositionSyncStatusActivityImpl
-          - IONotificationDebtPositionActivityImpl
-      - task-queue: DebtPositionSynchronize_SYNC+GPDPRELOAD_WF
-        capacity:
-          max-concurrent-activity-task-pollers: "\${WF_DP_SYNC_MODE_GPDPRELOAD_POLLER_SIZE:3}"
-        activity-beans:
-          - synchronizeInstallmentGpdPreLoadActivityImpl
-          - finalizeDebtPositionSyncStatusActivityImpl
-          - IONotificationDebtPositionActivityImpl
-      - task-queue: DebtPositionSynchronize_SYNC+ACA+GPDPRELOAD_WF
-        capacity:
-          max-concurrent-activity-task-pollers: "\${WF_DP_SYNC_MODE_ACAGPDPRELOAD_POLLER_SIZE:3}"
-        activity-beans:
-          - synchronizeInstallmentGpdPreLoadActivityImpl
-          - synchronizeInstallmentAcaActivityImpl
-          - finalizeDebtPositionSyncStatusActivityImpl
-          - IONotificationDebtPositionActivityImpl
-      - task-queue: DebtPositionSynchronize_ASYNC_GPD_WF
-        capacity:
-          max-concurrent-activity-task-pollers: "\${WF_DP_SYNC_MODE_GPD_POLLER_SIZE:5}"
-        activity-beans:
-          - synchronizeInstallmentGpdActivityImpl
-          - finalizeDebtPositionSyncStatusActivityImpl
-          - IONotificationDebtPositionActivityImpl
-      - task-queue: DebtPositionSynchronize_finalizeMassive_WF
-        capacity:
-          max-concurrent-activity-task-pollers: "\${WF_DP_MASSIVE_SYNC_FINALIZE_POLLER_SIZE:3}"
-        activity-beans:
-          - finalizeDebtPositionSyncStatusActivityImpl
-          - IONotificationDebtPositionActivityImpl
-      # debt position custom WF sync
-      - task-queue: DebtPositionSynchronize_fine_WF
-        capacity:
-          max-concurrent-activity-task-pollers: "\${WF_DP_SYNC_CUSTOM_FINE_POLLER_SIZE:5}"
-        activity-beans:
-          - debtPositionSynchronizeFineActivityImpl
-      - task-queue: FineReductionOptionExpirationWF
-        capacity:
-          max-concurrent-activity-task-pollers: "\${WF_FINE_REDUCTION_EXPIRATION_POLLER_SIZE:3}"
-        activity-beans:
-          - debtPositionFineReductionOptionExpirationActivityImpl
-      # ingestion flow
-      - task-queue: PaymentsReportingIngestionWF
-        capacity:
-          max-concurrent-activity-task-pollers: "\${WF_INGESTION_PAYMENTS_REPORTING_POLLER_SIZE:2}"
-        activity-beans:
-          - paymentsReportingIngestionFlowFileActivityImpl
-          - sendEmailIngestionFlowActivityImpl
-          - updateIngestionFlowStatusActivityImpl
-      - task-queue: TreasuryOpiIngestionWF
-        capacity:
-          max-concurrent-activity-task-pollers: "\${WF_INGESTION_TREASURY_OPI_POLLER_SIZE:2}"
-        activity-beans:
-          - treasuryOpiIngestionActivityImpl
-          - sendEmailIngestionFlowActivityImpl
-          - updateIngestionFlowStatusActivityImpl
-      - task-queue: ReceiptIngestionWF
-        capacity:
-          max-concurrent-activity-task-pollers: "\${WF_INGESTION_RT_POLLER_SIZE:2}"
-        activity-beans:
-          - receiptIngestionActivityImpl
-          - updateIngestionFlowStatusActivityImpl
-          - sendEmailIngestionFlowActivityImpl
-      - task-queue: ReceiptPagopaIngestionWF
-        capacity:
-          max-concurrent-activity-task-pollers: "\${WF_INGESTION_RT_POLLER_SIZE:2}"
-        activity-beans:
-          - receiptPagopaIngestionActivityImpl
-          - updateIngestionFlowStatusActivityImpl
-          - receiptPagopaNotifySilActivityImpl
-          - receiptPagopaSendEmailActivityImpl
-      - task-queue: DebtPositionIngestionFlowWF
-        capacity:
-          max-concurrent-activity-task-pollers: "\${WF_INGESTION_DP_POLLER_SIZE:2}"
-        activity-beans:
-          - ingestionFlowFileProcessingLockerActivityImpl
-          - updateIngestionFlowStatusActivityImpl
-          - sendEmailIngestionFlowActivityImpl
-          - installmentIngestionFlowFileActivityImpl
-          - synchronizeIngestedDebtPositionActivityImpl
-          - massiveNoticeGenerationStatusRetrieverActivityImpl
-      - task-queue: PaymentNotificationIngestionWF
-        capacity:
-          max-concurrent-activity-task-pollers: "\${WF_INGESTION_PAYMENT_NOTIFICATION_POLLER_SIZE:2}"
-        activity-beans:
-          - paymentNotificationIngestionActivityImpl
-          - sendEmailIngestionFlowActivityImpl
-          - updateIngestionFlowStatusActivityImpl
-      # classification
-      - task-queue: IudClassificationWF
-        capacity:
-          max-concurrent-activity-task-pollers: "\${WF_CLASSIFICATION_IUD_POLLER_SIZE:5}"
-        activity-beans:
-          - clearClassifyIudActivityImpl
-          - iudClassificationActivityImpl
-      - task-queue: IufClassificationWF
-        capacity:
-          max-concurrent-activity-task-pollers: "\${WF_CASSIFICATION_IUF_POLLER_SIZE:5}"
-        activity-beans:
-          - clearClassifyIufActivityImpl
-          - iufClassificationActivityImpl
-          - paymentsReportingImplicitReceiptHandlerActivityImpl
-      - task-queue: TransferClassificationWF
-        capacity:
-          max-concurrent-activity-task-pollers: "\${WF_CLASSIFICATION_TRANSFER_POLLER_SIZE:5}"
-        activity-beans:
-          - transferClassificationActivityImpl
-      # pagopa payments reporting
-      - task-queue: PaymentsReportingPagoPaBrokersFetchWF
-        capacity:
-          max-concurrent-activity-task-pollers: "\${WF_PAYMENTS_REPORTING_BROKERS_FETCH_POLLER_SIZE:1}"
+          max-concurrent-workflow-task-pollers: "\${WF_LOW_PRIORITY_POLLER_SIZE:3}"
         activity-beans:
           - brokersRetrieverActivityImpl
           - organizationBrokeredActiveRetrieverActivityImpl
-      - task-queue: PaymentsReportingPagoPaOrganizationFetchWF
-        capacity:
-          max-concurrent-activity-task-pollers: "\${WF_PAYMENTS_REPORTING_PAGOPA_FETCH_POLLER_SIZE:3}"
-        activity-beans:
           - organizationPaymentsReportingPagoPaListRetrieverActivityImpl
           - organizationPaymentsReportingPagoPaRetrieverActivityImpl
-      # pagopa taxonomy sync
-      - task-queue: SynchronizeTaxonomyPagoPaFetchWF
-        capacity:
-          max-concurrent-activity-task-pollers: "\${WF_SYNC_TAXONOMY_POLLER_SIZE:1}"
-        activity-beans:
           - synchronizeTaxonomyActivityImpl
+          - exportFileExpirationHandlerActivityImpl
+      # debt position
+      - task-queue: DebtPositionWF
+        capacity:
+          max-concurrent-activity-task-pollers: "\${WF_DP_LOW_PRIORITY_POLLER_SIZE:3}"
+        activity-beans:
+          - debtPositionExpirationActivityImpl
+      - task-queue: DebtPositionSyncWF
+        capacity:
+          max-concurrent-activity-task-pollers: "\${WF_DP_RESERVED_SYNC_POLLER_SIZE:10}"
+        activity-beans:
+          - synchronizeInstallmentAcaActivityImpl
+          - synchronizeInstallmentGpdPreLoadActivityImpl
+          - synchronizeInstallmentGpdActivityImpl
+          - finalizeDebtPositionSyncStatusActivityImpl
+          - IONotificationDebtPositionActivityImpl
+      # debt position custom WF sync
+      - task-queue: DebtPositionCustomSyncWF
+        capacity:
+          max-concurrent-workflow-task-pollers: "\${WF_DP_RESERVED_CUSTOM_SYNC_POLLER_SIZE:5}"
+        activity-beans:
+          - debtPositionSynchronizeFineActivityImpl
+          - debtPositionFineReductionOptionExpirationActivityImpl
+      # ingestion flow
+      - task-queue: IngestionFlowFileWF
+        capacity:
+          max-concurrent-workflow-task-pollers: "\${WF_IMPORT_MEDIUM_PRIORITY_POLLER_SIZE:3}"
+        activity-beans:
+          - paymentsReportingIngestionFlowFileActivityImpl
+          - treasuryOpiIngestionActivityImpl
+          - receiptIngestionActivityImpl
+          - receiptPagopaIngestionActivityImpl
+          - organizationIngestionActivityImpl
+          - debtPositionTypeIngestionActivityImpl
+          - paymentNotificationIngestionActivityImpl
+          - installmentIngestionFlowFileActivityImpl
+          - ingestionFlowFileProcessingLockerActivityImpl
+          - updateIngestionFlowStatusActivityImpl
+          - sendEmailIngestionFlowActivityImpl
+          - receiptPagopaNotifySilActivityImpl
+          - receiptPagopaSendEmailActivityImpl
+          - synchronizeIngestedDebtPositionActivityImpl
+          - massiveNoticeGenerationStatusRetrieverActivityImpl
+      # export file
+      - task-queue: ExportFileWF
+        capacity:
+          max-concurrent-activity-task-pollers: "\${WF_EXPORT_MEDIUM_PRIORITY_POLLER_SIZE:3}"
+        activity-beans:
+          - updateExportFileStatusActivityImpl
+          - exportFileActivityImpl
+          - sendEmailExportFileActivityImpl
+      # classification
+      - task-queue: ClassificationWF
+        capacity:
+          max-concurrent-workflow-task-pollers: "\${WF_CLASSIFICATION_MEDIUM_PRIORITY_POLLER_SIZE:3}"
+        activity-beans:
+          - clearClassifyIudActivityImpl
+          - iudClassificationActivityImpl
+          - clearClassifyIufActivityImpl
+          - iufClassificationActivityImpl
+          - paymentsReportingImplicitReceiptHandlerActivityImpl
+          - transferClassificationActivityImpl
       # pagopa send
       - task-queue: SendNotificationProcessWF
         capacity:
-          max-concurrent-activity-task-pollers: "\${WF_SEND_NOTIFICATION_POLLER_SIZE:3}"
+          max-concurrent-workflow-task-pollers: "\${WF_SEND_RESERVED_NOTIFICATION_POLLER_SIZE:3}"
         activity-beans:
           - preloadSendFileActivityImpl
           - uploadSendFileActivityImpl
           - deliveryNotificationActivityImpl
           - notificationStatusActivityImpl
           - getSendNotificationActivityImpl
-      - task-queue: SendNotificationDateRetrieveWF
+      - task-queue: SendWF
         capacity:
-          max-concurrent-activity-task-pollers: "\${WF_SEND_NOTIFICATION_DT_RETRIEVE_POLLER_SIZE:3}"
+          max-concurrent-workflow-task-pollers: "\${WF_SEND_LOW_PRIORITY_POLLER_SIZE:3}"
         activity-beans:
           - sendNotificationDateRetrieveActivityImpl
       # assessments
-      - task-queue: CreateAssessmentsWF
+      - task-queue: AssessmentCreationWF
         capacity:
-          max-concurrent-activity-task-pollers: "\${WF_CREATE_ASSESSMENT_POLLER_SIZE:3}"
+          max-concurrent-workflow-task-pollers: "\${WF_ASSESSMENTS_RESERVED_CREATION_POLLER_SIZE:5}"
         activity-beans:
           - assessmentsCreationActivityImpl
-      # export file
-      - task-queue: ExportFileWF
-        capacity:
-          max-concurrent-activity-task-pollers: "\${WF_EXPORT_FILE_POLLER_SIZE:5}"
-        activity-beans:
-          - updateExportFileStatusActivityImpl
-          - exportFileActivityImpl
-          - sendEmailExportFileActivityImpl
-      - task-queue: ExportFileExpirationHandlerWF
-        capacity:
-          max-concurrent-activity-task-pollers: "\${WF_EXPORT_FILE_EXPIRATION_POLLER_SIZE:2}"
-        activity-beans:
-          - exportFileExpirationHandlerActivityImpl
-      # organization
-      - task-queue: OrganizationIngestionWF
-        capacity:
-          max-concurrent-activity-task-pollers: "\${WF_INGESTION_ORGANIZATION_POLLER_SIZE:3}"
-        activity-beans:
-          - organizationIngestionActivityImpl
-          - sendEmailIngestionFlowActivityImpl
-          - updateIngestionFlowStatusActivityImpl
-      # debt position type
-      - task-queue: DebtPositionTypeIngestionWF
-        capacity:
-          max-concurrent-activity-task-pollers: "\${WF_INGESTION_DEBT_POS_TYPE_POLLER_SIZE:3}"
-        activity-beans:
-          - debtPositionTypeIngestionActivityImpl
-          - sendEmailIngestionFlowActivityImpl
-          - updateIngestionFlowStatusActivityImpl
 management:
   info:
     build.enabled: true
