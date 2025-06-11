@@ -91,7 +91,7 @@ class TemporalSpringBootIntegrationTest {
   }
 //endregion
 
-  private static final String TASK_QUEUE = "PaymentsReportingIngestionWF";
+  private static final String TASK_QUEUE = "IngestionFlowFileWF";
 
   @MockitoBean(enforceOverride = true)
   private PaymentsReportingIngestionFlowFileActivityImpl fileActivityMock;
