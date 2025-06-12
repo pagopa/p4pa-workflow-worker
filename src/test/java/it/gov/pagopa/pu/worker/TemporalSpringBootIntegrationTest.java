@@ -28,6 +28,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
@@ -54,6 +55,8 @@ class TemporalSpringBootIntegrationTest {
 
   @Autowired
   private WorkflowClient temporalClient;
+  @Value("${spring.temporal.namespace}")
+  private String temporalNamespace;
 
   protected static <T> T buildActivityStub(Class<T> activityClass) {
     return Workflow.newActivityStub(activityClass, ActivityOptions.newBuilder()
@@ -84,14 +87,14 @@ class TemporalSpringBootIntegrationTest {
   protected void waitUntilWfCompletion(String workflowId) {
     WorkflowExecutionInfo info;
     do {
-      info = WorkflowClientHelper.describeWorkflowInstance(temporalClient.getWorkflowServiceStubs(), "default", WorkflowExecution.newBuilder().setWorkflowId(workflowId).build(), new NoopScope());
+      info = WorkflowClientHelper.describeWorkflowInstance(temporalClient.getWorkflowServiceStubs(), temporalNamespace, WorkflowExecution.newBuilder().setWorkflowId(workflowId).build(), new NoopScope());
     } while (!wfTerminationStatuses.contains(info.getStatus()));
 
     Assertions.assertEquals(WorkflowExecutionStatus.WORKFLOW_EXECUTION_STATUS_COMPLETED, info.getStatus());
   }
 //endregion
 
-  private static final String TASK_QUEUE = "PaymentsReportingIngestionWF";
+  private static final String TASK_QUEUE = "IngestionFlowFileWF";
 
   @MockitoBean(enforceOverride = true)
   private PaymentsReportingIngestionFlowFileActivityImpl fileActivityMock;
@@ -114,8 +117,8 @@ class TemporalSpringBootIntegrationTest {
     @Override
     public void execute(Long ingestionFlowFileId) {
       buildActivityStub(PaymentsReportingIngestionFlowFileActivity.class).processFile(ingestionFlowFileId);
-      buildActivityStub(UpdateIngestionFlowStatusActivity.class).updateStatus(ingestionFlowFileId, IngestionFlowFileStatus.PROCESSING, IngestionFlowFileStatus.COMPLETED, null);
-      buildActivityStub(SendEmailIngestionFlowActivity.class).sendEmail(ingestionFlowFileId, true);
+      buildActivityStub(UpdateIngestionFlowStatusActivity.class).updateIngestionFlowFileStatus(ingestionFlowFileId, IngestionFlowFileStatus.PROCESSING, IngestionFlowFileStatus.COMPLETED, null);
+      buildActivityStub(SendEmailIngestionFlowActivity.class).sendIngestionFlowFileCompleteEmail(ingestionFlowFileId, true);
     }
   }
 
@@ -132,8 +135,8 @@ class TemporalSpringBootIntegrationTest {
 
     // Then
     Mockito.verify(fileActivityMock).processFile(ingestionFlowFileId);
-    Mockito.verify(statusActivitySpy).updateStatus(ingestionFlowFileId, IngestionFlowFileStatus.PROCESSING, IngestionFlowFileStatus.COMPLETED, null);
-    Mockito.verify(emailActivityMock).sendEmail(ingestionFlowFileId, true);
+    Mockito.verify(statusActivitySpy).updateIngestionFlowFileStatus(ingestionFlowFileId, IngestionFlowFileStatus.PROCESSING, IngestionFlowFileStatus.COMPLETED, null);
+    Mockito.verify(emailActivityMock).sendIngestionFlowFileCompleteEmail(ingestionFlowFileId, true);
   }
 
   @Test
