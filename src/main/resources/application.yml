@@ -72,6 +72,7 @@ spring:
           - receiptPagopaSendEmailActivityImpl
           - synchronizeIngestedDebtPositionActivityImpl
           - massiveNoticeGenerationStatusRetrieverActivityImpl
+          - assessmentsRegistryIngestionActivityImpl
       # export file
       - task-queue: ExportFileWF
         capacity:
