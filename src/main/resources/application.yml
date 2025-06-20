@@ -73,6 +73,7 @@ spring:
           - synchronizeIngestedDebtPositionActivityImpl
           - massiveNoticeGenerationStatusRetrieverActivityImpl
           - assessmentsRegistryIngestionActivityImpl
+          - debtPositionTypeOrgIngestionActivityImpl
       # export file
       - task-queue: ExportFileWF
         capacity:
