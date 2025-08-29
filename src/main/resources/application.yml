@@ -76,6 +76,7 @@ spring:
           - assessmentsRegistryIngestionActivityImpl
           - debtPositionTypeOrgIngestionActivityImpl
           - orgSilServiceIngestionActivityImpl
+          - sendNotificationIngestionActivityImpl
       # export file
       - task-queue: ExportFileWF
         capacity:
