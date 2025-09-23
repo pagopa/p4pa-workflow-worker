@@ -1,12 +1,12 @@
 plugins {
   java
-  id("org.springframework.boot") version "3.5.5"
+  id("org.springframework.boot") version "3.5.6"
   id("io.spring.dependency-management") version "1.1.7"
   jacoco
-  id("org.sonarqube") version "6.2.0.5505"
+  id("org.sonarqube") version "6.3.1.5724"
   id("com.github.ben-manes.versions") version "0.52.0"
-  id("org.openapi.generator") version "7.13.0"
-  id("com.gorylenko.gradle-git-properties") version "2.5.0"
+  id("org.openapi.generator") version "7.15.0"
+  id("com.gorylenko.gradle-git-properties") version "2.5.3"
 }
 
 group = "it.gov.pagopa.payhub"
@@ -37,14 +37,14 @@ repositories {
   }
 }
 
-val springDocOpenApiVersion = "2.8.9"
-val openApiToolsVersion = "0.2.6"
-val micrometerVersion = "1.5.1"
-val otelVersion = "1.43.0"
-val bouncycastleVersion = "1.81"
-val temporalVersion = "1.29.0"
-val protobufJavaVersion = "4.31.1"
-val guavaVersion = "33.4.8-jre"
+val springDocOpenApiVersion = "2.8.13"
+val openApiToolsVersion = "0.2.7"
+val micrometerVersion = "1.5.4"
+val otelVersion = "1.49.0"
+val bouncycastleVersion = "1.82"
+val temporalVersion = "1.31.0"
+val protobufJavaVersion = "4.32.1"
+val guavaVersion = "33.5.0-jre"
 
 val p4paActivitiesVersion = "1.149.6"
 
