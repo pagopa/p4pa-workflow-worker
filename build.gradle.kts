@@ -46,7 +46,7 @@ val temporalVersion = "1.31.0"
 val protobufJavaVersion = "4.32.1"
 val guavaVersion = "33.5.0-jre"
 
-val p4paActivitiesVersion = "1.150.0"
+val p4paActivitiesVersion = "1.151.1"
 
 dependencies {
   implementation("org.springframework.boot:spring-boot-starter")
