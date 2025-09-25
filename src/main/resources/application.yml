@@ -62,6 +62,7 @@ spring:
           - treasuryCsvIngestionActivityImpl
           - treasuryCsvCompleteIngestionActivityImpl
           - treasuryXlsIngestionActivityImpl
+          - treasuryPosteIngestionActivityImpl
           - receiptIngestionActivityImpl
           - receiptPagopaIngestionActivityImpl
           - organizationIngestionActivityImpl
