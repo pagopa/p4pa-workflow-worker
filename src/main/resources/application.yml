@@ -59,7 +59,10 @@ spring:
         activity-beans:
           - paymentsReportingIngestionFlowFileActivityImpl
           - treasuryOpiIngestionActivityImpl
+          - treasuryCsvIngestionActivityImpl
           - treasuryCsvCompleteIngestionActivityImpl
+          - treasuryXlsIngestionActivityImpl
+          - treasuryPosteIngestionActivityImpl
           - receiptIngestionActivityImpl
           - receiptPagopaIngestionActivityImpl
           - organizationIngestionActivityImpl
