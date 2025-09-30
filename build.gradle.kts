@@ -23,6 +23,9 @@ configurations {
   compileOnly {
     extendsFrom(configurations.annotationProcessor.get())
   }
+  compileClasspath {
+    resolutionStrategy.activateDependencyLocking()
+  }
 }
 
 repositories {
@@ -44,9 +47,11 @@ val otelVersion = "1.49.0"
 val bouncycastleVersion = "1.82"
 val temporalVersion = "1.31.0"
 val protobufJavaVersion = "4.32.1"
+val grpcBomVersion = "1.75.0"
 val guavaVersion = "33.5.0-jre"
+val commonsLang3Version = "3.19.0"
 
-val p4paActivitiesVersion = "1.151.3"
+val p4paActivitiesVersion = "1.151.5"
 
 dependencies {
   implementation("org.springframework.boot:spring-boot-starter")
@@ -56,21 +61,29 @@ dependencies {
   implementation("org.springframework.boot:spring-boot-starter-actuator")
   implementation("io.micrometer:micrometer-tracing-bridge-otel:$micrometerVersion")
   implementation("io.micrometer:micrometer-registry-prometheus")
-  implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:$springDocOpenApiVersion")
+  implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:$springDocOpenApiVersion") {
+    exclude(group = "org.apache.commons", module = "commons-lang3")
+  }
+  implementation("org.apache.commons:commons-lang3:${commonsLang3Version}")
   implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
   implementation("org.openapitools:jackson-databind-nullable:$openApiToolsVersion")
   implementation("org.bouncycastle:bcprov-jdk18on:$bouncycastleVersion")
   implementation("it.gov.pagopa.payhub:p4pa-payhub-activities:$p4paActivitiesVersion") {
     exclude(group = "org.glassfish.jaxb", module = "jaxb-core")
     exclude(group = "com.google.protobuf", module = "protobuf-java")
+    exclude(group = "com.google.protobuf", module = "protobuf-java-util")
     exclude(group = "com.google.guava", module = "guava")
   }
   // Temporal
   implementation("io.temporal:temporal-spring-boot-starter:$temporalVersion") {
     exclude(group = "com.google.protobuf", module = "protobuf-java")
+    exclude(group = "com.google.protobuf", module = "protobuf-java-util")
+    exclude(group = "io.grpc", module = "grpc-bom")
     exclude(group = "com.google.guava", module = "guava")
   }
   implementation("com.google.protobuf:protobuf-java:$protobufJavaVersion")
+  implementation("com.google.protobuf:protobuf-java-util:${protobufJavaVersion}")
+  implementation(platform("io.grpc:grpc-bom:${grpcBomVersion}"))
   implementation("com.google.guava:guava:$guavaVersion")
   implementation ("io.opentelemetry:opentelemetry-opentracing-shim:${otelVersion}")
 
@@ -120,12 +133,6 @@ tasks {
     filesMatching("**/application.yml") {
       expand(projectInfo)
     }
-  }
-}
-
-configurations {
-  compileClasspath {
-    resolutionStrategy.activateDependencyLocking()
   }
 }
 
