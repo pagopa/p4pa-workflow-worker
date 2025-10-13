@@ -95,6 +95,7 @@ spring:
           max-concurrent-workflow-task-pollers: "\${WF_CLASSIFICATION_MEDIUM_PRIORITY_POLLER_SIZE:3}"
         activity-beans:
           - clearClassifyIudActivityImpl
+          - clearClassifyTreasuryActivityImpl
           - iudClassificationActivityImpl
           - clearClassifyIufActivityImpl
           - iufClassificationActivityImpl
