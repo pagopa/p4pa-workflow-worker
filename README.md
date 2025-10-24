@@ -83,6 +83,7 @@ See also relevant configurations documented on [pa4pa-payhub-activities](https:/
 | WF_SEND_LOW_PRIORITY_POLLER_SIZE              | Poller size configured for Temporal task queue `SendWF`                     | 3       |
 | WF_ASSESSMENTS_RESERVED_CREATION_POLLER_SIZE  | Poller size configured for Temporal task queue `AssessmentCreationWF`       | 5       |
 | WF_ASSESSMENTS_POLLER_SIZE                    | Poller size configured for Temporal task queue `AssessmentsWF`              | 5       |
+| WF_ASSESSMENTS_CLASSIFICATION_POLLER_SIZE     | Poller size configured for Temporal task queue `AssessmentClassificationWF` | 5       |
 
 #### 🔑 keys
 | ENV                                  | DESCRIPTION                                                                              | DEFAULT |
