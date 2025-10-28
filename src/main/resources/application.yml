@@ -127,6 +127,11 @@ spring:
           max-concurrent-workflow-task-pollers: "\${WF_ASSESSMENTS_POLLER_SIZE:5}"
         activity-beans:
           - assessmentsRegistryCreationActivityImpl
+      - task-queue: AssessmentClassificationWF
+        capacity:
+          max-concurrent-workflow-task-pollers: "\${WF_ASSESSMENTS_CLASSIFICATION_POLLER_SIZE:5}"
+        activity-beans:
+          - assessmentsClassificationActivityImpl
 management:
   info:
     build.enabled: true
