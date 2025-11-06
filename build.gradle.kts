@@ -51,7 +51,7 @@ val grpcBomVersion = "1.75.0"
 val guavaVersion = "33.5.0-jre"
 val commonsLang3Version = "3.19.0"
 
-val p4paActivitiesVersion = "1.159.5"
+val p4paActivitiesVersion = "1.159.15"
 
 dependencies {
   implementation("org.springframework.boot:spring-boot-starter")
