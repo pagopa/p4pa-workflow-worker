@@ -2,6 +2,7 @@ package it.gov.pagopa.pu.worker.exception;
 
 import com.fasterxml.jackson.databind.JsonMappingException;
 import it.gov.pagopa.pu.worker.dto.generated.WorkerErrorDTO;
+import it.gov.pagopa.pu.worker.util.Utilities;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolationException;
@@ -63,7 +64,7 @@ public class WorkerExceptionHandler {
     return ResponseEntity
       .status(httpStatus)
       .contentType(MediaType.APPLICATION_JSON)
-      .body(new WorkerErrorDTO(errorEnum, message));
+      .body(new WorkerErrorDTO(errorEnum, message, Utilities.getTraceId()));
   }
 
   private static void logException(Exception ex, HttpServletRequest request, HttpStatusCode httpStatus) {
