@@ -21,7 +21,7 @@ spring:
       # generic
       - task-queue: LowPriorityWF
         capacity:
-          max-concurrent-workflow-task-pollers: "\${WF_LOW_PRIORITY_POLLER_SIZE:3}"
+          max-concurrent-activity-task-pollers: "\${WF_LOW_PRIORITY_POLLER_SIZE:3}"
         activity-beans:
           - brokersRetrieverActivityImpl
           - organizationBrokeredActiveRetrieverActivityImpl
@@ -48,14 +48,14 @@ spring:
       # debt position custom WF sync
       - task-queue: DebtPositionCustomSyncWF
         capacity:
-          max-concurrent-workflow-task-pollers: "\${WF_DP_RESERVED_CUSTOM_SYNC_POLLER_SIZE:5}"
+          max-concurrent-activity-task-pollers: "\${WF_DP_RESERVED_CUSTOM_SYNC_POLLER_SIZE:5}"
         activity-beans:
           - debtPositionSynchronizeFineActivityImpl
           - debtPositionFineReductionOptionExpirationActivityImpl
       # ingestion flow
       - task-queue: IngestionFlowFileWF
         capacity:
-          max-concurrent-workflow-task-pollers: "\${WF_IMPORT_MEDIUM_PRIORITY_POLLER_SIZE:3}"
+          max-concurrent-activity-task-pollers: "\${WF_IMPORT_MEDIUM_PRIORITY_POLLER_SIZE:3}"
         activity-beans:
           - paymentsReportingIngestionFlowFileActivityImpl
           - treasuryOpiIngestionActivityImpl
@@ -92,7 +92,7 @@ spring:
       # classification
       - task-queue: ClassificationWF
         capacity:
-          max-concurrent-workflow-task-pollers: "\${WF_CLASSIFICATION_MEDIUM_PRIORITY_POLLER_SIZE:3}"
+          max-concurrent-activity-task-pollers: "\${WF_CLASSIFICATION_MEDIUM_PRIORITY_POLLER_SIZE:3}"
         activity-beans:
           - clearClassifyIudActivityImpl
           - clearClassifyTreasuryActivityImpl
@@ -104,7 +104,7 @@ spring:
       # pagopa send
       - task-queue: SendNotificationProcessWF
         capacity:
-          max-concurrent-workflow-task-pollers: "\${WF_SEND_RESERVED_NOTIFICATION_POLLER_SIZE:3}"
+          max-concurrent-activity-task-pollers: "\${WF_SEND_RESERVED_NOTIFICATION_POLLER_SIZE:3}"
         activity-beans:
           - preloadSendFileActivityImpl
           - uploadSendFileActivityImpl
@@ -113,23 +113,23 @@ spring:
           - getSendNotificationActivityImpl
       - task-queue: SendWF
         capacity:
-          max-concurrent-workflow-task-pollers: "\${WF_SEND_LOW_PRIORITY_POLLER_SIZE:3}"
+          max-concurrent-activity-task-pollers: "\${WF_SEND_LOW_PRIORITY_POLLER_SIZE:3}"
         activity-beans:
           - sendNotificationDateRetrieveActivityImpl
       # assessments
       - task-queue: AssessmentCreationWF
         capacity:
-          max-concurrent-workflow-task-pollers: "\${WF_ASSESSMENTS_RESERVED_CREATION_POLLER_SIZE:5}"
+          max-concurrent-activity-task-pollers: "\${WF_ASSESSMENTS_RESERVED_CREATION_POLLER_SIZE:5}"
         activity-beans:
           - assessmentsCreationActivityImpl
       - task-queue: AssessmentsWF
         capacity:
-          max-concurrent-workflow-task-pollers: "\${WF_ASSESSMENTS_POLLER_SIZE:5}"
+          max-concurrent-activity-task-pollers: "\${WF_ASSESSMENTS_POLLER_SIZE:5}"
         activity-beans:
           - assessmentsRegistryCreationActivityImpl
       - task-queue: AssessmentClassificationWF
         capacity:
-          max-concurrent-workflow-task-pollers: "\${WF_ASSESSMENTS_CLASSIFICATION_POLLER_SIZE:5}"
+          max-concurrent-activity-task-pollers: "\${WF_ASSESSMENTS_CLASSIFICATION_POLLER_SIZE:5}"
         activity-beans:
           - assessmentsClassificationActivityImpl
 management:
