@@ -1,3 +1,6 @@
+import com.github.jk1.license.render.*
+import com.github.jk1.license.filter.*
+
 plugins {
   java
   id("org.springframework.boot") version "3.5.6"
@@ -7,6 +10,7 @@ plugins {
   id("com.github.ben-manes.versions") version "0.52.0"
   id("org.openapi.generator") version "7.15.0"
   id("com.gorylenko.gradle-git-properties") version "2.5.3"
+  id("com.github.jk1.dependency-license-report") version "3.0.1"
 }
 
 group = "it.gov.pagopa.payhub"
@@ -26,6 +30,15 @@ configurations {
   compileClasspath {
     resolutionStrategy.activateDependencyLocking()
   }
+}
+
+licenseReport {
+  renderers = arrayOf(XmlReportRenderer("third-party-libs.xml", "Back-End Libraries"))
+  outputDir = "$projectDir/dependency-licenses"
+  filters = arrayOf(SpdxLicenseBundleNormalizer())
+}
+tasks.classes {
+  finalizedBy(tasks.generateLicenseReport)
 }
 
 repositories {
@@ -51,7 +64,7 @@ val grpcBomVersion = "1.75.0"
 val guavaVersion = "33.5.0-jre"
 val commonsLang3Version = "3.19.0"
 
-val p4paActivitiesVersion = "1.159.15"
+val p4paActivitiesVersion = "1.160.4"
 
 dependencies {
   implementation("org.springframework.boot:spring-boot-starter")
