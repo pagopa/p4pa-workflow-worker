@@ -62,12 +62,16 @@ See also relevant configurations documented on [pa4pa-payhub-activities](https:/
 #### 🔁 Integrations
 
 ##### 🕒 Temporal.io
-| ENV                                                       | DESCRIPTION                                                            | DEFAULT   |
-|-----------------------------------------------------------|------------------------------------------------------------------------|-----------|
-| TEMPORAL_SERVER_HOST                                      | Temporal hostname                                                      | localhost |
-| TEMPORAL_SERVER_PORT                                      | Temporal port                                                          | 7233      |
-| TEMPORAL_SERVER_ENABLE_HTTPS                              | To use HTTPS when invoking Temporal                                    | false     |
-| TEMPORAL_SERVER_NAMESPACE                                 | Temporal namespace                                                     | pu        |
+| ENV                                    | DESCRIPTION                                          | DEFAULT   |
+|----------------------------------------|------------------------------------------------------|-----------|
+| TEMPORAL_SERVER_HOST                   | Temporal hostname                                    | localhost |
+| TEMPORAL_SERVER_PORT                   | Temporal port                                        | 7233      |
+| TEMPORAL_SERVER_ENABLE_HTTPS           | To use HTTPS when invoking Temporal                  | false     |
+| TEMPORAL_SERVER_NAMESPACE              | Temporal namespace                                   | pu        |
+| TEMPORAL_TIMEOUT_SYSTEM_INFO_SECONDS   | Timeout set to wait for SystemInfo invokes (seconds) | 5         |
+| TEMPORAL_TIMEOUT_RPC_LONG_POLL_SECONDS | Timeout set to wait for long poll RPCs (seconds)     | 70        |
+| TEMPORAL_TIMEOUT_RPC_QUERY_SECONDS     | Timeout set to wait for query RPCs (seconds)         | 10        |
+| TEMPORAL_TIMEOUT_RPC_GENERIC_SECONDS   | Timeout set to wait for other RPCs (seconds)         | 10        |
 
 ###### 📥 TaskQueue poller sizes
 | ENV                                           | DESCRIPTION                                                                 | DEFAULT |

@@ -203,3 +203,10 @@ jwt:
                 odND6HPvvvmgbK1/2qTHn/HJjWUm11LUC73BszR32BKbdEEhxPQnnwswVekWzPi1
                 IwIDAQAB
                 -----END PUBLIC KEY-----}"
+
+temporal:
+  timeouts:
+    system-info: "\${TEMPORAL_TIMEOUT_SYSTEM_INFO_SECONDS:5}"
+    rpc-long-poll: "\${TEMPORAL_TIMEOUT_RPC_LONG_POLL_SECONDS:70}"
+    rpc-query: "\${TEMPORAL_TIMEOUT_RPC_QUERY_SECONDS:10}"
+    rpc-generic: "\${TEMPORAL_TIMEOUT_RPC_GENERIC_SECONDS:10}"
