@@ -21,7 +21,11 @@ spring:
       # generic
       - task-queue: LowPriorityWF
         capacity:
-          max-concurrent-activity-task-pollers: "\${WF_LOW_PRIORITY_POLLER_SIZE:3}"
+          activity-task-pollers-configuration:
+            poller-behavior-autoscaling:
+              enabled: true
+              min-concurrent-task-pollers: "\${WF_LOW_PRIORITY_MIN_POLLER_SIZE:1}"
+              max-concurrent-task-pollers: "\${WF_LOW_PRIORITY_MAX_POLLER_SIZE:3}"
         activity-beans:
           - brokersRetrieverActivityImpl
           - organizationBrokeredActiveRetrieverActivityImpl
@@ -32,13 +36,21 @@ spring:
       # debt position
       - task-queue: DebtPositionWF
         capacity:
-          max-concurrent-activity-task-pollers: "\${WF_DP_LOW_PRIORITY_POLLER_SIZE:3}"
+          activity-task-pollers-configuration:
+            poller-behavior-autoscaling:
+              enabled: true
+              min-concurrent-task-pollers: "\${WF_DP_LOW_PRIORITY_MIN_POLLER_SIZE:1}"
+              max-concurrent-task-pollers: "\${WF_DP_LOW_PRIORITY_MAX_POLLER_SIZE:3}"
         activity-beans:
           - debtPositionExpirationActivityImpl
           - deletePaidInstallmentsOnPagoPaActivityImpl
       - task-queue: DebtPositionSyncWF
         capacity:
-          max-concurrent-activity-task-pollers: "\${WF_DP_RESERVED_SYNC_POLLER_SIZE:10}"
+          activity-task-pollers-configuration:
+            poller-behavior-autoscaling:
+              enabled: true
+              min-concurrent-task-pollers: "\${WF_DP_RESERVED_SYNC_MIN_POLLER_SIZE:1}"
+              max-concurrent-task-pollers: "\${WF_DP_RESERVED_SYNC_MAX_POLLER_SIZE:10}"
         activity-beans:
           - synchronizeInstallmentAcaActivityImpl
           - synchronizeInstallmentGpdPreLoadActivityImpl
@@ -48,14 +60,22 @@ spring:
       # debt position custom WF sync
       - task-queue: DebtPositionCustomSyncWF
         capacity:
-          max-concurrent-activity-task-pollers: "\${WF_DP_RESERVED_CUSTOM_SYNC_POLLER_SIZE:5}"
+          activity-task-pollers-configuration:
+            poller-behavior-autoscaling:
+              enabled: true
+              min-concurrent-task-pollers: "\${WF_DP_RESERVED_CUSTOM_SYNC_MIN_POLLER_SIZE:1}"
+              max-concurrent-task-pollers: "\${WF_DP_RESERVED_CUSTOM_SYNC_MAX_POLLER_SIZE:5}"
         activity-beans:
           - debtPositionSynchronizeFineActivityImpl
           - debtPositionFineReductionOptionExpirationActivityImpl
       # ingestion flow
       - task-queue: IngestionFlowFileWF
         capacity:
-          max-concurrent-activity-task-pollers: "\${WF_IMPORT_MEDIUM_PRIORITY_POLLER_SIZE:3}"
+          activity-task-pollers-configuration:
+            poller-behavior-autoscaling:
+              enabled: true
+              min-concurrent-task-pollers: "\${WF_IMPORT_MEDIUM_PRIORITY_MIN_POLLER_SIZE:1}"
+              max-concurrent-task-pollers: "\${WF_IMPORT_MEDIUM_PRIORITY_MAX_POLLER_SIZE:3}"
         activity-beans:
           - paymentsReportingIngestionFlowFileActivityImpl
           - treasuryOpiIngestionActivityImpl
@@ -84,7 +104,11 @@ spring:
       # export file
       - task-queue: ExportFileWF
         capacity:
-          max-concurrent-activity-task-pollers: "\${WF_EXPORT_MEDIUM_PRIORITY_POLLER_SIZE:3}"
+          activity-task-pollers-configuration:
+            poller-behavior-autoscaling:
+              enabled: true
+              min-concurrent-task-pollers: "\${WF_EXPORT_MEDIUM_PRIORITY_MIN_POLLER_SIZE:1}"
+              max-concurrent-task-pollers: "\${WF_EXPORT_MEDIUM_PRIORITY_MAX_POLLER_SIZE:3}"
         activity-beans:
           - updateExportFileStatusActivityImpl
           - exportFileActivityImpl
@@ -92,7 +116,11 @@ spring:
       # classification
       - task-queue: ClassificationWF
         capacity:
-          max-concurrent-activity-task-pollers: "\${WF_CLASSIFICATION_MEDIUM_PRIORITY_POLLER_SIZE:3}"
+          activity-task-pollers-configuration:
+            poller-behavior-autoscaling:
+              enabled: true
+              min-concurrent-task-pollers: "\${WF_CLASSIFICATION_MEDIUM_PRIORITY_MIN_POLLER_SIZE:1}"
+              max-concurrent-task-pollers: "\${WF_CLASSIFICATION_MEDIUM_PRIORITY_MAX_POLLER_SIZE:3}"
         activity-beans:
           - clearClassifyIudActivityImpl
           - clearClassifyTreasuryActivityImpl
@@ -104,7 +132,11 @@ spring:
       # pagopa send
       - task-queue: SendNotificationProcessWF
         capacity:
-          max-concurrent-activity-task-pollers: "\${WF_SEND_RESERVED_NOTIFICATION_POLLER_SIZE:3}"
+          activity-task-pollers-configuration:
+            poller-behavior-autoscaling:
+              enabled: true
+              min-concurrent-task-pollers: "\${WF_SEND_RESERVED_NOTIFICATION_MIN_POLLER_SIZE:1}"
+              max-concurrent-task-pollers: "\${WF_SEND_RESERVED_NOTIFICATION_MAX_POLLER_SIZE:3}"
         activity-beans:
           - preloadSendFileActivityImpl
           - uploadSendFileActivityImpl
@@ -113,23 +145,39 @@ spring:
           - getSendNotificationActivityImpl
       - task-queue: SendWF
         capacity:
-          max-concurrent-activity-task-pollers: "\${WF_SEND_LOW_PRIORITY_POLLER_SIZE:3}"
+          activity-task-pollers-configuration:
+            poller-behavior-autoscaling:
+              enabled: true
+              min-concurrent-task-pollers: "\${WF_SEND_LOW_PRIORITY_MIN_POLLER_SIZE:1}"
+              max-concurrent-task-pollers: "\${WF_SEND_LOW_PRIORITY_MAX_POLLER_SIZE:3}"
         activity-beans:
           - sendNotificationDateRetrieveActivityImpl
       # assessments
       - task-queue: AssessmentCreationWF
         capacity:
-          max-concurrent-activity-task-pollers: "\${WF_ASSESSMENTS_RESERVED_CREATION_POLLER_SIZE:5}"
+          activity-task-pollers-configuration:
+            poller-behavior-autoscaling:
+              enabled: true
+              min-concurrent-task-pollers: "\${WF_ASSESSMENTS_RESERVED_CREATION_MIN_POLLER_SIZE:1}"
+              max-concurrent-task-pollers: "\${WF_ASSESSMENTS_RESERVED_CREATION_MAX_POLLER_SIZE:5}"
         activity-beans:
           - assessmentsCreationActivityImpl
       - task-queue: AssessmentsWF
         capacity:
-          max-concurrent-activity-task-pollers: "\${WF_ASSESSMENTS_POLLER_SIZE:5}"
+          activity-task-pollers-configuration:
+            poller-behavior-autoscaling:
+              enabled: true
+              min-concurrent-task-pollers: "\${WF_ASSESSMENTS_MIN_POLLER_SIZE:1}"
+              max-concurrent-task-pollers: "\${WF_ASSESSMENTS_MAX_POLLER_SIZE:5}"
         activity-beans:
           - assessmentsRegistryCreationActivityImpl
       - task-queue: AssessmentClassificationWF
         capacity:
-          max-concurrent-activity-task-pollers: "\${WF_ASSESSMENTS_CLASSIFICATION_POLLER_SIZE:5}"
+          activity-task-pollers-configuration:
+            poller-behavior-autoscaling:
+              enabled: true
+              min-concurrent-task-pollers: "\${WF_ASSESSMENTS_CLASSIFICATION_MIN_POLLER_SIZE:1}"
+              max-concurrent-task-pollers: "\${WF_ASSESSMENTS_CLASSIFICATION_MAX_POLLER_SIZE:5}"
         activity-beans:
           - assessmentsClassificationActivityImpl
 management:
