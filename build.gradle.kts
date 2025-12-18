@@ -3,13 +3,13 @@ import com.github.jk1.license.filter.*
 
 plugins {
   java
-  id("org.springframework.boot") version "3.5.6"
+  id("org.springframework.boot") version "4.0.0"
   id("io.spring.dependency-management") version "1.1.7"
   jacoco
-  id("org.sonarqube") version "6.3.1.5724"
-  id("com.github.ben-manes.versions") version "0.52.0"
-  id("org.openapi.generator") version "7.15.0"
-  id("com.gorylenko.gradle-git-properties") version "2.5.3"
+  id("org.sonarqube") version "7.2.1.6560"
+  id("com.github.ben-manes.versions") version "0.53.0"
+  id("org.openapi.generator") version "7.17.0"
+  id("com.gorylenko.gradle-git-properties") version "2.5.4"
   id("com.github.jk1.dependency-license-report") version "3.0.1"
 }
 
@@ -33,7 +33,8 @@ configurations {
 }
 
 licenseReport {
-  renderers = arrayOf(XmlReportRenderer("third-party-libs.xml", "Back-End Libraries"))
+  renderers =
+    arrayOf(XmlReportRenderer("third-party-libs.xml", "Back-End Libraries"))
   outputDir = "$projectDir/dependency-licenses"
   filters = arrayOf(SpdxLicenseBundleNormalizer())
 }
@@ -53,32 +54,32 @@ repositories {
   }
 }
 
-val springDocOpenApiVersion = "2.8.13"
-val openApiToolsVersion = "0.2.7"
-val micrometerVersion = "1.5.4"
-val otelVersion = "1.49.0"
-val bouncycastleVersion = "1.82"
-val temporalVersion = "1.31.0"
-val protobufJavaVersion = "4.32.1"
-val grpcBomVersion = "1.75.0"
+val springDocOpenApiVersion = "3.0.0"
+val openApiToolsVersion = "0.2.8"
+val micrometerVersion = "1.6.1"
+val otelVersion = "1.57.0"
+val bouncycastleVersion = "1.83"
+val temporalVersion = "1.32.1"
+val protobufJavaVersion = "4.33.2"
+val grpcBomVersion = "1.77.0"
 val guavaVersion = "33.5.0-jre"
-val commonsLang3Version = "3.19.0"
+val commonsLang3Version = "3.20.0"
 
-val p4paActivitiesVersion = "1.163.0"
+val p4paActivitiesVersion = "P4ADEV-4309-SNAPSHOT" // TODO replace with release version when available
 
 dependencies {
-  implementation("org.springframework.boot:spring-boot-starter")
-  implementation("org.springframework.boot:spring-boot-starter-web")
+  implementation("org.springframework.boot:spring-boot-starter-webmvc")
+  implementation("org.springframework.boot:spring-boot-starter-opentelemetry")
+  implementation("org.springframework.boot:spring-boot-starter-restclient")
   implementation("org.springframework.boot:spring-boot-starter-validation")
-  implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
+  implementation("org.springframework.boot:spring-boot-starter-security-oauth2-resource-server")
   implementation("org.springframework.boot:spring-boot-starter-actuator")
   implementation("io.micrometer:micrometer-tracing-bridge-otel:$micrometerVersion")
   implementation("io.micrometer:micrometer-registry-prometheus")
   implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:$springDocOpenApiVersion") {
     exclude(group = "org.apache.commons", module = "commons-lang3")
   }
-  implementation("org.apache.commons:commons-lang3:${commonsLang3Version}")
-  implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
+  implementation("org.apache.commons:commons-lang3:$commonsLang3Version")
   implementation("org.openapitools:jackson-databind-nullable:$openApiToolsVersion")
   implementation("org.bouncycastle:bcprov-jdk18on:$bouncycastleVersion")
   implementation("it.gov.pagopa.payhub:p4pa-payhub-activities:$p4paActivitiesVersion") {
@@ -98,14 +99,15 @@ dependencies {
   implementation("com.google.protobuf:protobuf-java-util:${protobufJavaVersion}")
   implementation(platform("io.grpc:grpc-bom:${grpcBomVersion}"))
   implementation("com.google.guava:guava:$guavaVersion")
-  implementation ("io.opentelemetry:opentelemetry-opentracing-shim:${otelVersion}")
+  implementation("io.opentelemetry:opentelemetry-opentracing-shim:${otelVersion}")
 
   compileOnly("org.projectlombok:lombok")
   annotationProcessor("org.projectlombok:lombok")
   testAnnotationProcessor("org.projectlombok:lombok")
 
   //	Testing
-  testImplementation("org.springframework.boot:spring-boot-starter-test")
+  testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test")
+  testImplementation("org.springframework.boot:spring-boot-starter-security-test")
   testImplementation("org.mockito:mockito-core")
   testImplementation("org.projectlombok:lombok")
 }
