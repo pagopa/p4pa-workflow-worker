@@ -2,6 +2,7 @@ package it.gov.pagopa.pu.worker.exception;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import it.gov.pagopa.payhub.activities.config.json.JsonConfig;
+import it.gov.pagopa.pu.worker.util.TestUtils;
 import it.gov.pagopa.pu.worker.util.UtilitiesTest;
 import jakarta.servlet.ServletException;
 import jakarta.validation.ConstraintViolationException;
@@ -19,8 +20,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
+import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.bean.override.mockito.MockitoSpyBean;
@@ -45,7 +46,8 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doThrow;
 
 @ExtendWith({SpringExtension.class})
-@WebMvcTest(value = {WorkerExceptionHandlerTest.TestController.class}, excludeAutoConfiguration = SecurityAutoConfiguration.class)
+@WebMvcTest(value = {WorkerExceptionHandlerTest.TestController.class})
+@AutoConfigureMockMvc(addFilters = false)
 @ContextConfiguration(classes = {
         WorkerExceptionHandlerTest.TestController.class,
         WorkerExceptionHandler.class,
@@ -72,6 +74,11 @@ class WorkerExceptionHandlerTest {
         String testEndpoint(@RequestParam(DATA) String data, @Valid @RequestBody TestRequestBody body) {
             return "OK";
         }
+    }
+
+    @BeforeEach
+    void init() {
+      TestUtils.clearDefaultTimezone();
     }
 
     @Data
@@ -160,7 +167,7 @@ class WorkerExceptionHandlerTest {
     mockMvc.perform(MockMvcRequestBuilders.post("/NOTEXISTENTURL"))
       .andExpect(MockMvcResultMatchers.status().isNotFound())
       .andExpect(MockMvcResultMatchers.jsonPath("$.code").value("WORKER_NOT_FOUND"))
-      .andExpect(MockMvcResultMatchers.jsonPath("$.message").value("No static resource NOTEXISTENTURL."))
+      .andExpect(MockMvcResultMatchers.jsonPath("$.message").value("No static resource NOTEXISTENTURL for request '/NOTEXISTENTURL'."))
       .andExpect(MockMvcResultMatchers.jsonPath("$.traceId").value(traceId));
   }
 
