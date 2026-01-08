@@ -1,5 +1,5 @@
-import com.github.jk1.license.render.*
 import com.github.jk1.license.filter.*
+import com.github.jk1.license.render.*
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 
@@ -67,7 +67,7 @@ val grpcBomVersion = "1.77.0"
 val guavaVersion = "33.5.0-jre"
 val commonsLang3Version = "3.20.0"
 
-val p4paActivitiesVersion = "1.163.2"
+val p4paActivitiesVersion = "1.164.0"
 
 dependencies {
   implementation("org.springframework.boot:spring-boot-starter-webmvc")
