@@ -10,6 +10,7 @@ import io.opentracing.SpanContext;
 import org.jspecify.annotations.Nullable;
 import org.slf4j.MDC;
 import org.springframework.boot.micrometer.tracing.autoconfigure.TracingProperties;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,7 +25,7 @@ public class Slf4jEventListenerSupport implements EventListener {
   private final List<String> correlationFields;
   private final Tracer tracer;
 
-  public Slf4jEventListenerSupport(TracingProperties tracingProperties, Tracer tracer) {
+  public Slf4jEventListenerSupport(TracingProperties tracingProperties, @Lazy Tracer tracer) {
     this.correlationFields = tracingProperties.getBaggage().getCorrelation().getFields();
     this.tracer = tracer;
   }
