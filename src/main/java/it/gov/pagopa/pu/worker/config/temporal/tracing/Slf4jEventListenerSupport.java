@@ -1,13 +1,12 @@
 package it.gov.pagopa.pu.worker.config.temporal.tracing;
 
-import io.micrometer.tracing.TraceContext;
 import io.micrometer.tracing.Tracer;
 import io.micrometer.tracing.otel.bridge.EventListener;
 import io.micrometer.tracing.otel.bridge.EventPublishingContextWrapper;
+import io.micrometer.tracing.otel.bridge.OtelTraceContextBuilder;
 import io.opentelemetry.opentracingshim.SpanShimHolder;
 import io.opentracing.Span;
 import io.opentracing.SpanContext;
-import org.jspecify.annotations.Nullable;
 import org.slf4j.MDC;
 import org.springframework.boot.micrometer.tracing.autoconfigure.TracingProperties;
 import org.springframework.context.annotation.Lazy;
@@ -62,28 +61,12 @@ public class Slf4jEventListenerSupport implements EventListener {
       MDC.put("spanId", spanId);
 
       io.micrometer.tracing.Span.Builder otSpanBuilder = tracer.spanBuilder()
-        .setParent(new TraceContext() {
-
-          @Override
-          public @Nullable String parentId() {
-            return traceId;
-          }
-
-          @Override
-          public String traceId() {
-            return traceId;
-          }
-
-          @Override
-          public String spanId() {
-            return spanId;
-          }
-
-          @Override
-          public Boolean sampled() {
-            return false;
-          }
-        });
+        .setParent(new OtelTraceContextBuilder()
+          .parentId(traceId)
+          .traceId(traceId)
+          .spanId(spanId)
+          .sampled(false)
+          .build());
 
       currentSpanContext.baggageItems().forEach(i -> {
         if (correlationFields.contains(i.getKey())) {
