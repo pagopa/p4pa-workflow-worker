@@ -34,7 +34,7 @@ public class Slf4jEventListenerSupport implements EventListener {
         EventPublishingContextWrapper.ScopeRestoredEvent scopeRestoredEvent when scopeRestoredEvent.getSpan() == null ->
         setContext();
       default -> {
-        // Closing event handled by Slf4JEventListener
+        // Closing event or event having Span is handled by Slf4JEventListener
       }
     }
   }
