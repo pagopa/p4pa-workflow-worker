@@ -1,15 +1,12 @@
 package it.gov.pagopa.pu.worker.config.temporal.tracing;
 
-import io.micrometer.tracing.Tracer;
 import io.micrometer.tracing.otel.bridge.EventListener;
 import io.micrometer.tracing.otel.bridge.EventPublishingContextWrapper;
-import io.micrometer.tracing.otel.bridge.OtelTraceContextBuilder;
 import io.opentelemetry.opentracingshim.SpanShimHolder;
 import io.opentracing.Span;
 import io.opentracing.SpanContext;
 import org.slf4j.MDC;
 import org.springframework.boot.micrometer.tracing.autoconfigure.TracingProperties;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,11 +19,9 @@ import java.util.List;
 public class Slf4jEventListenerSupport implements EventListener {
 
   private final List<String> correlationFields;
-  private final Tracer tracer;
 
-  public Slf4jEventListenerSupport(TracingProperties tracingProperties, @Lazy Tracer tracer) {
+  public Slf4jEventListenerSupport(TracingProperties tracingProperties) {
     this.correlationFields = tracingProperties.getBaggage().getCorrelation().getFields();
-    this.tracer = tracer;
   }
 
   @Override
@@ -39,44 +34,25 @@ public class Slf4jEventListenerSupport implements EventListener {
         EventPublishingContextWrapper.ScopeRestoredEvent scopeRestoredEvent when scopeRestoredEvent.getSpan() == null ->
         setContext();
       default -> {
-        if (event instanceof EventPublishingContextWrapper.ScopeClosedEvent) {
-          io.micrometer.tracing.Span span = tracer.currentSpan();
-          if (span != null) {
-            span.abandon();
-          }
-        }
+        // Closing event handled by Slf4JEventListener
       }
     }
-
   }
 
   private void setContext() {
     Span currentSpan = SpanShimHolder.getCurrentSpan();
     if (currentSpan != null) {
       SpanContext currentSpanContext = currentSpan.context();
-      String traceId = currentSpanContext.toTraceId();
-      String spanId = currentSpanContext.toSpanId();
 
-      MDC.put("traceId", traceId);
-      MDC.put("spanId", spanId);
-
-      io.micrometer.tracing.Span.Builder otSpanBuilder = tracer.spanBuilder()
-        .setParent(new OtelTraceContextBuilder()
-          .parentId(traceId)
-          .traceId(traceId)
-          .spanId(spanId)
-          .sampled(false)
-          .build());
+      MDC.put("traceId", currentSpanContext.toTraceId());
+      MDC.put("spanId", currentSpanContext.toSpanId());
 
       currentSpanContext.baggageItems().forEach(i -> {
         if (correlationFields.contains(i.getKey())) {
           MDC.put(i.getKey(), i.getValue());
-          otSpanBuilder.tag(i.getKey(), i.getValue());
         }
       });
 
-      otSpanBuilder
-        .start();
     }
   }
 }
