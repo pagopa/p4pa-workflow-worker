@@ -36,10 +36,10 @@ components:
     WorkerErrorDTO:
       type: object
       required:
-        - code
+        - category
         - message
       properties:
-        code:
+        category:
           type: string
           enum:
             - WORKER_NOT_FOUND

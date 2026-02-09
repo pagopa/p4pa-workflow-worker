@@ -34,19 +34,19 @@ public class WorkerExceptionHandler {
 
   @ExceptionHandler({ValidationException.class, HttpMessageNotReadableException.class, MethodArgumentNotValidException.class, MethodArgumentTypeMismatchException.class})
   public ResponseEntity<WorkerErrorDTO> handleViolationException(Exception ex, HttpServletRequest request) {
-    return handleException(ex, request, HttpStatus.BAD_REQUEST, WorkerErrorDTO.CodeEnum.WORKER_BAD_REQUEST);
+    return handleException(ex, request, HttpStatus.BAD_REQUEST, WorkerErrorDTO.CategoryEnum.WORKER_BAD_REQUEST);
   }
 
   @ExceptionHandler({ServletException.class, ErrorResponseException.class})
   public ResponseEntity<WorkerErrorDTO> handleServletException(Exception ex, HttpServletRequest request) {
     HttpStatusCode httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
-    WorkerErrorDTO.CodeEnum errorCode = WorkerErrorDTO.CodeEnum.WORKER_GENERIC_ERROR;
+    WorkerErrorDTO.CategoryEnum errorCode = WorkerErrorDTO.CategoryEnum.WORKER_GENERIC_ERROR;
     if (ex instanceof ErrorResponse errorResponse) {
       httpStatus = errorResponse.getStatusCode();
       if (httpStatus.isSameCodeAs(HttpStatus.NOT_FOUND)) {
-        errorCode = WorkerErrorDTO.CodeEnum.WORKER_NOT_FOUND;
+        errorCode = WorkerErrorDTO.CategoryEnum.WORKER_NOT_FOUND;
       } else if (httpStatus.is4xxClientError()) {
-        errorCode = WorkerErrorDTO.CodeEnum.WORKER_BAD_REQUEST;
+        errorCode = WorkerErrorDTO.CategoryEnum.WORKER_BAD_REQUEST;
       }
     }
     return handleException(ex, request, httpStatus, errorCode);
@@ -54,10 +54,10 @@ public class WorkerExceptionHandler {
 
   @ExceptionHandler({RuntimeException.class})
   public ResponseEntity<WorkerErrorDTO> handleRuntimeException(RuntimeException ex, HttpServletRequest request) {
-    return handleException(ex, request, HttpStatus.INTERNAL_SERVER_ERROR, WorkerErrorDTO.CodeEnum.WORKER_GENERIC_ERROR);
+    return handleException(ex, request, HttpStatus.INTERNAL_SERVER_ERROR, WorkerErrorDTO.CategoryEnum.WORKER_GENERIC_ERROR);
   }
 
-  static ResponseEntity<WorkerErrorDTO> handleException(Exception ex, HttpServletRequest request, HttpStatusCode httpStatus, WorkerErrorDTO.CodeEnum errorEnum) {
+  static ResponseEntity<WorkerErrorDTO> handleException(Exception ex, HttpServletRequest request, HttpStatusCode httpStatus, WorkerErrorDTO.CategoryEnum errorEnum) {
     logException(ex, request, httpStatus);
 
     String message = buildReturnedMessage(ex);
