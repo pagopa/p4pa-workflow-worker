@@ -106,6 +106,7 @@ spring:
           - debtPositionTypeOrgIngestionActivityImpl
           - orgSilServiceIngestionActivityImpl
           - sendNotificationIngestionActivityImpl
+          - fetchAndMergeNoticesActivityImpl
       # export file
       - task-queue: ExportFileWF
         capacity:
