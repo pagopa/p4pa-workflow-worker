@@ -107,6 +107,7 @@ spring:
           - orgSilServiceIngestionActivityImpl
           - sendNotificationIngestionActivityImpl
           - fetchAndMergeNoticesActivityImpl
+          - deleteMassiveNoticesFileActivityImpl
       # export file
       - task-queue: ExportFileWF
         capacity:
