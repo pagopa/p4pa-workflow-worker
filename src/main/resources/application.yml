@@ -100,7 +100,6 @@ spring:
           - receiptPagopaNotifySilActivityImpl
           - receiptPagopaSendEmailActivityImpl
           - synchronizeIngestedDebtPositionActivityImpl
-          - massiveNoticeGenerationStatusRetrieverActivityImpl
           - assessmentsIngestionActivityImpl
           - assessmentsRegistryIngestionActivityImpl
           - debtPositionTypeOrgIngestionActivityImpl
