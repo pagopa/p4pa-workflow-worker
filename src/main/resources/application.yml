@@ -166,6 +166,7 @@ spring:
           - sendNotificationDateRetrieveActivityImpl
           - fetchSendLegalFactActivityImpl
           - updateLastProcessedStreamEventIdActivityImpl
+          - validateSendNotificationStatusActivityImpl
       # assessments
       - task-queue: AssessmentCreationWF
         capacity:
