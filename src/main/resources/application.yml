@@ -100,12 +100,13 @@ spring:
           - receiptPagopaNotifySilActivityImpl
           - receiptPagopaSendEmailActivityImpl
           - synchronizeIngestedDebtPositionActivityImpl
-          - massiveNoticeGenerationStatusRetrieverActivityImpl
           - assessmentsIngestionActivityImpl
           - assessmentsRegistryIngestionActivityImpl
           - debtPositionTypeOrgIngestionActivityImpl
           - orgSilServiceIngestionActivityImpl
           - sendNotificationIngestionActivityImpl
+          - fetchAndMergeNoticesActivityImpl
+          - deleteMassiveNoticesFileActivityImpl
       # export file
       - task-queue: ExportFileWF
         capacity:
@@ -165,6 +166,7 @@ spring:
           - sendNotificationDateRetrieveActivityImpl
           - fetchSendLegalFactActivityImpl
           - updateLastProcessedStreamEventIdActivityImpl
+          - validateSendNotificationStatusActivityImpl
       # assessments
       - task-queue: AssessmentCreationWF
         capacity:
