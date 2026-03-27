@@ -71,7 +71,7 @@ val commonsLang3Version = "3.20.0"
 val jackson2CoreVersion = "2.21.1"
 val jackson3CoreVersion = "3.1.0"
 
-val p4paActivitiesVersion = "1.184.0"
+val p4paActivitiesVersion = "1.184.1"
 
 dependencies {
   implementation("org.springframework.boot:spring-boot-starter-webmvc")
