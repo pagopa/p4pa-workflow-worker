@@ -47,6 +47,7 @@ spring:
           - debtPositionExpirationActivityImpl
           - deletePaidInstallmentsOnPagoPaActivityImpl
           - IONotificationDebtPositionActivityImpl
+          - massiveIbanUpdateActivityImpl
       - task-queue: DebtPositionSyncWF
         capacity:
           activity-task-pollers-configuration:
