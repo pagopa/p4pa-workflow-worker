@@ -37,6 +37,7 @@ components:
       type: object
       required:
         - category
+        - code
         - message
       properties:
         category:
@@ -45,6 +46,8 @@ components:
             - WORKER_NOT_FOUND
             - WORKER_BAD_REQUEST
             - WORKER_GENERIC_ERROR
+        code:
+          type: string
         message:
           type: string
         traceId:
