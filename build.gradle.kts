@@ -70,7 +70,7 @@ val commonsLang3Version = "3.20.0"
 // fix cve
 val jackson3CoreVersion = "3.1.1"
 
-val p4paActivitiesVersion = "1.187.3"
+val p4paActivitiesVersion = "1.188.2"
 
 dependencies {
   implementation("org.springframework.boot:spring-boot-starter-webmvc")
@@ -134,6 +134,12 @@ dependencies {
   mockitoAgent("org.mockito:mockito-core") { isTransitive = false }
 }
 tasks {
+  jar {
+      from("${rootProject.projectDir}") {
+          include("LICENSE.md")
+          into("META-INF")
+      }
+  }
   test {
     jvmArgs("-javaagent:${mockitoAgent.asPath}")
     testLogging.events = setOf(TestLogEvent.FAILED)
