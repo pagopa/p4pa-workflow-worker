@@ -248,6 +248,7 @@ management:
       logback: true
 
 springdoc:
+  api-docs.version: openapi_3_0
   writer-with-default-pretty-printer: true
 
 logging:

@@ -5,11 +5,11 @@ import org.gradle.api.tasks.testing.logging.TestLogEvent
 
 plugins {
   java
-  id("org.springframework.boot") version "4.0.5"
+  id("org.springframework.boot") version "4.0.6"
   id("io.spring.dependency-management") version "1.1.7"
   jacoco
   id("org.sonarqube") version "7.2.3.7755"
-  id("com.github.ben-manes.versions") version "0.53.0"
+  id("com.github.ben-manes.versions") version "0.54.0"
   id("org.openapi.generator") version "7.21.0"
   id("com.gorylenko.gradle-git-properties") version "2.5.7"
   id("com.github.jk1.dependency-license-report") version "3.1.2"
@@ -56,19 +56,16 @@ repositories {
   }
 }
 
-val springDocOpenApiVersion = "3.0.2"
+val springDocOpenApiVersion = "3.0.3"
 val openApiToolsVersion = "0.2.10"
-val micrometerVersion = "1.6.4"
-val otelVersion = "1.60.1"
-val bouncycastleVersion = "1.83"
+val micrometerVersion = "1.6.5"
+val otelVersion = "1.61.0"
+val bouncycastleVersion = "1.84"
 val temporalVersion = "1.34.0"
 val protobufJavaVersion = "4.34.1"
 val grpcBomVersion = "1.80.0"
-val guavaVersion = "33.5.0-jre"
+val guavaVersion = "33.6.0-jre"
 val commonsLang3Version = "3.20.0"
-
-// fix cve
-val jackson3CoreVersion = "3.1.1"
 
 val p4paActivitiesVersion = "1.191.3"
 
@@ -105,9 +102,6 @@ dependencies {
   implementation(platform("io.grpc:grpc-bom:${grpcBomVersion}"))
   implementation("com.google.guava:guava:$guavaVersion")
   implementation("io.opentelemetry:opentelemetry-opentracing-shim:${otelVersion}")
-
-  // CVE fix
-  implementation("tools.jackson.core:jackson-core:$jackson3CoreVersion")
 
   compileOnly("org.projectlombok:lombok")
   annotationProcessor("org.projectlombok:lombok")
