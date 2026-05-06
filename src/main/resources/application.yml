@@ -153,6 +153,7 @@ spring:
           - uploadSendFileActivityImpl
           - deliveryNotificationActivityImpl
           - getSendNotificationActivityImpl
+          - deleteSendNotificationFileActivityImpl
       - task-queue: SendNotificationStreamConsumeWF
         capacity:
           activity-task-pollers-configuration:
