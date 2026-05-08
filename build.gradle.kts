@@ -67,7 +67,7 @@ val grpcBomVersion = "1.80.0"
 val guavaVersion = "33.6.0-jre"
 val commonsLang3Version = "3.20.0"
 
-val p4paActivitiesVersion = "1.192.3"
+val p4paActivitiesVersion = "1.192.4"
 
 dependencies {
   implementation("org.springframework.boot:spring-boot-starter-webmvc")
