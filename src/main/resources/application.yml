@@ -36,6 +36,7 @@ spring:
           - exportFileExpirationHandlerActivityImpl
           - sendEmailActivityImpl
           - deleteSendNotificationFileActivityImpl
+          - deleteSendLegalFactFileActivityImpl
       # debt position
       - task-queue: DebtPositionWF
         capacity:
