@@ -86,6 +86,7 @@ spring:
               max-concurrent-task-pollers: "\${WF_IMPORT_MEDIUM_PRIORITY_MAX_POLLER_SIZE:3}"
         activity-beans:
           - paymentsReportingIngestionFlowFileActivityImpl
+          - handlePaymentsReportingDeletionActivityImpl
           - treasuryOpiIngestionActivityImpl
           - treasuryCsvIngestionActivityImpl
           - treasuryCsvCompleteIngestionActivityImpl
