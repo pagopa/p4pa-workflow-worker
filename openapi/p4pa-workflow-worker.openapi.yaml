@@ -46,6 +46,7 @@ components:
             - WORKER_NOT_FOUND
             - WORKER_BAD_REQUEST
             - WORKER_GENERIC_ERROR
+            - WORKER_TOO_MANY_REQUESTS
         code:
           type: string
         message:
