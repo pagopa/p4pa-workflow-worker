@@ -172,6 +172,17 @@ spring:
           - updateLastProcessedStreamEventIdActivityImpl
           - validateSendNotificationStatusActivityImpl
           - getSendNotificationByNotificationRequestIdActivityImpl
+      - task-queue: SendWF
+        capacity:
+          activity-task-pollers-configuration:
+            poller-behavior-autoscaling:
+              enabled: true
+              initial-concurrent-task-pollers: "\${WF_SEND_MIN_POLLER_SIZE:1}"
+              min-concurrent-task-pollers: "\${WF_SEND_MIN_POLLER_SIZE:1}"
+              max-concurrent-task-pollers: "\${WF_SEND_MAX_POLLER_SIZE:3}"
+        activity-beans:
+          - fetchSendCampaignsActivityImpl
+          - alignSendCampaignActivityImpl
       # assessments
       - task-queue: AssessmentCreationWF
         capacity:
