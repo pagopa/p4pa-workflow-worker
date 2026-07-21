@@ -172,7 +172,7 @@ spring:
           - updateLastProcessedStreamEventIdActivityImpl
           - validateSendNotificationStatusActivityImpl
           - getSendNotificationByNotificationRequestIdActivityImpl
-          - notifySendNotificationTimelineCategoryActivityImpl
+          - notifySendNotificationStreamEventsActivityImpl
       - task-queue: SendWF
         capacity:
           activity-task-pollers-configuration:
