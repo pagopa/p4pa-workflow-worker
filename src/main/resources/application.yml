@@ -141,6 +141,7 @@ spring:
           - iufClassificationActivityImpl
           - paymentsReportingImplicitReceiptHandlerActivityImpl
           - transferClassificationActivityImpl
+          - duplicatePaymentReportingCheckActivityImpl
       # pagopa send
       - task-queue: SendNotificationProcessWF
         capacity:
