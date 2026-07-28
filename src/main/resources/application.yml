@@ -35,8 +35,6 @@ spring:
           - synchronizeTaxonomyActivityImpl
           - exportFileExpirationHandlerActivityImpl
           - sendEmailActivityImpl
-          - deleteSendNotificationFileActivityImpl
-          - deleteSendLegalFactFileActivityImpl
       # debt position
       - task-queue: DebtPositionWF
         capacity:
@@ -185,6 +183,8 @@ spring:
         activity-beans:
           - fetchSendCampaignsActivityImpl
           - alignSendCampaignActivityImpl
+          - deleteSendNotificationFileActivityImpl
+          - deleteSendLegalFactFileActivityImpl
       # assessments
       - task-queue: AssessmentCreationWF
         capacity:
