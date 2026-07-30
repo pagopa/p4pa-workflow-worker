@@ -35,8 +35,6 @@ spring:
           - synchronizeTaxonomyActivityImpl
           - exportFileExpirationHandlerActivityImpl
           - sendEmailActivityImpl
-          - deleteSendNotificationFileActivityImpl
-          - deleteSendLegalFactFileActivityImpl
       # debt position
       - task-queue: DebtPositionWF
         capacity:
@@ -141,6 +139,7 @@ spring:
           - iufClassificationActivityImpl
           - paymentsReportingImplicitReceiptHandlerActivityImpl
           - transferClassificationActivityImpl
+          - duplicatePaymentReportingCheckActivityImpl
       # pagopa send
       - task-queue: SendNotificationProcessWF
         capacity:
@@ -172,7 +171,7 @@ spring:
           - updateLastProcessedStreamEventIdActivityImpl
           - validateSendNotificationStatusActivityImpl
           - getSendNotificationByNotificationRequestIdActivityImpl
-          - notifySendNotificationTimelineCategoryActivityImpl
+          - notifySendNotificationStreamEventsActivityImpl
       - task-queue: SendWF
         capacity:
           activity-task-pollers-configuration:
@@ -184,6 +183,8 @@ spring:
         activity-beans:
           - fetchSendCampaignsActivityImpl
           - alignSendCampaignActivityImpl
+          - deleteSendNotificationFileActivityImpl
+          - deleteSendLegalFactFileActivityImpl
       # assessments
       - task-queue: AssessmentCreationWF
         capacity:
