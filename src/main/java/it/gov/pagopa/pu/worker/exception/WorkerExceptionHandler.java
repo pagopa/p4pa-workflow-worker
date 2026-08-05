@@ -1,7 +1,7 @@
 package it.gov.pagopa.pu.worker.exception;
 
+import it.gov.pagopa.payhub.activities.util.Utilities;
 import it.gov.pagopa.pu.worker.dto.generated.WorkerErrorDTO;
-import it.gov.pagopa.pu.worker.util.Utilities;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolationException;
