@@ -59,8 +59,10 @@ repositories {
 val springDocOpenApiVersion = "3.0.3"
 val openApiToolsVersion = "0.2.10"
 val micrometerVersion = "1.7.0"
+val httpClientVersion = "5.6.1"
+val httpCoreVersion = "5.4.2"
 val kafkaAppender = "0.2.0-RC2"
-val lz4JavaVersion = "1.11.0"
+val lz4JavaVersion = "1.11.1"
 val otelVersion = "1.63.0"
 val bouncycastleVersion = "1.84"
 val temporalVersion = "1.35.0"
@@ -69,7 +71,7 @@ val grpcBomVersion = "1.82.0"
 val guavaVersion = "33.6.0-jre"
 val commonsLang3Version = "3.20.0"
 
-val p4paActivitiesVersion = "1.203.1"
+val p4paActivitiesVersion = "1.203.2"
 
 dependencies {
   implementation("org.springframework.boot:spring-boot-starter-webmvc")
@@ -96,6 +98,8 @@ dependencies {
     exclude(group = "com.google.protobuf", module = "protobuf-java-util")
     exclude(group = "com.google.guava", module = "guava")
   }
+  implementation ("org.apache.httpcomponents.client5:httpclient5:${httpClientVersion}")
+  implementation("org.apache.httpcomponents.core5:httpcore5:${httpCoreVersion}")
   // Temporal
   implementation("io.temporal:temporal-spring-boot-starter:$temporalVersion") {
     exclude(group = "com.google.protobuf", module = "protobuf-java")
