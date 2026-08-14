@@ -40,7 +40,7 @@ licenseReport {
   outputDir = "$projectDir/dependency-licenses"
   filters = arrayOf(SpdxLicenseBundleNormalizer())
 }
-tasks.classes {
+tasks.dependencies {
   finalizedBy(tasks.generateLicenseReport)
 }
 
@@ -59,8 +59,8 @@ repositories {
 val springDocOpenApiVersion = "3.0.3"
 val openApiToolsVersion = "0.2.10"
 val micrometerVersion = "1.7.0"
-val httpClientVersion = "5.6.1"
-val httpCoreVersion = "5.4.2"
+val httpClientVersion = "5.6.4"
+val httpCoreVersion = "5.4.3"
 val kafkaAppender = "0.2.0-RC2"
 val lz4JavaVersion = "1.11.1"
 val otelVersion = "1.63.0"
@@ -71,7 +71,7 @@ val grpcBomVersion = "1.82.0"
 val guavaVersion = "33.6.0-jre"
 val commonsLang3Version = "3.20.0"
 
-val p4paActivitiesVersion = "1.203.3"
+val p4paActivitiesVersion = "1.203.4"
 
 dependencies {
   implementation("org.springframework.boot:spring-boot-starter-webmvc")
