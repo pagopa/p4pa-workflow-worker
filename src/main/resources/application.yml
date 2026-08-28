@@ -182,6 +182,7 @@ spring:
               max-concurrent-task-pollers: "\${WF_SEND_MAX_POLLER_SIZE:3}"
         activity-beans:
           - fetchSendCampaignsActivityImpl
+          - fetchUpdatedSendCampaignsActivityImpl
           - alignSendCampaignActivityImpl
           - deleteSendNotificationFileActivityImpl
           - deleteSendLegalFactFileActivityImpl
