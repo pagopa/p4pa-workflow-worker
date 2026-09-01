@@ -181,6 +181,7 @@ spring:
               min-concurrent-task-pollers: "\${WF_SEND_MIN_POLLER_SIZE:1}"
               max-concurrent-task-pollers: "\${WF_SEND_MAX_POLLER_SIZE:3}"
         activity-beans:
+          - fetchSendCampaignsLastFullRecalculationDateActivityImpl
           - fetchSendCampaignsActivityImpl
           - fetchUpdatedSendCampaignsActivityImpl
           - alignSendCampaignActivityImpl
