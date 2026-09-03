@@ -71,7 +71,10 @@ val grpcBomVersion = "1.83.1"
 val guavaVersion = "33.7.0-jre"
 val commonsLang3Version = "3.20.0"
 
-val p4paActivitiesVersion = "1.205.0"
+val p4paActivitiesVersion = "1.205.1"
+
+// CVE Security dependencies
+val tomcatEmbedCoreVersion = "11.0.25"
 
 dependencies {
   implementation("org.springframework.boot:spring-boot-starter-webmvc")
@@ -113,6 +116,9 @@ dependencies {
   implementation(platform("io.grpc:grpc-bom:$grpcBomVersion"))
   implementation("com.google.guava:guava:$guavaVersion")
   implementation("io.opentelemetry:opentelemetry-opentracing-shim:$otelVersion")
+
+  // CVE Security dependencies
+  implementation("org.apache.tomcat.embed:tomcat-embed-core:$tomcatEmbedCoreVersion")
 
   compileOnly("org.projectlombok:lombok")
   annotationProcessor("org.projectlombok:lombok")
