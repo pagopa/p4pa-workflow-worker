@@ -154,7 +154,7 @@ spring:
           - uploadSendFileActivityImpl
           - deliveryNotificationActivityImpl
           - getSendNotificationActivityImpl
-      - task-queue: SendNotificationStreamConsumeWF
+      - task-queue: SendNotificationStreamConsumerWF
         capacity:
           activity-task-pollers-configuration:
             poller-behavior-autoscaling:
