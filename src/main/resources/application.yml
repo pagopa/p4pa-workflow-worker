@@ -35,8 +35,6 @@ spring:
           - synchronizeTaxonomyActivityImpl
           - exportFileExpirationHandlerActivityImpl
           - sendEmailActivityImpl
-          - deleteSendNotificationFileActivityImpl
-          - deleteSendLegalFactFileActivityImpl
       # debt position
       - task-queue: DebtPositionWF
         capacity:
@@ -141,6 +139,7 @@ spring:
           - iufClassificationActivityImpl
           - paymentsReportingImplicitReceiptHandlerActivityImpl
           - transferClassificationActivityImpl
+          - duplicatePaymentReportingCheckActivityImpl
       # pagopa send
       - task-queue: SendNotificationProcessWF
         capacity:
@@ -155,7 +154,7 @@ spring:
           - uploadSendFileActivityImpl
           - deliveryNotificationActivityImpl
           - getSendNotificationActivityImpl
-      - task-queue: SendNotificationStreamConsumeWF
+      - task-queue: SendNotificationStreamConsumerWF
         capacity:
           activity-task-pollers-configuration:
             poller-behavior-autoscaling:
@@ -172,6 +171,22 @@ spring:
           - updateLastProcessedStreamEventIdActivityImpl
           - validateSendNotificationStatusActivityImpl
           - getSendNotificationByNotificationRequestIdActivityImpl
+          - notifySendNotificationStreamEventsActivityImpl
+      - task-queue: SendWF
+        capacity:
+          activity-task-pollers-configuration:
+            poller-behavior-autoscaling:
+              enabled: true
+              initial-concurrent-task-pollers: "\${WF_SEND_MIN_POLLER_SIZE:1}"
+              min-concurrent-task-pollers: "\${WF_SEND_MIN_POLLER_SIZE:1}"
+              max-concurrent-task-pollers: "\${WF_SEND_MAX_POLLER_SIZE:3}"
+        activity-beans:
+          - fetchSendCampaignsLastFullRecalculationDateActivityImpl
+          - fetchSendCampaignsActivityImpl
+          - fetchUpdatedSendCampaignsActivityImpl
+          - alignSendCampaignActivityImpl
+          - deleteSendNotificationFileActivityImpl
+          - deleteSendLegalFactFileActivityImpl
       # assessments
       - task-queue: AssessmentCreationWF
         capacity:

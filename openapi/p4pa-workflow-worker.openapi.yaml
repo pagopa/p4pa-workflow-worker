@@ -24,11 +24,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                    example: "Internal Server Error"
+                $ref: '#/components/schemas/WorkerErrorDTO'
 security:
   - BearerAuth: []
 components:
@@ -47,11 +43,31 @@ components:
             - WORKER_BAD_REQUEST
             - WORKER_GENERIC_ERROR
             - WORKER_TOO_MANY_REQUESTS
+            - WORKER_UNAUTHORIZED
+            - WORKER_FORBIDDEN
+            - WORKER_CONFLICT
         code:
           type: string
         message:
           type: string
+        fields:
+          type: array
+          items:
+            $ref: "#/components/schemas/ErrorFieldDTO"
         traceId:
+          type: string
+    ErrorFieldDTO:
+      type: object
+      required:
+        - field
+        - error
+        - message
+      properties:
+        field:
+          type: string
+        error:
+          type: string
+        message:
           type: string
   securitySchemes:
     BearerAuth:

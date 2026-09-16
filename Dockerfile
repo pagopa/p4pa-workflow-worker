@@ -4,11 +4,11 @@
 # 🎯 Version Management
 #
 ARG IMAGE="public.ecr.aws/docker/library/eclipse-temurin"
-ARG IMAGE_VERSION="21-alpine-3.23"
-ARG IMAGE_SHA="4fb80de7aeb277ad949cfbe89b4f504e50bb34c57fd908c5825236473d71e986"
+ARG IMAGE_VERSION="21-alpine-3.24"
+ARG IMAGE_SHA="6ea5548706b60ac0a602eaf48af74792cbab012d90e811ca8db6184b16b5c3d6"
 ARG GRADLE_VERSION="8.14.3"
 ARG GRADLE_DOWNLOAD_SHA256="bd71102213493060956ec229d946beee57158dbd89d0e62b91bca0fa2c5f3531"
-ARG APPINSIGHTS_VERSION="3.7.7"
+ARG APPINSIGHTS_VERSION="3.7.9"
 
 # 🌍 Timezone Configuration
 ARG TZ="Europe/Rome"
@@ -115,7 +115,8 @@ FROM dependencies AS build
 COPY --chown=${APP_USER}:${APP_GROUP} src src/
 
 ARG GITHUB_TOKEN
-ENV GITHUB_TOKEN=$GITHUB_TOKEN
+ARG GIT_AUTH_TOKEN
+ENV GITHUB_TOKEN=${GITHUB_TOKEN:-${GIT_AUTH_TOKEN}}
 
 # Build application
 RUN gradle bootJar --no-daemon
