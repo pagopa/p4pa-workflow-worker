@@ -70,7 +70,7 @@ val grpcBomVersion = "1.83.1"
 val guavaVersion = "33.7.0-jre"
 val commonsLang3Version = "3.20.0"
 
-val p4paActivitiesVersion = "P4ADEV-5130-5-SNAPSHOT"
+val p4paActivitiesVersion = "1.207.0"
 
 // CVE Security dependencies
 val tomcatEmbedCoreVersion = "11.0.26"
