@@ -197,7 +197,6 @@ spring:
               max-concurrent-task-pollers: "\${WF_SEND_NOTIFICATION_PAYMENT_HANDLER_MAX_POLLER_SIZE:5}"
         activity-beans:
           - notifyPaymentActivityImpl
-          - receiptRetrieverActivityImpl
       # assessments
       - task-queue: AssessmentCreationWF
         capacity:
