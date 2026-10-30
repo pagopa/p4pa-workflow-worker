@@ -71,7 +71,7 @@ val grpcBomVersion = "1.85.1"
 val guavaVersion = "33.7.2-jre"
 val commonsLang3Version = "3.21.0"
 
-val p4paActivitiesVersion = "1.209.6-SNAPSHOT"
+val p4paActivitiesVersion = "1.210.0"
 
 // CVE Security dependencies
 val jackson2DatabindVersion = "2.22.3"
