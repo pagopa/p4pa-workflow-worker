@@ -71,7 +71,7 @@ val bouncycastleVersion = "1.86"
 val temporalVersion = "1.40.0"
 val protobufJavaVersion = "4.36.2"
 val grpcBomVersion = "1.85.1"
-val guavaVersion = "33.7.2-jre"
+val guavaVersion = "33.8.0-android"
 val commonsLang3Version = "3.21.0"
 
 val p4paActivitiesVersion = "1.209.5"
