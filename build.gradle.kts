@@ -1,5 +1,5 @@
-import com.github.jk1.license.filter.*
-import com.github.jk1.license.render.*
+import com.github.jk1.license.filter.SpdxLicenseBundleNormalizer
+import com.github.jk1.license.render.XmlReportRenderer
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 
@@ -74,7 +74,7 @@ val grpcBomVersion = "1.85.1"
 val guavaVersion = "33.8.0-jre"
 val commonsLang3Version = "3.21.0"
 
-val p4paActivitiesVersion = "1.210.8"
+val p4paActivitiesVersion = "1.210.9"
 
 // CVE Security dependencies
 val jackson2DatabindVersion = "2.22.3"
